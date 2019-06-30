@@ -32,11 +32,6 @@ spring:
   devtools:
     restart:
       enabled: true
-  #datasource:
-  #  url: jdbc:mysql://148.70.186.70:3306/dreamland_test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
-   # username: root
-   # password: root@123!@#
-
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/dreamland_test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
     username: fanl
