@@ -60,14 +60,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"><span class="x-red">*</span>角色</label>
                 <div class="layui-input-block">
-                    <input name="role" type="checkbox" th:each="role:${roles}" th:value="${role.roleId}" th:title="${role.roleName}" th:disabled="${role.status == '1'}">
+                    <input name="roleIds" type="checkbox" th:each="role:${roles}" th:value="${role.roleId}"
+                           th:title="${role.roleName}" th:disabled="${role.status == '1'}">
                 </div>
             </div>
 
-            <div class="layui-form-item">
-                <button class="layui-btn" lay-filter="add" lay-submit="">
-                    增加
-                </button>
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
 
         </form>
@@ -78,8 +78,15 @@
         var form = layui.form;
 
         form.on('submit(add)', function (data) {
-            data.field.roleIds = selectCheckeds("role");
-
+            $.post('/admin/system/user/add', data.field, function (r) {
+                if (r.code === 0) {
+                    var index = parent.layer.getFrameIndex(window.name);//获取当前弹出层的层级
+                    window.parent.location.reload();//刷新父页面
+                    parent.layer.close(index);//关闭弹出层
+                } else {
+                    layer.alert(r.msg, {icon: 6});
+                }
+            });
             return false;
         });
     });

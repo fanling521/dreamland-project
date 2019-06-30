@@ -1,18 +1,31 @@
 package com.fanling.dreamland.service.system.impl;
 
+import com.fanling.dreamland.common.util.ShiroUtils;
+import com.fanling.dreamland.common.util.StringUtils;
 import com.fanling.dreamland.domain.system.SysUser;
+import com.fanling.dreamland.domain.system.SysUserRole;
 import com.fanling.dreamland.mapper.system.SysUserMapper;
+import com.fanling.dreamland.mapper.system.SysUserRoleMapper;
 import com.fanling.dreamland.service.system.ISysUserService;
+import com.fanling.dreamland.shiro.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class SysUserServiceImpl implements ISysUserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private LoginService loginService;
+
+    @Autowired
+    private SysUserRoleMapper sysUserRoleMapper;
 
     @Override
     public List<SysUser> selectUserList(SysUser user) {
@@ -36,26 +49,36 @@ public class SysUserServiceImpl implements ISysUserService {
 
     @Override
     public SysUser selectUserById(String userId) {
-        return null;
+        return sysUserMapper.selectUserById(userId);
     }
 
     @Override
     public int deleteUserById(String userId) {
-        return 0;
-    }
-
-    @Override
-    public int deleteUserByIds(String ids) throws Exception {
-        return 0;
+        // 删除用户与角色关联
+        sysUserRoleMapper.deleteUserRoleByUserId(userId);
+        return sysUserMapper.deleteUserById(userId);
     }
 
     @Override
     public int insertUser(SysUser user) {
-        return 0;
+        user.setUserId(UUID.randomUUID().toString());
+        user.setSalt(UUID.randomUUID().toString());
+        //默认密码111111
+        user.setPassword(loginService.encryptPassword(user.getLoginName(), "111111", user.getSalt()));
+        //新增用户
+        int rows = sysUserMapper.insertUser(user);
+        insertUserRole(user);
+        return rows;
     }
 
     @Override
     public int updateUser(SysUser user) {
+        String userId = user.getUserId();
+        user.setUpdateBy(ShiroUtils.getLoginName());
+        // 删除用户与角色关联
+        sysUserRoleMapper.deleteUserRoleByUserId(userId);
+        // 新增用户与角色管理
+        insertUserRole(user);
         return sysUserMapper.updateUser(user);
     }
 
@@ -98,4 +121,32 @@ public class SysUserServiceImpl implements ISysUserService {
     public int changeStatus(SysUser user) {
         return 0;
     }
+
+    @Override
+    public int updateLoginUser(SysUser user) {
+        return sysUserMapper.updateUser(user);
+    }
+
+    /**
+     * 新增用户角色信息
+     *
+     * @param user 用户对象
+     */
+    public void insertUserRole(SysUser user) {
+        String[] roles = user.getRoleIds();
+        if (StringUtils.isNotNull(roles)) {
+            // 新增用户与角色管理
+            List<SysUserRole> list = new ArrayList<>();
+            for (String roleId : user.getRoleIds()) {
+                SysUserRole ur = new SysUserRole();
+                ur.setUserId(user.getUserId());
+                ur.setRoleId(roleId);
+                list.add(ur);
+            }
+            if (list.size() > 0) {
+                sysUserRoleMapper.batchUserRole(list);
+            }
+        }
+    }
+
 }

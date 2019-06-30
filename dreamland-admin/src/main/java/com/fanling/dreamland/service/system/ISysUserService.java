@@ -55,15 +55,6 @@ public interface ISysUserService {
     int deleteUserById(String userId);
 
     /**
-     * 批量删除用户信息
-     *
-     * @param ids 需要删除的数据ID
-     * @return 结果
-     * @throws Exception 异常
-     */
-    int deleteUserByIds(String ids) throws Exception;
-
-    /**
      * 保存用户信息
      *
      * @param user 用户信息
@@ -78,6 +69,8 @@ public interface ISysUserService {
      * @return 结果
      */
     int updateUser(SysUser user);
+
+    int updateLoginUser(SysUser user);
 
     /**
      * 修改用户密码信息

@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 
 /**
  * 登录校验方法
@@ -89,10 +87,6 @@ public class LoginService {
     public void recordLoginInfo(SysUser user) {
         user.setLoginIp(ShiroUtils.getIp());
         user.setLoginDate(DateUtils.getNowDate());
-        sysUserService.updateUser(user);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(UUID.randomUUID().toString());
+        sysUserService.updateLoginUser(user);
     }
 }
