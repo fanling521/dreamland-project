@@ -1,7 +1,6 @@
 package com.fanling.dreamland.shiro.filter;
 
 
-import com.fanling.dreamland.common.ShiroConstants;
 import com.fanling.dreamland.common.util.ShiroUtils;
 import com.fanling.dreamland.common.util.StringUtils;
 import com.fanling.dreamland.domain.system.SysUser;
@@ -24,7 +23,7 @@ import java.util.Deque;
  */
 public class MyLogoutFilter extends LogoutFilter {
     private static final Logger log = LoggerFactory.getLogger(MyLogoutFilter.class);
-
+    public static final String SYS_USERCACHE = "sys-userCache";
     /**
      * 退出后重定向的地址
      */
@@ -81,6 +80,6 @@ public class MyLogoutFilter extends LogoutFilter {
     // 设置Cache的key的前缀
     public void setCacheManager(CacheManager cacheManager) {
         // 必须和ehcache缓存配置中的缓存name一致
-        this.cache = cacheManager.getCache(ShiroConstants.SYS_USERCACHE);
+        this.cache = cacheManager.getCache(SYS_USERCACHE);
     }
 }

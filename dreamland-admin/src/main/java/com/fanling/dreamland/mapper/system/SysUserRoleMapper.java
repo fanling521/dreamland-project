@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 用户表 数据层
  */
-public interface UserRoleMapper {
+public interface SysUserRoleMapper {
     /**
      * 通过用户ID删除用户和角色关联
      *

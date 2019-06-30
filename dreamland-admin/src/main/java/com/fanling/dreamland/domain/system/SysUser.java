@@ -13,10 +13,6 @@ public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     private String userId;
-    /**
-     * 角色ID
-     */
-    private String roleId;
 
     /**
      * 登录名称
@@ -39,7 +35,7 @@ public class SysUser extends BaseEntity {
     private String phone;
 
     /**
-     * 用户性别
+     * 用户性别（0 男 1 女）
      */
     private String sex;
 

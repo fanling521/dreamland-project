@@ -6,7 +6,7 @@ import com.fanling.dreamland.domain.system.SysUserRole;
 import java.util.List;
 import java.util.Set;
 
-public interface IRoleService {
+public interface ISysRoleService {
     /**
      * 根据条件分页查询角色数据
      *

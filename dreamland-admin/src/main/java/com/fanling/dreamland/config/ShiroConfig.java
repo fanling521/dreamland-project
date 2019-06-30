@@ -1,16 +1,9 @@
 package com.fanling.dreamland.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-import com.fanling.dreamland.common.util.SpringUtils;
 import com.fanling.dreamland.common.util.StringUtils;
-import com.fanling.dreamland.shiro.filter.KickoutSessionFilter;
 import com.fanling.dreamland.shiro.filter.MyLogoutFilter;
-import com.fanling.dreamland.shiro.filter.OnlineSessionFilter;
-import com.fanling.dreamland.shiro.filter.SyncOnlineSessionFilter;
 import com.fanling.dreamland.shiro.realm.UserRealm;
-import com.fanling.dreamland.shiro.session.OnlineSessionDAO;
-import com.fanling.dreamland.shiro.session.OnlineSessionFactory;
-import com.fanling.dreamland.shiro.session.OnlineWebSessionManager;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
@@ -23,6 +16,7 @@ import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -37,13 +31,9 @@ import java.util.Map;
 
 /**
  * 权限配置加载
- *
- * @author ruoyi
  */
 @Configuration
 public class ShiroConfig {
-    public static final String PREMISSION_STRING = "perms[\"{0}\"]";
-
     // Session超时时间，单位为毫秒（默认30分钟）
     @Value("${shiro.session.expireTime:30}")
     private int expireTime;
@@ -65,7 +55,7 @@ public class ShiroConfig {
     private String domain;
 
     // 设置cookie的有效访问路径
-    @Value("${shiro.cookie.path:/}")
+    @Value("${shiro.cookie.path}")
     private String path;
 
     // 设置HttpOnly属性
@@ -77,11 +67,11 @@ public class ShiroConfig {
     private int maxAge;
 
     // 登录地址
-    @Value("${shiro.user.loginUrl:/login}")
+    @Value("${shiro.user.loginUrl}")
     private String loginUrl;
 
     // 权限认证失败地址
-    @Value("${shiro.user.unauthorizedUrl:/unauth}")
+    @Value("${shiro.user.unauthorizedUrl}")
     private String unauthorizedUrl;
 
     /**
@@ -103,14 +93,13 @@ public class ShiroConfig {
     /**
      * 返回配置文件流 避免ehcache配置文件一直被占用，无法完全销毁项目重新部署
      */
-    protected InputStream getCacheManagerConfigFileInputStream() {
+    private InputStream getCacheManagerConfigFileInputStream() {
         String configFile = "classpath:ehcache/ehcache-shiro.xml";
         InputStream inputStream = null;
         try {
             inputStream = ResourceUtils.getInputStreamForPath(configFile);
             byte[] b = IOUtils.toByteArray(inputStream);
-            InputStream in = new ByteArrayInputStream(b);
-            return in;
+            return new ByteArrayInputStream(b);
         } catch (IOException e) {
             throw new ConfigurationException(
                     "Unable to obtain input stream for cacheManagerConfigFile [" + configFile + "]", e);
@@ -130,29 +119,11 @@ public class ShiroConfig {
     }
 
     /**
-     * 自定义sessionDAO会话
-     */
-    @Bean
-    public OnlineSessionDAO sessionDAO() {
-        OnlineSessionDAO sessionDAO = new OnlineSessionDAO();
-        return sessionDAO;
-    }
-
-    /**
-     * 自定义sessionFactory会话
-     */
-    @Bean
-    public OnlineSessionFactory sessionFactory() {
-        OnlineSessionFactory sessionFactory = new OnlineSessionFactory();
-        return sessionFactory;
-    }
-
-    /**
      * 会话管理器
      */
     @Bean
-    public OnlineWebSessionManager sessionManager() {
-        OnlineWebSessionManager manager = new OnlineWebSessionManager();
+    public DefaultWebSessionManager sessionManager() {
+        DefaultWebSessionManager manager = new DefaultWebSessionManager();
         // 加入缓存管理器
         manager.setCacheManager(getEhCacheManager());
         // 删除过期的session
@@ -161,14 +132,8 @@ public class ShiroConfig {
         manager.setGlobalSessionTimeout(expireTime * 60 * 1000);
         // 去掉 JSESSIONID
         manager.setSessionIdUrlRewritingEnabled(false);
-        // 定义要使用的无效的Session定时调度器
-        manager.setSessionValidationScheduler(SpringUtils.getBean(SessionValidSch.class));
         // 是否定时检查session
         manager.setSessionValidationSchedulerEnabled(true);
-        // 自定义SessionDao
-        manager.setSessionDAO(sessionDAO());
-        // 自定义sessionFactory
-        manager.setSessionFactory(sessionFactory());
         return manager;
     }
 
@@ -176,7 +141,7 @@ public class ShiroConfig {
      * 安全管理器
      */
     @Bean
-    public SecurityManager securityManager(UserRealm userRealm, SessionValidSch sessionValidSch) {
+    public SecurityManager securityManager(UserRealm userRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 设置realm.
         securityManager.setRealm(userRealm);
@@ -192,7 +157,7 @@ public class ShiroConfig {
     /**
      * 退出过滤器
      */
-    public LogoutFilter logoutFilter() {
+    private LogoutFilter logoutFilter() {
         MyLogoutFilter logoutFilter = new MyLogoutFilter();
         logoutFilter.setCacheManager(getEhCacheManager());
         logoutFilter.setLoginUrl(loginUrl);
@@ -215,48 +180,25 @@ public class ShiroConfig {
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 对静态资源设置匿名访问
         filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/favicon.ico**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/fonts/**", "anon");
-        filterChainDefinitionMap.put("/img/**", "anon");
+        filterChainDefinitionMap.put("/images/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/lib/**", "anon");
         // 退出 logout地址，shiro去清除session
         filterChainDefinitionMap.put("/logout", "logout");
         // 不需要拦截的访问
         filterChainDefinitionMap.put("/login", "anon");
         // 系统权限列表
-        // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());
-
+        // filterChainDefinitionMap.putAll(SpringUtils.getBean(ISysMenuService.class).selectPermsAll());
         Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
-        filters.put("onlineSession", onlineSessionFilter());
-        filters.put("syncOnlineSession", syncOnlineSessionFilter());
-        filters.put("kickout", kickoutSessionFilter());
         // 注销成功，则跳转到指定页面
         filters.put("logout", logoutFilter());
         shiroFilterFactoryBean.setFilters(filters);
         // 所有请求需要认证
-        filterChainDefinitionMap.put("/**", "user,kickout,onlineSession,syncOnlineSession");
+        filterChainDefinitionMap.put("/**", "user");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
-    }
-
-    /**
-     * 自定义在线用户处理过滤器
-     */
-    @Bean
-    public OnlineSessionFilter onlineSessionFilter() {
-        OnlineSessionFilter onlineSessionFilter = new OnlineSessionFilter();
-        onlineSessionFilter.setLoginUrl(loginUrl);
-        return onlineSessionFilter;
-    }
-
-    /**
-     * 自定义在线用户同步过滤器
-     */
-    @Bean
-    public SyncOnlineSessionFilter syncOnlineSessionFilter() {
-        SyncOnlineSessionFilter syncOnlineSessionFilter = new SyncOnlineSessionFilter();
-        return syncOnlineSessionFilter;
     }
 
     /**
@@ -279,22 +221,6 @@ public class ShiroConfig {
         cookieRememberMeManager.setCookie(rememberMeCookie());
         cookieRememberMeManager.setCipherKey(Base64.decode("fCq+/xW488hMTCD+cmJ3aQ=="));
         return cookieRememberMeManager;
-    }
-
-    /**
-     * 同一个用户多设备登录限制
-     */
-    public KickoutSessionFilter kickoutSessionFilter() {
-        KickoutSessionFilter kickoutSessionFilter = new KickoutSessionFilter();
-        kickoutSessionFilter.setCacheManager(getEhCacheManager());
-        kickoutSessionFilter.setSessionManager(sessionManager());
-        // 同一个用户最大的会话数，默认-1无限制；比如2的意思是同一个用户允许最多同时两个人登录
-        kickoutSessionFilter.setMaxSession(maxSession);
-        // 是否踢出后来登录的，默认是false；即后者登录的用户踢出前者登录的用户；踢出顺序
-        kickoutSessionFilter.setKickoutAfter(kickoutAfter);
-        // 被踢出后重定向到的地址；
-        kickoutSessionFilter.setKickoutUrl("/login?kickout=1");
-        return kickoutSessionFilter;
     }
 
     /**

@@ -7,12 +7,14 @@ import com.fanling.dreamland.service.system.ISysUserService;
 import com.fanling.dreamland.shiro.exception.UserBlockedException;
 import com.fanling.dreamland.shiro.exception.UserDeleteException;
 import com.fanling.dreamland.shiro.exception.UserNotExistsException;
+import com.fanling.dreamland.shiro.exception.UserPasswordNotMatchException;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
+
+import java.util.UUID;
 
 
 /**
@@ -47,8 +49,10 @@ public class LoginService {
             logger.info("[登录]-" + loginName + "-用户已经被禁用");
             throw new UserBlockedException();
         }
-
-        matches(user, password);
+        if (!matches(user, password)) {
+            logger.info("[登录]-" + loginName + "-用户密码不匹配");
+            throw new UserPasswordNotMatchException();
+        }
         logger.info("[登录]-" + loginName + "-用户已经验证通过");
         recordLoginInfo(user);
         return user;
@@ -63,7 +67,8 @@ public class LoginService {
      */
 
     public boolean matches(SysUser user, String newPassword) {
-        return user.getPassword().equals(encryptPassword(user.getLoginName(), newPassword, user.getSalt()));
+        String pwd = encryptPassword(user.getLoginName(), newPassword, user.getSalt());
+        return user.getPassword().equals(pwd);
     }
 
     /**
@@ -84,6 +89,10 @@ public class LoginService {
     public void recordLoginInfo(SysUser user) {
         user.setLoginIp(ShiroUtils.getIp());
         user.setLoginDate(DateUtils.getNowDate());
-        sysUserService.updateUserInfo(user);
+        sysUserService.updateUser(user);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(UUID.randomUUID().toString());
     }
 }

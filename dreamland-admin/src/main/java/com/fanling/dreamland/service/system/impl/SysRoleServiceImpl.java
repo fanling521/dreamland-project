@@ -2,15 +2,23 @@ package com.fanling.dreamland.service.system.impl;
 
 import com.fanling.dreamland.domain.system.SysRole;
 import com.fanling.dreamland.domain.system.SysUserRole;
-import com.fanling.dreamland.service.system.IRoleService;
+import com.fanling.dreamland.mapper.system.SysRoleMapper;
+import com.fanling.dreamland.service.system.ISysRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
-public class RoleServiceImpl implements IRoleService {
+@Service
+public class SysRoleServiceImpl implements ISysRoleService {
+
+    @Autowired
+    private SysRoleMapper sysRoleMapper;
+
     @Override
     public List<SysRole> selectRoleList(SysRole role) {
-        return null;
+        return sysRoleMapper.selectRoleList(role);
     }
 
     @Override
@@ -25,7 +33,7 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public List<SysRole> selectRoleAll() {
-        return null;
+        return sysRoleMapper.selectRoleList(null);
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 菜单表 数据层
  */
-public interface MenuMapper {
+public interface SysMenuMapper {
     /**
      * 查询系统所有菜单（含按钮）
      *
@@ -118,5 +118,5 @@ public interface MenuMapper {
      * @param parentId 父菜单ID
      * @return 结果
      */
-    SysMenu checkMenuNameUnique(@Param("menuName") String menuName, @Param("parentId") Long parentId);
+    SysMenu checkMenuNameUnique(@Param("menuName") String menuName, @Param("parentId") String parentId);
 }

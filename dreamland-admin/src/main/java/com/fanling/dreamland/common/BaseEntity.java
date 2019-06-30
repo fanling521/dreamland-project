@@ -28,11 +28,11 @@ public class BaseEntity implements Serializable {
     /**
      * 更新者
      */
-    private String lastUpdateBy;
+    private String updateBy;
 
     /**
      * 更新时间
      */
-    private Date lastUpdateTime;
+    private Date updateTime;
 
 }

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 用户表 数据层
  */
-public interface UserMapper {
+public interface SysUserMapper {
     /**
      * 根据条件分页查询用户列表
      *
@@ -19,10 +19,10 @@ public interface UserMapper {
     /**
      * 通过用户名查询用户
      *
-     * @param userName 用户名
+     * @param loginName 用户名
      * @return 用户对象信息
      */
-    SysUser selectUserByLoginName(String userName);
+    SysUser selectUserByLoginName(String loginName);
 
     /**
      * 通过用户ID查询用户
@@ -41,7 +41,7 @@ public interface UserMapper {
     int deleteUserById(String userId);
 
     /**
-     * 修改用户信息
+     * 修改用户详细信息
      *
      * @param user 用户信息
      * @return 结果

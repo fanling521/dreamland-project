@@ -1,6 +1,8 @@
 package com.fanling.dreamland.domain.system;
 
 import com.fanling.dreamland.common.BaseEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.List;
 /**
  * 菜单权限表 sys_menu
  */
+@Getter
+@Setter
 public class SysMenu extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

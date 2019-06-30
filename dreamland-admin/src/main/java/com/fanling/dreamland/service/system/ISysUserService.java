@@ -17,10 +17,10 @@ public interface ISysUserService {
     /**
      * 通过用户名查询用户
      *
-     * @param userName 用户名
+     * @param loginName 用户名
      * @return 用户对象信息
      */
-    SysUser selectUserByLoginName(String userName);
+    SysUser selectUserByLoginName(String loginName);
 
     /**
      * 通过手机号码查询用户
@@ -72,20 +72,12 @@ public interface ISysUserService {
     int insertUser(SysUser user);
 
     /**
-     * 保存用户信息
-     *
-     * @param user 用户信息
-     * @return 结果
-     */
-    int updateUser(SysUser user);
-
-    /**
      * 修改用户详细信息
      *
      * @param user 用户信息
      * @return 结果
      */
-    int updateUserInfo(SysUser user);
+    int updateUser(SysUser user);
 
     /**
      * 修改用户密码信息

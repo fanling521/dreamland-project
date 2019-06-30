@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public interface IMenuService {
+public interface ISysMenuService {
     /**
      * 根据用户ID查询菜单
      *
