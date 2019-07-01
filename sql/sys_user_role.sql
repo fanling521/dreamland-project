@@ -1,0 +1,1 @@
+INSERT INTO dreamland_test.sys_user_role (user_id, role_id) VALUES ('d466b2b8-223d-4983-bb34-c4253621bb58', 'd92a9960-dc74-4a55-b3bd-46ec909205e0');

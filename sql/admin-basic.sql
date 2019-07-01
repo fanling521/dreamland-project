@@ -10,7 +10,6 @@ create table sys_menu
   menu_type   char         default ''  null comment '菜单类型（M目录 C菜单 F按钮）',
   visible     char         default '0' null comment '菜单状态（0显示 1隐藏）',
   perms       varchar(100)             null comment '权限标识',
-  icon        varchar(100) default '#' null comment '菜单图标',
   create_by   varchar(64)  default ''  null comment '创建者',
   create_time datetime                 null comment '创建时间',
   update_by   varchar(64)  default ''  null comment '更新者',
@@ -73,6 +72,4 @@ create table sys_user_role
 )
   comment '用户和角色关联表';
 
-#####################默认数据########################
-INSERT INTO sys_user (user_id, login_name, user_name, email, phone, sex, avatar, password, salt, status, del_flag, login_ip, login_date, create_by, create_time, update_by, update_time) VALUES ('d466b2b8-223d-4983-bb34-c4253621bb58', 'admin', '超级管理员', '862844083@qq.com', '13451585202', '0', '', 'd038b69ed6c3ab9383d8ebf20dec55f5', '51dccb43-f394-4016-b', '0', '0', '0:0:0:0:0:0:0:1', '2019-06-30 12:38:32', 'admin', '2019-06-29 07:55:43', 'admin', '2019-06-30 20:38:31');
-INSERT INTO sys_user_role (user_id, role_id) VALUES ('d466b2b8-223d-4983-bb34-c4253621bb58', 'd92a9960-dc74-4a55-b3bd-46ec909205e0');
+
