@@ -30,7 +30,7 @@ public interface SysRoleMenuMapper {
      * @param menuId 菜单ID
      * @return 结果
      */
-    int selectCountRoleMenuByMenuId(Long menuId);
+    int selectCountRoleMenuByMenuId(String menuId);
 
     /**
      * 批量新增角色菜单信息

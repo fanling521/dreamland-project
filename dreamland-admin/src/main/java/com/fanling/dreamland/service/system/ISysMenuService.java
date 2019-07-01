@@ -1,10 +1,10 @@
 package com.fanling.dreamland.service.system;
 
+import com.fanling.dreamland.common.AjaxResult;
 import com.fanling.dreamland.domain.system.SysMenu;
 import com.fanling.dreamland.domain.system.SysUser;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public interface ISysMenuService {
@@ -25,11 +25,11 @@ public interface ISysMenuService {
     List<SysMenu> selectMenuList(SysMenu menu);
 
     /**
-     * 查询菜单集合
+     * 根据角色ID查询菜单
      *
-     * @return 所有菜单信息
+     * @return 菜单列表
      */
-    List<SysMenu> selectMenuAll();
+    List<AjaxResult> selectMenuTree();
 
     /**
      * 根据用户ID查询权限
@@ -38,13 +38,6 @@ public interface ISysMenuService {
      * @return 权限列表
      */
     Set<String> selectPermsByUserId(String userId);
-
-    /**
-     * 查询系统所有权限
-     *
-     * @return 权限列表
-     */
-    Map<String, String> selectPermsAll();
 
     /**
      * 删除菜单管理信息

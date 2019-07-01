@@ -1,7 +1,6 @@
 package com.fanling.dreamland.service.system;
 
 import com.fanling.dreamland.domain.system.SysRole;
-import com.fanling.dreamland.domain.system.SysUserRole;
 
 import java.util.List;
 import java.util.Set;
@@ -101,30 +100,4 @@ public interface ISysRoleService {
      * @return 结果
      */
     int changeStatus(SysRole role);
-
-    /**
-     * 取消授权用户角色
-     *
-     * @param userRole 用户和角色关联信息
-     * @return 结果
-     */
-    int deleteAuthUser(SysUserRole userRole);
-
-    /**
-     * 批量取消授权用户角色
-     *
-     * @param roleId  角色ID
-     * @param userIds 需要删除的用户数据ID
-     * @return 结果
-     */
-    int deleteAuthUsers(String roleId, String userIds);
-
-    /**
-     * 批量选择授权用户角色
-     *
-     * @param roleId  角色ID
-     * @param userIds 需要删除的用户数据ID
-     * @return 结果
-     */
-    int insertAuthUsers(String roleId, String userIds);
 }

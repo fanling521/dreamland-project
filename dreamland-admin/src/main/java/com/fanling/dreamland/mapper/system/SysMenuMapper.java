@@ -10,28 +10,6 @@ import java.util.List;
  */
 public interface SysMenuMapper {
     /**
-     * 查询系统所有菜单（含按钮）
-     *
-     * @return 菜单列表
-     */
-    List<SysMenu> selectMenuAll();
-
-    /**
-     * 根据用户ID查询菜单
-     *
-     * @param userId 用户ID
-     * @return 菜单列表
-     */
-    List<SysMenu> selectMenuAllByUserId(String userId);
-
-    /**
-     * 查询系统正常显示菜单（不含按钮）
-     *
-     * @return 菜单列表
-     */
-    List<SysMenu> selectMenuNormalAll();
-
-    /**
      * 根据用户ID查询菜单
      *
      * @param userId 用户ID
@@ -50,10 +28,9 @@ public interface SysMenuMapper {
     /**
      * 根据角色ID查询菜单
      *
-     * @param roleId 角色ID
      * @return 菜单列表
      */
-    List<String> selectMenuTree(String roleId);
+    List<SysMenu> selectMenuTree();
 
     /**
      * 查询系统菜单列表
@@ -62,14 +39,6 @@ public interface SysMenuMapper {
      * @return 菜单列表
      */
     List<SysMenu> selectMenuList(SysMenu menu);
-
-    /**
-     * 查询系统菜单列表
-     *
-     * @param menu 菜单信息
-     * @return 菜单列表
-     */
-    List<SysMenu> selectMenuListByUserId(SysMenu menu);
 
     /**
      * 删除菜单管理信息

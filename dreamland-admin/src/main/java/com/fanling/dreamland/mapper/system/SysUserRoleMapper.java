@@ -57,4 +57,5 @@ public interface SysUserRoleMapper {
      * @return 结果
      */
     int deleteUserRoleInfos(@Param("roleId") String roleId, @Param("userIds") String[] userIds);
+
 }

@@ -2,21 +2,22 @@ package com.fanling.dreamland.service.system.impl;
 
 import com.fanling.dreamland.common.util.StringUtils;
 import com.fanling.dreamland.domain.system.SysRole;
-import com.fanling.dreamland.domain.system.SysUserRole;
 import com.fanling.dreamland.mapper.system.SysRoleMapper;
+import com.fanling.dreamland.mapper.system.SysUserRoleMapper;
 import com.fanling.dreamland.service.system.ISysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class SysRoleServiceImpl implements ISysRoleService {
 
     @Autowired
     private SysRoleMapper sysRoleMapper;
+
+    @Autowired
+    private SysUserRoleMapper sysUserRoleMapper;
 
     @Override
     public List<SysRole> selectRoleList(SysRole role) {
@@ -25,7 +26,14 @@ public class SysRoleServiceImpl implements ISysRoleService {
 
     @Override
     public Set<String> selectRoleKeys(String userId) {
-        return null;
+        List<SysRole> perms = sysRoleMapper.selectRolesByUserId(userId);
+        Set<String> permsSet = new HashSet<>();
+        for (SysRole perm : perms) {
+            if (StringUtils.isNotNull(perm)) {
+                permsSet.addAll(Arrays.asList(perm.getRoleKey().trim().split(",")));
+            }
+        }
+        return permsSet;
     }
 
     @Override
@@ -90,26 +98,11 @@ public class SysRoleServiceImpl implements ISysRoleService {
 
     @Override
     public int countUserRoleByRoleId(String roleId) {
-        return 0;
+        return sysUserRoleMapper.countUserRoleByRoleId(roleId);
     }
 
     @Override
     public int changeStatus(SysRole role) {
-        return 0;
-    }
-
-    @Override
-    public int deleteAuthUser(SysUserRole userRole) {
-        return 0;
-    }
-
-    @Override
-    public int deleteAuthUsers(String roleId, String userIds) {
-        return 0;
-    }
-
-    @Override
-    public int insertAuthUsers(String roleId, String userIds) {
-        return 0;
+        return sysRoleMapper.updateRole(role);
     }
 }

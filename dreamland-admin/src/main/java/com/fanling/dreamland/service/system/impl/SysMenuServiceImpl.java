@@ -1,5 +1,6 @@
 package com.fanling.dreamland.service.system.impl;
 
+import com.fanling.dreamland.common.AjaxResult;
 import com.fanling.dreamland.common.util.StringUtils;
 import com.fanling.dreamland.common.util.TreeUtils;
 import com.fanling.dreamland.domain.system.SysMenu;
@@ -28,12 +29,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
 
     @Override
     public List<SysMenu> selectMenuList(SysMenu menu) {
-        return null;
-    }
-
-    @Override
-    public List<SysMenu> selectMenuAll() {
-        return null;
+        return sysMenuMapper.selectMenuList(menu);
     }
 
     @Override
@@ -49,42 +45,55 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     @Override
-    public Map<String, String> selectPermsAll() {
-        return null;
-    }
-
-    @Override
     public int deleteMenuById(String menuId) {
-        return 0;
+        return sysMenuMapper.deleteMenuById(menuId);
     }
 
     @Override
     public SysMenu selectMenuById(String menuId) {
-        return null;
+        return sysMenuMapper.selectMenuById(menuId);
     }
 
     @Override
     public int selectCountMenuByParentId(String parentId) {
-        return 0;
+        return sysMenuMapper.selectCountMenuByParentId(parentId);
+    }
+
+    @Override
+    public List<AjaxResult> selectMenuTree() {
+        List<SysMenu> list = sysMenuMapper.selectMenuTree();
+        List<AjaxResult> results = new ArrayList<>();
+        for (SysMenu sysMenu : list) {
+            AjaxResult ajaxResult = new AjaxResult();
+            ajaxResult.put("id",sysMenu.getMenuId());
+            ajaxResult.put("value",sysMenu.getMenuName());
+            results.add(ajaxResult);
+        }
+        return results;
     }
 
     @Override
     public int selectCountRoleMenuByMenuId(String menuId) {
-        return 0;
+        return sysRoleMenuMapper.selectCountRoleMenuByMenuId(menuId);
     }
 
     @Override
     public int insertMenu(SysMenu menu) {
-        return 0;
+        menu.setMenuId(UUID.randomUUID().toString());
+        return sysMenuMapper.insertMenu(menu);
     }
 
     @Override
     public int updateMenu(SysMenu menu) {
-        return 0;
+        return sysMenuMapper.updateMenu(menu);
     }
 
     @Override
     public String checkMenuNameUnique(SysMenu menu) {
-        return null;
+        SysMenu info = sysMenuMapper.checkMenuNameUnique(menu.getMenuName(), menu.getParentId());
+        if (StringUtils.isNotNull(info) && info.getMenuId().equals(menu.getMenuId())) {
+            return "1";
+        }
+        return "0";
     }
 }

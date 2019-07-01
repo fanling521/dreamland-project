@@ -1,132 +1,96 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:include="include :: header"></head>
-    <body>
-        <div class="layui-fluid">
-            <div class="layui-row">
-                <form class="layui-form">
-                    <input id="treeId" name="parentId" type="hidden" th:value="${menu.menuId}"/>
-                    <div class="layui-form-item">
-                        <label for="menuName" class="layui-form-label">
-                            <span class="x-red">*</span>菜单名称
-                        </label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="menuName" name="menuName" required="" lay-verify="required"
-                                   autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <!-- 选择菜单作为父菜单，目前只做二级菜单 -->
-                    <div class="layui-form-item">
-                        <label for="treeName" class="layui-form-label">
-                            <span class="x-red">*</span>父菜单名称
-                        </label>
-                        <div class="layui-input-inline">
-                            <input class="layui-input" type="text" onclick="selectMenuTree()" id="treeName"
-                                   readonly="true"
-                                   th:value="${menu.menuName}"/>
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label for="orderNum" class="layui-form-label">
-                            <span class="x-red">*</span>显示顺序
-                        </label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="orderNum" name="orderNum" required="" lay-verify="required"
-                                   autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            <span class="x-red">*</span>根据已有菜单作为参考显示
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label for="url" class="layui-form-label">
-                            <span class="x-red">*</span>菜单URL
-                        </label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="url" name="url" required="" lay-verify="required"
-                                   autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            <span class="x-red">*</span>参考样式"system/user/add"
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label for="perms" class="layui-form-label">
-                            <span class="x-red">*</span>权限字符串
-                        </label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="perms" name="perms" required="" lay-verify="required"
-                                   autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            <span class="x-red">*</span>参考样式"system.user.add"
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label"><span class="x-red">*</span>性别
-                        </label>
-                        <div class="layui-input-inline">
-                            <select name="menuType" id="menuType" lay-verify="required" lay-search="">
-                                <option value="1">菜单</option>
-                                <option value="2">按钮</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    </div>
-
-                </form>
+<head th:include="include :: header"></head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label for="menuName" class="layui-form-label">
+                    <span class="x-red">*</span>菜单名称
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="menuName" name="menuName" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
             </div>
-        </div>
-        <script th:inline="javascript">
-            layui.use(['form'], function () {
-                var form = layui.form;
+            <!-- 选择菜单作为父菜单，目前只做二级菜单 -->
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>父菜单名称
+                </label>
+                <div class="layui-input-inline">
+                    <select name="parentId" id="parentId"
+                            lay-verify="required" lay-search="">
+                        <option th:each="item : ${tree}"
+                                th:text="${item.value}"
+                                th:value="${item.id}">
+                        </option>
+                    </select>
+                </div>
+            </div>
 
-                form.on('submit(add)', function (data) {
-                    $.post('/admin/system/menu/add', data.field, function (r) {
-                        if (r.code === 0) {
-                            var index = parent.layer.getFrameIndex(window.name);//获取当前弹出层的层级
-                            window.parent.location.reload();//刷新父页面
-                            parent.layer.close(index);//关闭弹出层
-                        } else {
-                            layer.alert(r.msg, {icon: 6});
-                        }
-                    });
-                    return false;
-                });
+            <div class="layui-form-item">
+                <label for="url" class="layui-form-label">
+                    <span class="x-red">*</span>菜单URL
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="url" name="url" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>参考样式"system/user/add"
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="perms" class="layui-form-label">
+                    <span class="x-red">*</span>权限字符串
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="perms" name="perms" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>参考样式"system.user.add"
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="x-red">*</span>节点类型
+                </label>
+                <div class="layui-input-inline">
+                    <select name="menuType" id="menuType" lay-verify="required" lay-search="">
+                        <option value="1">菜单</option>
+                        <option value="2">按钮</option>
+                    </select>
+                </div>
+            </div>
 
-                //选择上层菜单
-                function selectMenuTree() {
-                    var treeId = $("#treeId").val();
-                    //检查是否是一级菜单
-                    var menuId = treeId != '' ? treeId : 1;
-                    layer.open({
-                        type: 2,
-                        area: ['280px', ($(window).height() - 50) + 'px'],
-                        fix: true,
-                        maxmin: false,
-                        shadeClose: true,
-                        shade: 0.4,
-                        title: '选择菜单',
-                        content: "/admin/system/menu/menutree/" + menuId,
-                        btn: ['选择', '关闭'],
-                        yes: function (index, layero) {
-                            var body = layer.getChildFrame('body', index);
-                            $("#treeId").val(body.find('#treeId').val());
-                            $("#treeName").val(body.find('#treeName').val());
-                            layer.close(index);
-                        }, cancel: function () {
-                            return true;
-                        }
-                    });
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+<script th:inline="javascript">
+    layui.use(['form'], function () {
+        var form = layui.form;
+
+        form.on('submit(add)', function (data) {
+            $.post('/admin/system/menu/add', data.field, function (r) {
+                if (r.code === 0) {
+                    var index = parent.layer.getFrameIndex(window.name);//获取当前弹出层的层级
+                    window.parent.location.reload();//刷新父页面
+                    parent.layer.close(index);//关闭弹出层
+                } else {
+                    layer.alert(r.msg, {icon: 6});
                 }
             });
-        </script>
+            return false;
+        });
+    });
+</script>
 
-    </body>
+</body>
 </html>
