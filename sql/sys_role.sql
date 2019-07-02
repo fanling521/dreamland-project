@@ -1,1 +1,0 @@
-INSERT INTO dreamland_test.sys_role (role_id, role_name, role_key, role_sort, status, del_flag, create_by, create_time, update_by, update_time) VALUES ('d92a9960-dc74-4a55-b3bd-46ec909205e0', '管理员', 'admin', 1, '0', '0', 'admin', '2019-06-29 08:08:27', '', null);
