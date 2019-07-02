@@ -9,6 +9,5 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AdminApplication {
     public static void main(String[] args) {
         SpringApplication.run(AdminApplication.class, args);
-        System.out.println("http://localhost:9000/admin");
     }
 }

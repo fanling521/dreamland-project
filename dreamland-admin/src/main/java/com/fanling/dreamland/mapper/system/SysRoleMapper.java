@@ -1,12 +1,12 @@
 package com.fanling.dreamland.mapper.system;
 
 import com.fanling.dreamland.domain.system.SysRole;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
  * 角色表 数据层
- *
  */
 public interface SysRoleMapper {
     /**
@@ -72,4 +72,12 @@ public interface SysRoleMapper {
      * @return 角色信息
      */
     SysRole checkRoleKeyUnique(String roleKey);
+
+    /**
+     * 根据菜单ID查询角色
+     *
+     * @param menuId 菜单ID
+     * @return
+     */
+    List<SysRole> selectRolesByMenuId(@Param("menuId") String menuId);
 }

@@ -4,7 +4,9 @@ import com.fanling.dreamland.common.AjaxResult;
 import com.fanling.dreamland.common.page.TableDataInfo;
 import com.fanling.dreamland.controller.BaseController;
 import com.fanling.dreamland.domain.system.SysMenu;
+import com.fanling.dreamland.domain.system.SysRole;
 import com.fanling.dreamland.service.system.ISysMenuService;
+import com.fanling.dreamland.service.system.ISysRoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +15,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 菜单信息
+ */
 @Controller
 @RequestMapping("/system/menu")
 public class SysMenuController extends BaseController {
     private String prefix = "system/menu";
     @Autowired
     private ISysMenuService sysMenuService;
+
+    @Autowired
+    private ISysRoleService sysRoleService;
 
     @RequiresPermissions("system:menu:view")
     @GetMapping()
@@ -41,6 +49,7 @@ public class SysMenuController extends BaseController {
     @GetMapping("/add")
     public String add(ModelMap mmap) {
         mmap.put("tree", sysMenuService.selectMenuTree());
+        mmap.put("roles", sysRoleService.selectRoleAll());
         return prefix + "/menu-add";
     }
 
@@ -51,6 +60,7 @@ public class SysMenuController extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(SysMenu menu) {
+        menu.setParentName(getMenuName(menu.getParentId()));
         return toAjax(sysMenuService.insertMenu(menu));
     }
 
@@ -60,7 +70,11 @@ public class SysMenuController extends BaseController {
     @GetMapping("/edit/{menuId}")
     public String edit(@PathVariable("menuId") String menuId, ModelMap mmap) {
         mmap.put("menu", sysMenuService.selectMenuById(menuId));
-
+        List<SysRole> list = sysRoleService.selectRolesByMenuId(menuId);
+        if (list == null || list.size() == 0) {
+            list = sysRoleService.selectRoleAll();
+        }
+        mmap.put("roles", list);
         mmap.put("tree", sysMenuService.selectMenuTree());
         return prefix + "/menu-edit";
     }
@@ -72,16 +86,20 @@ public class SysMenuController extends BaseController {
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(SysMenu menu) {
+        menu.setParentName(getMenuName(menu.getParentId()));
         return toAjax(sysMenuService.updateMenu(menu));
     }
 
-    /**
-     * 校验菜单名称
-     */
-    @PostMapping("/checkMenuNameUnique")
-    @ResponseBody
-    public String checkMenuNameUnique(SysMenu menu) {
-        return sysMenuService.checkMenuNameUnique(menu);
+    private String getMenuName(String parentId) {
+        if ("4438c79d-a398-4b35-ac2c-90bc70ddd44c".equals(parentId)) {
+            return "根";
+        } else {
+            SysMenu sysMenu = sysMenuService.selectMenuById(parentId);
+            if (sysMenu != null) {
+                return sysMenu.getMenuName();
+            }
+        }
+        return "";
     }
 
     /**

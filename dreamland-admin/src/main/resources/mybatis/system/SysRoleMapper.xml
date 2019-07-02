@@ -52,6 +52,14 @@
         </if>
     </select>
 
+    <select id="selectRolesByMenuId" parameterType="String" resultMap="RoleResult">
+        select m.role_id, m.role_name
+        from sys_role m
+                 inner join sys_role_menu n
+                            on m.role_id = n.role_id
+        where n.menu_id=#{menuId}
+    </select>
+
     <select id="selectRolesByUserId" parameterType="String" resultMap="RoleResult">
         <include refid="selectRoleContactVo"/>
         WHERE r.del_flag = '0' and ur.user_id = #{userId}

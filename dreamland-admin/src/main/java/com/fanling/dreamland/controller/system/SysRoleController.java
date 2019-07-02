@@ -17,14 +17,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/system/role")
 public class SysRoleController extends BaseController {
-
     private String prefix = "system/role";
 
     @Autowired
     private ISysRoleService sysRoleService;
-
-    @Autowired
-    private ISysUserService sysUserService;
 
     @RequiresPermissions("system:role:view")
     @GetMapping()
@@ -56,12 +52,6 @@ public class SysRoleController extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(SysRole role) {
-        if ("1".equals(sysRoleService.checkRoleNameUnique(role))) {
-            return error("角色名称不能重复！");
-        }
-        if ("1".equals(sysRoleService.checkRoleKeyUnique(role))) {
-            return error("角色权限不能重复！");
-        }
         role.setCreateBy(getLoginName());
         return toAjax(sysRoleService.insertRole(role));
 

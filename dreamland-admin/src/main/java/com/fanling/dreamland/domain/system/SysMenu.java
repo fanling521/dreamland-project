@@ -66,6 +66,11 @@ public class SysMenu extends BaseEntity {
     private String icon;
 
     /**
+     * 菜单选择角色
+     */
+    private String[] roleIds;
+
+    /**
      * 子菜单
      */
     private List<SysMenu> children = new ArrayList<>(5);

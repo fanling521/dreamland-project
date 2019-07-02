@@ -1,5 +1,6 @@
 package com.fanling.dreamland.mapper.system;
 
+import com.fanling.dreamland.domain.system.SysRole;
 import com.fanling.dreamland.domain.system.SysRoleMenu;
 
 import java.util.List;
@@ -9,20 +10,12 @@ import java.util.List;
  */
 public interface SysRoleMenuMapper {
     /**
-     * 通过角色ID删除角色和菜单关联
+     * 通过菜单ID删除角色和菜单关联
      *
-     * @param roleId 角色ID
+     * @param menuId 菜单ID
      * @return 结果
      */
-    int deleteRoleMenuByRoleId(String roleId);
-
-    /**
-     * 批量删除角色菜单关联信息
-     *
-     * @param ids 需要删除的数据ID
-     * @return 结果
-     */
-    int deleteRoleMenu(String[] ids);
+    int deleteRoleMenuByMenuId(String menuId);
 
     /**
      * 查询菜单使用数量

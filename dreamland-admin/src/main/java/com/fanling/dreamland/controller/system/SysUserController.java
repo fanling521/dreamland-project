@@ -49,7 +49,6 @@ public class SysUserController extends BaseController {
         return prefix + "/user-add";
     }
 
-
     /**
      * 新增保存用户
      */

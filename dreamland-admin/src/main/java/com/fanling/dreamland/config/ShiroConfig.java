@@ -34,21 +34,13 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
-    // Session超时时间，单位为毫秒（默认30分钟）
-    @Value("${shiro.session.expireTime:30}")
+    // Session超时时间，单位为毫秒（默认10分钟）
+    @Value("${shiro.session.expireTime:10}")
     private int expireTime;
-
-    // 相隔多久检查一次session的有效性，单位毫秒，默认就是10分钟
-    @Value("${shiro.session.validationInterval:10}")
-    private int validationInterval;
 
     // 同一个用户最大会话数
     @Value("${shiro.session.maxSession:-1}")
     private int maxSession;
-
-    // 踢出之前登录的/之后登录的用户，默认踢出之前登录的用户
-    @Value("${shiro.session.kickoutAfter:false}")
-    private boolean kickoutAfter;
 
     // 设置Cookie的域名
     @Value("${shiro.cookie.domain}")
@@ -63,7 +55,8 @@ public class ShiroConfig {
     private boolean httpOnly;
 
     // 设置Cookie的过期时间，秒为单位
-    @Value("${shiro.cookie.maxAge:30}")
+    // cookie 保存2天
+    @Value("${shiro.cookie.maxAge:2}")
     private int maxAge;
 
     // 登录地址

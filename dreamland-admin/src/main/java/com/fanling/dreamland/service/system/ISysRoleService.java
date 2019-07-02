@@ -31,6 +31,14 @@ public interface ISysRoleService {
     List<SysRole> selectRolesByUserId(String userId);
 
     /**
+     * 根据菜单ID查询角色
+     *
+     * @param menuId 菜单ID
+     * @return
+     */
+    List<SysRole> selectRolesByMenuId(String menuId);
+
+    /**
      * 查询所有角色
      *
      * @return 角色列表

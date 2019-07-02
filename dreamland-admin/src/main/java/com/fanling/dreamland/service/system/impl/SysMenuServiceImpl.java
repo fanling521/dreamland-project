@@ -1,10 +1,13 @@
 package com.fanling.dreamland.service.system.impl;
 
 import com.fanling.dreamland.common.AjaxResult;
+import com.fanling.dreamland.common.util.ShiroUtils;
 import com.fanling.dreamland.common.util.StringUtils;
 import com.fanling.dreamland.common.util.TreeUtils;
 import com.fanling.dreamland.domain.system.SysMenu;
+import com.fanling.dreamland.domain.system.SysRoleMenu;
 import com.fanling.dreamland.domain.system.SysUser;
+import com.fanling.dreamland.domain.system.SysUserRole;
 import com.fanling.dreamland.mapper.system.SysMenuMapper;
 import com.fanling.dreamland.mapper.system.SysRoleMenuMapper;
 import com.fanling.dreamland.service.system.ISysMenuService;
@@ -65,8 +68,8 @@ public class SysMenuServiceImpl implements ISysMenuService {
         List<AjaxResult> results = new ArrayList<>();
         for (SysMenu sysMenu : list) {
             AjaxResult ajaxResult = new AjaxResult();
-            ajaxResult.put("id",sysMenu.getMenuId());
-            ajaxResult.put("value",sysMenu.getMenuName());
+            ajaxResult.put("id", sysMenu.getMenuId());
+            ajaxResult.put("value", sysMenu.getMenuName());
             results.add(ajaxResult);
         }
         return results;
@@ -80,11 +83,16 @@ public class SysMenuServiceImpl implements ISysMenuService {
     @Override
     public int insertMenu(SysMenu menu) {
         menu.setMenuId(UUID.randomUUID().toString());
+        insertRoleMenu(menu);
         return sysMenuMapper.insertMenu(menu);
     }
 
     @Override
     public int updateMenu(SysMenu menu) {
+        //先删除角色信息，再插入
+        menu.setUpdateBy(ShiroUtils.getLoginName());
+        sysRoleMenuMapper.deleteRoleMenuByMenuId(menu.getMenuId());
+        insertRoleMenu(menu);
         return sysMenuMapper.updateMenu(menu);
     }
 
@@ -95,5 +103,28 @@ public class SysMenuServiceImpl implements ISysMenuService {
             return "1";
         }
         return "0";
+    }
+
+    /**
+     * 批量插入菜单和角色信息
+     *
+     * @param sysMenu
+     */
+    public void insertRoleMenu(SysMenu sysMenu) {
+        String[] roles = sysMenu.getRoleIds();
+        if (StringUtils.isNotNull(roles)) {
+            // 新增用户与角色管理
+            List<SysRoleMenu> list = new ArrayList<>();
+
+            for (String roleId : roles) {
+                SysRoleMenu ur = new SysRoleMenu();
+                ur.setMenuId(sysMenu.getMenuId());
+                ur.setRoleId(roleId);
+                list.add(ur);
+            }
+            if (list.size() > 0) {
+                sysRoleMenuMapper.batchRoleMenu(list);
+            }
+        }
     }
 }

@@ -3,8 +3,10 @@ package com.fanling.dreamland.service.system.impl;
 import com.fanling.dreamland.common.util.StringUtils;
 import com.fanling.dreamland.domain.system.SysRole;
 import com.fanling.dreamland.mapper.system.SysRoleMapper;
+import com.fanling.dreamland.mapper.system.SysRoleMenuMapper;
 import com.fanling.dreamland.mapper.system.SysUserRoleMapper;
 import com.fanling.dreamland.service.system.ISysRoleService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -94,6 +96,15 @@ public class SysRoleServiceImpl implements ISysRoleService {
             return "1";
         }
         return "0";
+    }
+
+    @Override
+    public List<SysRole> selectRolesByMenuId(String menuId) {
+        List<SysRole> userRoles = sysRoleMapper.selectRolesByMenuId(menuId);
+        for (SysRole userRole : userRoles) {
+            userRole.setFlag(true);
+        }
+        return userRoles;
     }
 
     @Override
