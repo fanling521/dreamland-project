@@ -119,7 +119,7 @@ public class BaseController {
         ShiroUtils.setSysUser(user);
     }
 
-    public String getUid() {
+    public String getUserId() {
         return getSysUser().getUserId();
     }
 

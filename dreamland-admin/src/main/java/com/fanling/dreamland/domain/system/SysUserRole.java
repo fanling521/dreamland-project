@@ -9,14 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SysUserRole {
-    /**
-     * 用户ID
-     */
+    // 用户ID
     private String userId;
-
-    /**
-     * 角色ID
-     */
+    //角色ID
     private String roleId;
 
 }

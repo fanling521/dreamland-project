@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
-public class MainController extends BaseController {
+public class PageController extends BaseController {
 
     @Autowired
     private ISysMenuService menuService;

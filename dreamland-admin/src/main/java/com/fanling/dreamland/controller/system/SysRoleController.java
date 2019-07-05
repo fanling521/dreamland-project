@@ -28,6 +28,12 @@ public class SysRoleController extends BaseController {
         return prefix + "/role-list";
     }
 
+    /**
+     * 查看用户列表
+     *
+     * @param role
+     * @return
+     */
     @RequiresPermissions("system:role:list")
     @PostMapping("/list")
     @ResponseBody
@@ -76,6 +82,12 @@ public class SysRoleController extends BaseController {
         return toAjax(sysRoleService.updateRole(role));
     }
 
+    /**
+     * 删除角色
+     *
+     * @param roleId
+     * @return
+     */
     @RequiresPermissions("system:role:remove")
     @PostMapping("/remove")
     @ResponseBody

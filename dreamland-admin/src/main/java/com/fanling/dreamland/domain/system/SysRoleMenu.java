@@ -11,13 +11,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Getter
 @Setter
 public class SysRoleMenu {
-    /**
-     * 角色ID
-     */
+    //角色ID
     private String roleId;
-
-    /**
-     * 菜单ID
-     */
+    //菜单ID
     private String menuId;
 }

@@ -31,6 +31,12 @@ public class SysUserController extends BaseController {
         return prefix + "/user-list";
     }
 
+    /**
+     * 查看用户列表
+     *
+     * @param user
+     * @return
+     */
     @RequiresPermissions("system:user:list")
     @PostMapping("/list")
     @ResponseBody
@@ -82,6 +88,12 @@ public class SysUserController extends BaseController {
         return toAjax(sysUserService.updateUser(user));
     }
 
+    /**
+     * 删除用户
+     *
+     * @param userId
+     * @return
+     */
     @RequiresPermissions("system:user:remove")
     @PostMapping("/remove")
     @ResponseBody

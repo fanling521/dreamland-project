@@ -21,6 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/system/menu")
 public class SysMenuController extends BaseController {
+
     private String prefix = "system/menu";
     @Autowired
     private ISysMenuService sysMenuService;
@@ -90,6 +91,12 @@ public class SysMenuController extends BaseController {
         return toAjax(sysMenuService.updateMenu(menu));
     }
 
+    /**
+     * 获取菜单名
+     *
+     * @param parentId
+     * @return
+     */
     private String getMenuName(String parentId) {
         if ("4438c79d-a398-4b35-ac2c-90bc70ddd44c".equals(parentId)) {
             return "根";

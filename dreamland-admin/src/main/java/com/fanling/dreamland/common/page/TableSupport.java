@@ -6,8 +6,6 @@ import com.fanling.dreamland.common.util.ServletUtils;
 
 /**
  * 表格数据处理
- * 
- * @author ruoyi
  */
 public class TableSupport
 {
