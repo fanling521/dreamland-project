@@ -1,6 +1,6 @@
 package com.fanling.dreamland.controller;
 
-import com.fanling.dreamland.common.AjaxResult;
+import com.fanling.dreamland.common.HttpResult;
 import com.fanling.dreamland.common.util.ServletUtils;
 import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthorizationException.class)
     public Object handleAuthorizationException(HttpServletRequest request, AuthorizationException e) {
         if (ServletUtils.isAjaxRequest(request)) {
-            return AjaxResult.error(e.getMessage());
+            return HttpResult.error(e.getMessage());
         } else {
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("unauth");

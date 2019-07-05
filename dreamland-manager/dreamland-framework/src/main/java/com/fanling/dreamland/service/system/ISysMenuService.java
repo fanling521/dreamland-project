@@ -1,6 +1,6 @@
 package com.fanling.dreamland.service.system;
 
-import com.fanling.dreamland.common.AjaxResult;
+import com.fanling.dreamland.common.HttpResult;
 import com.fanling.dreamland.domain.system.SysMenu;
 import com.fanling.dreamland.domain.system.SysUser;
 
@@ -29,7 +29,7 @@ public interface ISysMenuService {
      *
      * @return 菜单列表
      */
-    List<AjaxResult> selectMenuTree();
+    List<HttpResult> selectMenuTree();
 
     /**
      * 根据用户ID查询权限

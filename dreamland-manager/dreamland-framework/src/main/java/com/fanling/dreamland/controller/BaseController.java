@@ -1,6 +1,6 @@
 package com.fanling.dreamland.controller;
 
-import com.fanling.dreamland.common.AjaxResult;
+import com.fanling.dreamland.common.HttpResult;
 import com.fanling.dreamland.common.page.PageDomain;
 import com.fanling.dreamland.common.page.TableDataInfo;
 import com.fanling.dreamland.common.page.TableSupport;
@@ -68,7 +68,7 @@ public class BaseController {
      * @param rows 影响行数
      * @return 操作结果
      */
-    protected AjaxResult toAjax(int rows) {
+    protected HttpResult toAjax(int rows) {
         return rows > 0 ? success() : error();
     }
 
@@ -78,36 +78,36 @@ public class BaseController {
      * @param result 结果
      * @return 操作结果
      */
-    protected AjaxResult toAjax(boolean result) {
+    protected HttpResult toAjax(boolean result) {
         return result ? success() : error();
     }
 
     /**
      * 返回成功
      */
-    public AjaxResult success() {
-        return AjaxResult.success();
+    public HttpResult success() {
+        return HttpResult.success();
     }
 
     /**
      * 返回失败消息
      */
-    public AjaxResult error() {
-        return AjaxResult.error();
+    public HttpResult error() {
+        return HttpResult.error();
     }
 
     /**
      * 返回成功消息
      */
-    public AjaxResult success(String message) {
-        return AjaxResult.success(message);
+    public HttpResult success(String message) {
+        return HttpResult.success(message);
     }
 
     /**
      * 返回失败消息
      */
-    public AjaxResult error(String message) {
-        return AjaxResult.error(message);
+    public HttpResult error(String message) {
+        return HttpResult.error(message);
     }
 
 

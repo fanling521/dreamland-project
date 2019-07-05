@@ -1,6 +1,6 @@
 package com.fanling.dreamland.controller.system;
 
-import com.fanling.dreamland.common.AjaxResult;
+import com.fanling.dreamland.common.HttpResult;
 import com.fanling.dreamland.common.page.TableDataInfo;
 import com.fanling.dreamland.controller.BaseController;
 import com.fanling.dreamland.domain.system.SysRole;
@@ -56,7 +56,7 @@ public class SysRoleController extends BaseController {
     @RequiresPermissions("system:role:add")
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysRole role) {
+    public HttpResult addSave(SysRole role) {
         role.setCreateBy(getLoginName());
         return toAjax(sysRoleService.insertRole(role));
 
@@ -77,7 +77,7 @@ public class SysRoleController extends BaseController {
     @RequiresPermissions("system:role:edit")
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysRole role) {
+    public HttpResult editSave(SysRole role) {
         return toAjax(sysRoleService.updateRole(role));
     }
 
@@ -90,7 +90,7 @@ public class SysRoleController extends BaseController {
     @RequiresPermissions("system:role:remove")
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String roleId) {
+    public HttpResult remove(String roleId) {
         if ("d92a9960-dc74-4a55-b3bd-46ec909205e0".equals(roleId)) {
             return error("默认角色不可删除");
         }

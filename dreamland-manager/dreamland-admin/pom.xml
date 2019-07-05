@@ -28,11 +28,15 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional> <!-- 表示依赖不会传递 -->
         </dependency>
-
         <!-- 核心模块-->
         <dependency>
             <groupId>com.fanling.dreamland</groupId>
             <artifactId>dreamland-framework</artifactId>
+        </dependency>
+        <!-- 自定义项目 -->
+        <dependency>
+            <groupId>com.fanling.dreamland</groupId>
+            <artifactId>dreamland-project-api</artifactId>
         </dependency>
     </dependencies>
 
@@ -42,7 +46,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+                    <!-- 如果没有该配置，devtools不会生效 -->
+                    <fork>true</fork>
                 </configuration>
                 <executions>
                     <execution>

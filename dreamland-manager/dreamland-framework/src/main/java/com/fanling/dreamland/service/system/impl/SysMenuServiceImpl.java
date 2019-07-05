@@ -1,6 +1,6 @@
 package com.fanling.dreamland.service.system.impl;
 
-import com.fanling.dreamland.common.AjaxResult;
+import com.fanling.dreamland.common.HttpResult;
 import com.fanling.dreamland.common.util.ShiroUtils;
 import com.fanling.dreamland.common.util.StringUtils;
 import com.fanling.dreamland.common.util.TreeUtils;
@@ -62,14 +62,14 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     @Override
-    public List<AjaxResult> selectMenuTree() {
+    public List<HttpResult> selectMenuTree() {
         List<SysMenu> list = sysMenuMapper.selectMenuTree();
-        List<AjaxResult> results = new ArrayList<>();
+        List<HttpResult> results = new ArrayList<>();
         for (SysMenu sysMenu : list) {
-            AjaxResult ajaxResult = new AjaxResult();
-            ajaxResult.put("id", sysMenu.getMenuId());
-            ajaxResult.put("value", sysMenu.getMenuName());
-            results.add(ajaxResult);
+            HttpResult httpResult = new HttpResult();
+            httpResult.put("id", sysMenu.getMenuId());
+            httpResult.put("value", sysMenu.getMenuName());
+            results.add(httpResult);
         }
         return results;
     }

@@ -1,6 +1,6 @@
 package com.fanling.dreamland.controller.system;
 
-import com.fanling.dreamland.common.AjaxResult;
+import com.fanling.dreamland.common.HttpResult;
 import com.fanling.dreamland.common.page.TableDataInfo;
 import com.fanling.dreamland.controller.BaseController;
 import com.fanling.dreamland.domain.system.SysMenu;
@@ -60,7 +60,7 @@ public class SysMenuController extends BaseController {
     @RequiresPermissions("system:menu:add")
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysMenu menu) {
+    public HttpResult addSave(SysMenu menu) {
         menu.setParentName(getMenuName(menu.getParentId()));
         return toAjax(sysMenuService.insertMenu(menu));
     }
@@ -86,7 +86,7 @@ public class SysMenuController extends BaseController {
     @RequiresPermissions("system:menu:edit")
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysMenu menu) {
+    public HttpResult editSave(SysMenu menu) {
         menu.setParentName(getMenuName(menu.getParentId()));
         return toAjax(sysMenuService.updateMenu(menu));
     }
@@ -115,12 +115,12 @@ public class SysMenuController extends BaseController {
     @RequiresPermissions("system:menu:remove")
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String menuId) {
+    public HttpResult remove(String menuId) {
         if (sysMenuService.selectCountMenuByParentId(menuId) > 0) {
-            return AjaxResult.warn("存在子菜单,不允许删除");
+            return HttpResult.warn("存在子菜单,不允许删除");
         }
         if (sysMenuService.selectCountRoleMenuByMenuId(menuId) > 0) {
-            return AjaxResult.warn("菜单已分配,不允许删除");
+            return HttpResult.warn("菜单已分配,不允许删除");
         }
         return toAjax(sysMenuService.deleteMenuById(menuId));
     }

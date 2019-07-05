@@ -1,6 +1,6 @@
 package com.fanling.dreamland.controller;
 
-import com.fanling.dreamland.common.AjaxResult;
+import com.fanling.dreamland.common.HttpResult;
 import com.fanling.dreamland.common.util.ServletUtils;
 import com.fanling.dreamland.common.util.StringUtils;
 import com.fanling.dreamland.config.DreamlandConfig;
@@ -61,7 +61,7 @@ public class PageController extends BaseController {
 
     @PostMapping("/login")
     @ResponseBody
-    public AjaxResult ajaxLogin(String username, String password) {
+    public HttpResult ajaxLogin(String username, String password) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, true);
         Subject subject = SecurityUtils.getSubject();
         try {

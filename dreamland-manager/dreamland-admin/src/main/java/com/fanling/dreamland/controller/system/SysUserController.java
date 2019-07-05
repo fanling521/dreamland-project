@@ -1,6 +1,6 @@
 package com.fanling.dreamland.controller.system;
 
-import com.fanling.dreamland.common.AjaxResult;
+import com.fanling.dreamland.common.HttpResult;
 import com.fanling.dreamland.common.page.TableDataInfo;
 import com.fanling.dreamland.controller.BaseController;
 import com.fanling.dreamland.domain.system.SysUser;
@@ -61,7 +61,7 @@ public class SysUserController extends BaseController {
     @RequiresPermissions("system:user:add")
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysUser user) {
+    public HttpResult addSave(SysUser user) {
         return toAjax(sysUserService.insertUser(user));
     }
 
@@ -81,7 +81,7 @@ public class SysUserController extends BaseController {
     @RequiresPermissions("system:user:edit")
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysUser user) {
+    public HttpResult editSave(SysUser user) {
         if ("d466b2b8-223d-4983-bb34-c4253621bb58".equals(user.getUserId())) {
             return error("不允许修改超级管理员用户");
         }
@@ -97,7 +97,7 @@ public class SysUserController extends BaseController {
     @RequiresPermissions("system:user:remove")
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String userId) {
+    public HttpResult remove(String userId) {
         if ("d466b2b8-223d-4983-bb34-c4253621bb58".equals(userId)) {
             return error("不允许删除超级管理员用户");
         }
