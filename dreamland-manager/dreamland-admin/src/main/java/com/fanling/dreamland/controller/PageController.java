@@ -3,7 +3,6 @@ package com.fanling.dreamland.controller;
 import com.fanling.dreamland.common.HttpResult;
 import com.fanling.dreamland.common.util.ServletUtils;
 import com.fanling.dreamland.common.util.StringUtils;
-import com.fanling.dreamland.config.DreamlandConfig;
 import com.fanling.dreamland.domain.system.SysMenu;
 import com.fanling.dreamland.domain.system.SysUser;
 import com.fanling.dreamland.service.system.ISysMenuService;
@@ -28,9 +27,6 @@ public class PageController extends BaseController {
     @Autowired
     private ISysMenuService menuService;
 
-    @Autowired
-    private DreamlandConfig dreamlandConfig;
-
     // 系统首页
     @GetMapping(value = {"/index", "/"})
     public String index(ModelMap mmap) {
@@ -46,7 +42,7 @@ public class PageController extends BaseController {
     // 系统介绍
     @GetMapping("/welcome")
     public String main(ModelMap mmap) {
-        mmap.put("version", dreamlandConfig.getVersion());
+        mmap.put("version", "1.0.0");
         return "welcome";
     }
 

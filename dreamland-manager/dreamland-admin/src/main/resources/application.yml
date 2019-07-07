@@ -39,7 +39,7 @@ spring:
 
 mybatis:
   typeAliasesPackage: com.fanling.dreamland.domain
-  mapperLocations: classpath:mybatis/**/*Mapper.xml
+  mapperLocations: classpath*:mybatis/**/*Mapper.xml
   configLocation: classpath:mybatis/mybatis-config.xml
 
 pagehelper:
@@ -62,4 +62,4 @@ shiro:
 xss:
   enabled: true
   excludes:
-  urlPatterns: /system/*,
+  urlPatterns: /system/*

@@ -10,9 +10,8 @@
     <version>1.0.0</version>
     <modules>
         <module>dreamland-common</module>
-        <module>dreamland-framework</module>
         <module>dreamland-admin</module>
-        <module>dreamland-project-api</module>
+        <module>dreamland-project</module>
     </modules>
 
     <properties>
@@ -131,7 +130,7 @@
             </dependency>
             <dependency>
                 <groupId>com.fanling.dreamland</groupId>
-                <artifactId>dreamland-project-api</artifactId>
+                <artifactId>dreamland-project</artifactId>
                 <version>${dreamland.version}</version>
             </dependency>
         </dependencies>
