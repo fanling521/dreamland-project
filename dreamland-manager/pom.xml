@@ -12,6 +12,7 @@
         <module>dreamland-common</module>
         <module>dreamland-admin</module>
         <module>dreamland-project</module>
+        <module>dreamland-service</module>
     </modules>
 
     <properties>
