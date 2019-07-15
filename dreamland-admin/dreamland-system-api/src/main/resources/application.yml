@@ -9,7 +9,7 @@ server:
 
 logging:
   level:
-    com.fanling.dreamland: debug
+    com.fanling.dreamland: warn
     org.springframework: warn
 
 spring:
@@ -24,13 +24,13 @@ spring:
     restart:
       enabled: true
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/dreamland_test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
-    username: fanl
-    password: fanl@0920
+    url: jdbc:mysql://127.0.0.1:3306/jwt_open_test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
+    username: root
+    password: root@12345
   redis:
     database: 0
     host: 127.0.0.1
-    password: myRedis_IS_CLOSED
+    #password: myRedis_IS_CLOSED
     port: 6379
     timeout: 300
 

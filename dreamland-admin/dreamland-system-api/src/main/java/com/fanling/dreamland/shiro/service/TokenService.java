@@ -1,20 +1,23 @@
-package com.fanling.dreamland.service;
+package com.fanling.dreamland.shiro.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fanling.dreamland.R;
 import com.fanling.dreamland.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-@Service
-public class AccessTokenService {
+@Component
+public class TokenService {
     //过期时间 1 小时
     private final static long EXPIRE = 3600 * 12;
     //ACCESS_TOKEN
@@ -28,7 +31,13 @@ public class AccessTokenService {
     @Resource(name = "stringRedisTemplate")
     private ValueOperations<String, String> ops;
 
-    public String selectByToken(String token) {
+    /**
+     * 从redis中取userId
+     *
+     * @param token
+     * @return
+     */
+    public String getUserId(String token) {
         return ops.get(ACCESS_TOKEN + token);
     }
 
@@ -41,6 +50,11 @@ public class AccessTokenService {
      * @return
      */
     public R createToken(String userId, String loginName, String password) {
+        //检查redis 是否存在，存在则删除，重新生成
+        String ex = ops.get(ACCESS_USERID + userId);
+        if (StringUtils.isNotEmpty(ex)) {
+            redisTemplate.delete(ACCESS_TOKEN + ex);
+        }
         // 生成token
         String token = sign(loginName, password);
         // 保存或更新用户token
@@ -49,7 +63,7 @@ public class AccessTokenService {
         data.put("token", token);
         //秒
         data.put("expire", EXPIRE);
-
+        //有则更新，无则新增
         ops.set(ACCESS_TOKEN + token, userId, EXPIRE, TimeUnit.SECONDS);
         ops.set(ACCESS_USERID + userId, token, EXPIRE, TimeUnit.SECONDS);
         return data;
@@ -79,6 +93,8 @@ public class AccessTokenService {
         Date date = new Date(System.currentTimeMillis() + EXPIRE * 24 * 7);
         Algorithm algorithm = Algorithm.HMAC256(password);
         // 附带username信息
-        return JWT.create().withClaim("loginName", loginName).withExpiresAt(date).sign(algorithm);
+        return JWT.create()
+                .withClaim("loginName", loginName)
+                .withExpiresAt(date).sign(algorithm);
     }
 }

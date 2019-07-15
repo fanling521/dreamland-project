@@ -1,7 +1,8 @@
-package com.fanling.dreamland.service;
+package com.fanling.dreamland.shiro.service;
 
 import com.fanling.dreamland.R;
 import com.fanling.dreamland.domain.SysMenu;
+import com.fanling.dreamland.domain.SysMenuPure;
 import com.fanling.dreamland.domain.SysUser;
 
 import java.util.List;
@@ -11,10 +12,10 @@ public interface ISysMenuService {
     /**
      * 根据用户ID查询菜单
      *
-     * @param user 用户信息
+     * @param userId 用户信息
      * @return 菜单列表
      */
-    List<SysMenu> selectMenusByUser(SysUser user);
+    List<SysMenuPure> selectMenusByUserId(String userId);
 
     /**
      * 查询系统菜单列表

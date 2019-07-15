@@ -73,6 +73,17 @@ public class R extends HashMap<String, Object> {
         super.put(MSG_TAG, msg);
     }
 
+    /**
+     * 自定义code
+     *
+     * @param code
+     * @param msg
+     */
+    public R(int code, String msg) {
+        super.put(CODE_TAG, code);
+        super.put(MSG_TAG, msg);
+    }
+
     public R(Type type, String msg, Object data) {
         super.put(CODE_TAG, type.value);
         super.put(MSG_TAG, msg);
@@ -111,8 +122,9 @@ public class R extends HashMap<String, Object> {
 
 
     public static R error(String msg) {
-        return R.error(msg, null);
+        return new R(Type.ERROR, msg);
     }
+
 
     public static R error(String msg, Object data) {
         return new R(Type.ERROR, msg, data);

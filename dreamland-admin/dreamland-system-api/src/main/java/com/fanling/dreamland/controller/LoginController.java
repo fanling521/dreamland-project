@@ -1,21 +1,39 @@
 package com.fanling.dreamland.controller;
 
 import com.fanling.dreamland.R;
+import com.fanling.dreamland.domain.LoginReq;
 import com.fanling.dreamland.domain.SysUser;
-import com.fanling.dreamland.service.AccessTokenService;
+import com.fanling.dreamland.shiro.ShiroUtils;
+import com.fanling.dreamland.shiro.service.ISysMenuService;
+import com.fanling.dreamland.shiro.service.ISysRoleService;
+import com.fanling.dreamland.shiro.service.LoginService;
+import com.fanling.dreamland.shiro.service.TokenService;
 import com.fanling.dreamland.utils.StringUtils;
+import com.fanling.dreamland.web.BaseController;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static com.fanling.dreamland.R.error;
+import static com.fanling.dreamland.R.success;
 
 @RestController
 @RequestMapping("/user")
-public class LoginController {
+public class LoginController extends BaseController {
 
     @Autowired
-    protected AccessTokenService accessTokenService;
+    protected TokenService tokenService;
+
+    @Autowired
+    protected LoginService loginService;
+
+    @Autowired
+    protected ISysRoleService sysRoleService;
+
+    @Autowired
+    protected ISysMenuService menuService;
 
     /**
      * 登录请求
@@ -23,13 +41,19 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login")
-    public R login(String loginName, String password) {
-        SysUser sysUser = new SysUser();
-        sysUser.setUserId("ad24bd87-1046-405f-a94c-3872b363cc89");
-        sysUser.setLoginName(loginName);
-        sysUser.setPassword(password);
-        return R.success(accessTokenService.createToken(sysUser.getUserId(),
-                sysUser.getLoginName(), sysUser.getPassword()));
+    public R login(@RequestBody LoginReq loginReq) {
+        try {
+            //登录验证成功返回你的token
+            SysUser sysUser = loginService.login(loginReq.getLoginName(), loginReq.getPassword());
+            return R.success(tokenService.createToken(sysUser.getUserId(),
+                    sysUser.getLoginName(), sysUser.getPassword()));
+        } catch (AuthenticationException e) {
+            String msg = "用户或密码错误";
+            if (StringUtils.isNotEmpty(e.getMessage())) {
+                msg = e.getMessage();
+            }
+            return error(msg);
+        }
     }
 
     /**
@@ -37,9 +61,16 @@ public class LoginController {
      *
      * @return
      */
-    @RequestMapping("/get_user_info")
+    @PostMapping("/get_user_info")
     public R getUserInfo() {
-        return null;
+        //获取用户信息和权限，路由等信息
+        R result = new R();
+        SysUser sysUser = ShiroUtils.getSysUser();
+        result.put("userId", sysUser.getUserId());
+        result.put("userName", sysUser.getUserName());
+        result.put("roles", sysRoleService.selectRoleKeys(sysUser.getUserId()));
+        result.put("menus", menuService.selectMenusByUserId(sysUser.getUserId()));
+        return success(result);
     }
 
     /**
@@ -50,7 +81,8 @@ public class LoginController {
     @RequestMapping("/logout")
     public R logout(@RequestParam("userId") String userId) {
         if (StringUtils.isNotEmpty(userId)) {
-            accessTokenService.expireToken(userId);
+            tokenService.expireToken(userId);
+            ShiroUtils.logout();
         }
         return R.success();
     }

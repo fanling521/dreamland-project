@@ -1,14 +1,16 @@
-package com.fanling.dreamland.service.impl;
+package com.fanling.dreamland.shiro.service.impl;
 
 
 import com.fanling.dreamland.R;
 import com.fanling.dreamland.domain.SysMenu;
+import com.fanling.dreamland.domain.SysMenuPure;
 import com.fanling.dreamland.domain.SysRoleMenu;
 import com.fanling.dreamland.domain.SysUser;
 import com.fanling.dreamland.mapper.SysMenuMapper;
 import com.fanling.dreamland.mapper.SysRoleMenuMapper;
-import com.fanling.dreamland.service.ISysMenuService;
+import com.fanling.dreamland.shiro.service.ISysMenuService;
 import com.fanling.dreamland.utils.StringUtils;
+import com.fanling.dreamland.utils.TreeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +26,9 @@ public class SysMenuServiceImpl implements ISysMenuService {
     private SysRoleMenuMapper sysRoleMenuMapper;
 
     @Override
-    public List<SysMenu> selectMenusByUser(SysUser user) {
-        //return TreeUtils.getChildPerms(sysMenuMapper.selectMenusByUserId(user.getUserId()),
-        // "4438c79d-a398-4b35-ac2c-90bc70ddd44c");
-        return null;
+    public List<SysMenuPure> selectMenusByUserId(String userId) {
+        return TreeUtils.getChildPerms(sysMenuMapper.selectMenusByUserId(userId),
+                "4438c79d-a398-4b35-ac2c-90bc70ddd44c");
     }
 
     @Override

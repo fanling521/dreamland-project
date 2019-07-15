@@ -32,8 +32,6 @@ public class SysMenu extends BaseEntity {
     private String visible;
     //权限字符串
     private String perms;
-    //菜单图标
-    private String icon;
     //菜单选择角色
     private String[] roleIds;
     //子菜单

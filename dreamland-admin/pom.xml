@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
-        <module>dreamland-core</module>
         <module>dreamland-system-api</module>
         <module>dreamland-system</module>
     </modules>
@@ -53,12 +52,6 @@
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
                 <version>${jwt.version}</version>
-            </dependency>
-            <!-- 核心包 -->
-            <dependency>
-                <groupId>com.fanling.dreamland</groupId>
-                <artifactId>dreamland-core</artifactId>
-                <version>1.0.0</version>
             </dependency>
             <!-- 系统数据层 -->
             <dependency>

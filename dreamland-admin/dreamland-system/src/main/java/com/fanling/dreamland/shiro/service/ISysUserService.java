@@ -1,4 +1,4 @@
-package com.fanling.dreamland.service;
+package com.fanling.dreamland.shiro.service;
 
 
 import com.fanling.dreamland.domain.SysUser;

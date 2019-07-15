@@ -10,7 +10,6 @@
         <result property="roleKey" column="role_key"/>
         <result property="roleSort" column="role_sort"/>
         <result property="status" column="status"/>
-        <result property="delFlag" column="del_flag"/>
         <result property="createBy" column="create_by"/>
         <result property="createTime" column="create_time"/>
         <result property="updateBy" column="update_by"/>
@@ -23,7 +22,6 @@
                         r.role_key,
                         r.role_sort,
                         r.status,
-                        r.del_flag,
                         r.create_time
         from sys_role r
                  left join sys_user_role ur on ur.role_id = r.role_id
@@ -36,14 +34,13 @@
                r.role_key,
                r.role_sort,
                r.status,
-               r.del_flag,
                r.create_time
         from sys_role r
     </sql>
 
     <select id="selectRoleList" parameterType="SysRole" resultMap="RoleResult">
         <include refid="selectRoleContactVo"/>
-        where r.del_flag = '0'
+        where 1=1
         <if test="roleName != null and roleName != ''">
             AND r.role_name like concat('%', #{roleName}, '%')
         </if>
@@ -62,12 +59,12 @@
 
     <select id="selectRolesByUserId" parameterType="String" resultMap="RoleResult">
         <include refid="selectRoleContactVo"/>
-        WHERE r.del_flag = '0' and ur.user_id = #{userId}
+        WHERE ur.user_id = #{userId}
     </select>
 
     <select id="selectRoleById" parameterType="String" resultMap="RoleResult">
         <include refid="selectRoleVo"/>
-        where r.del_flag = '0' and r.role_id = #{roleId}
+        where r.role_id = #{roleId}
     </select>
 
     <select id="checkRoleNameUnique" parameterType="String" resultMap="RoleResult">

@@ -1,9 +1,9 @@
-package com.fanling.dreamland.service.impl;
+package com.fanling.dreamland.shiro.service.impl;
 
 import com.fanling.dreamland.domain.SysRole;
 import com.fanling.dreamland.mapper.SysRoleMapper;
 import com.fanling.dreamland.mapper.SysUserRoleMapper;
-import com.fanling.dreamland.service.ISysRoleService;
+import com.fanling.dreamland.shiro.service.ISysRoleService;
 import com.fanling.dreamland.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
