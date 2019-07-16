@@ -25,16 +25,18 @@ public class SysMenu extends BaseEntity {
     //显示顺序
     private String orderNum;
     //菜单URL
-    private String url;
+    private String path;
     //类型:0目录,1菜单,2按钮
     private String menuType;
     //菜单状态:0显示,1隐藏
     private String visible;
     //权限字符串
     private String perms;
+    // 菜单的vue组件路径
+    private String component;
+    //默认路径
+    private String redirect;
     //菜单选择角色
     private String[] roleIds;
-    //子菜单
-    private List<SysMenu> children = new ArrayList<>(5);
 
 }

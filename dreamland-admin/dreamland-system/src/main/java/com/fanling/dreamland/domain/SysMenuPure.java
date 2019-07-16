@@ -17,7 +17,11 @@ public class SysMenuPure {
     //父菜单ID
     private String parentId;
     //菜单URL
-    private String url;
+    private String path;
+    // 菜单的vue组件路径
+    private String component;
+    //默认路径
+    private String redirect;
     //子菜单
     private List<SysMenuPure> children = new ArrayList<>(5);
 }

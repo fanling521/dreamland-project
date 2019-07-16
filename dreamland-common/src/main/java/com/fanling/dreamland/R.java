@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Getter
 @Setter
@@ -101,6 +102,10 @@ public class R extends HashMap<String, Object> {
      */
     public static R success(Object data) {
         return R.success("操作成功", data);
+    }
+
+    public static R success(List<?> list) {
+        return R.success("操作成功", list);
     }
 
     public static R success(String msg) {

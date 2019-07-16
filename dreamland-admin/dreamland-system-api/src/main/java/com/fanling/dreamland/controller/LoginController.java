@@ -20,7 +20,7 @@ import static com.fanling.dreamland.R.error;
 import static com.fanling.dreamland.R.success;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/system")
 public class LoginController extends BaseController {
 
     @Autowired
@@ -69,8 +69,7 @@ public class LoginController extends BaseController {
         result.put("userId", sysUser.getUserId());
         result.put("userName", sysUser.getUserName());
         result.put("roles", sysRoleService.selectRoleKeys(sysUser.getUserId()));
-        result.put("menus", menuService.selectMenusByUserId(sysUser.getUserId()));
-        return success(result);
+        return R.success(result);
     }
 
     /**

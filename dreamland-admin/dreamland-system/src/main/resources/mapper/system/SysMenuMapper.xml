@@ -10,10 +10,12 @@
         <result property="parentName" column="parent_name"/>
         <result property="parentId" column="parent_id"/>
         <result property="orderNum" column="order_num"/>
-        <result property="url" column="url"/>
+        <result property="path" column="path"/>
         <result property="menuType" column="menu_type"/>
         <result property="visible" column="visible"/>
         <result property="perms" column="perms"/>
+        <result property="component" column="component"/>
+        <result property="redirect" column="redirect"/>
         <result property="createBy" column="create_by"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
@@ -25,7 +27,9 @@
         <result property="menuName" column="menu_name"/>
         <result property="parentName" column="parent_name"/>
         <result property="parentId" column="parent_id"/>
-        <result property="url" column="url"/>
+        <result property="path" column="path"/>
+        <result property="component" column="component"/>
+        <result property="redirect" column="redirect"/>
     </resultMap>
 
     <sql id="selectMenuVo">
@@ -34,7 +38,9 @@
                parent_id,
                parent_name,
                order_num,
-               url,
+               path,
+               component,
+               redirect,
                menu_type,
                visible,
                ifnull(perms, '') as perms,
@@ -48,7 +54,9 @@
                         m.parent_id,
                         m.parent_name,
                         m.menu_name,
-                        m.url,
+                        m.path,
+                        m.component,
+                        m.redirect,
                         m.perms,
                         m.menu_type,
                         m.order_num,
@@ -105,7 +113,9 @@
                t.parent_id,
                t.menu_name,
                t.order_num,
-               t.url,
+               t.path,
+               t.component,
+               t.redirect,
                t.menu_type,
                t.visible,
                t.perms,
@@ -132,8 +142,10 @@
             <if test="parentId != null and parentId != ''">parent_id = #{parentId},</if>
             <if test="parentName != null and parentName != ''">parent_name = #{parentName},</if>
             <if test="orderNum != null and orderNum != ''">order_num = #{orderNum},</if>
-            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="path != null and path != ''">path = #{path},</if>
             <if test="menuType != null and menuType != ''">menu_type = #{menuType},</if>
+            <if test="component != null">component = #{component},</if>
+            <if test="redirect != null">redirect = #{redirect},</if>
             <if test="visible != null">visible = #{visible},</if>
             <if test="perms !=null">perms = #{perms},</if>
             <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
@@ -149,7 +161,9 @@
         <if test="menuName != null and menuName != ''">menu_name,</if>
         <if test="parentName != null and parentName != ''">parent_name,</if>
         <if test="orderNum != null and orderNum != ''">order_num,</if>
-        <if test="url != null and url != ''">url,</if>
+        <if test="path != null and path != ''">path,</if>
+        <if test="component != null and component != ''">component,</if>
+        <if test="redirect != null and redirect != ''">redirect,</if>
         <if test="menuType != null and menuType != ''">menu_type,</if>
         <if test="visible != null">visible,</if>
         <if test="perms !=null and perms != ''">perms,</if>
@@ -161,7 +175,9 @@
         <if test="menuName != null and menuName != ''">#{menuName},</if>
         <if test="parentName != null and parentName != ''">#{parentName},</if>
         <if test="orderNum != null and orderNum != ''">#{orderNum},</if>
-        <if test="url != null and url != ''">#{url},</if>
+        <if test="path != null and path != ''">#{path},</if>
+        <if test="component != null">#{component},</if>
+        <if test="redirect != null">#{redirect},</if>
         <if test="menuType != null and menuType != ''">#{menuType},</if>
         <if test="visible != null">#{visible},</if>
         <if test="perms !=null and perms != ''">#{perms},</if>

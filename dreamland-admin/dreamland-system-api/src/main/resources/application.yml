@@ -9,7 +9,7 @@ server:
 
 logging:
   level:
-    com.fanling.dreamland: warn
+    com.fanling.dreamland: debug
     org.springframework: warn
 
 spring:
@@ -38,9 +38,3 @@ mybatis:
   typeAliasesPackage: com.fanling.dreamland.domain
   mapperLocations: classpath*:mapper/**/*Mapper.xml
   configLocation: classpath:mapper/mybatis-config.xml
-
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
