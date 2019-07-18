@@ -1,22 +1,16 @@
 # dreamland-project
 
-## 简介
+## 技术概要
 
-dreamland-project是一整套问题的解决方案，使用最简单的技术和方案解决问题。他使用了layui作为后台管理的前端方案，界面美观，操作简单。
-使用了SpringBoot+MyBatis+MySQL实现了简单的后台权限管理。
+![1563429024642](dreamland-doc\images\20190718131441.png)
 
-基于此项目，完成了一款APP的功能开发，从后台管理到接口服务。
-
-其中接口服务基于Spring Cloud开发。
-
-## dreamland-admin说明
-
-#### dreamland-admin的基础功能
-
-使用了Apache Shiro，参考RuoYi项目完成了简单的基于角色的权限管理，基本功能如下：
-
-1. 用户管理，新增和管理后台用户信息
-2. 角色管理，新增和管理后台的各种角色，对菜单和按钮进行赋值权限
-3. 菜单管理，新增和管理菜单的信息
-
-#### dreamland-admin的应用级功能
+- Spring Cloud：微服务架构集大成者，云计算最佳业务实践
+  - Zuul：网关
+  - Eureka：注册中心
+- Spring Boot：整合Spring框架与优秀组件，开箱即用的后端框架
+- lombok：简化代码，自动生成getter、setter的插件
+- feign：用于微服务之间调用的客户端组件
+- swagger2：接口测试和文档插件
+- vue：一款MVVM模式的渐进式JavaScript框架
+- element-ui：基于vue的UI库
+- vue-element-admin：基于element-ui的后台管理系统UI
