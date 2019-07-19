@@ -2,7 +2,7 @@
 
 ## 技术概要
 
-![1563429024642](dreamland-doc\images\20190718131441.png)
+![1563429024642](dreamland-doc/images/20190718131441.png)
 
 - Spring Cloud：微服务架构集大成者，云计算最佳业务实践
   - Zuul：网关
@@ -14,3 +14,7 @@
 - vue：一款MVVM模式的渐进式JavaScript框架
 - element-ui：基于vue的UI库
 - vue-element-admin：基于element-ui的后台管理系统UI
+
+## 项目说明
+
+1. [01-系统模块设计说明](dreamland-doc/01-系统模块设计说明.md)

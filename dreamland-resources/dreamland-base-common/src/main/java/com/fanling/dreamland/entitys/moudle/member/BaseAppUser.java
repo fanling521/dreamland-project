@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class SysUser extends BaseEntity {
+public class BaseAppUser extends BaseEntity {
     private String user_id;
     private String user_name;
     private String phone;

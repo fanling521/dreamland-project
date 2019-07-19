@@ -11,10 +11,6 @@
 
     <artifactId>dreamland-eureka</artifactId>
 
-    <description>
-        服务注册中心
-    </description>
-
     <dependencies>
         <!-- 日志 -->
         <dependency>

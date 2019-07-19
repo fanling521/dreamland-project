@@ -8,6 +8,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class AppComUser extends SysUser {
+public class AppComUser extends BaseAppUser {
 
 }

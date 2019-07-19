@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class AppProUser extends SysUser {
+public class AppProUser extends BaseAppUser {
     private String real_name;
     private String id_card_no;
     private String real_status;
