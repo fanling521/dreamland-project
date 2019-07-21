@@ -12,7 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * http://localhost:7002/doc.html?cache=1&lang=zh
+ * http://localhost:7003/doc.html?cache=1&lang=zh
  */
 @Configuration
 @EnableSwagger2
@@ -23,16 +23,16 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.fanling.dreamland.controller.system"))
+                .apis(RequestHandlerSelectors.basePackage("com.fanling.dreamland.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("DreamLand-系统模块")
+                .title("DreamLand-模块服务")
                 .description("DreamLand系统模块接口文档说明")
-                .termsOfServiceUrl("http://localhost:7002")
+                .termsOfServiceUrl("http://localhost:7003")
                 .contact(new Contact("樊领", "https://github.com/fanling521", "862844083@qq.com"))
                 .version("1.0")
                 .build();

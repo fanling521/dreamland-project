@@ -16,6 +16,7 @@ public class BaseAppUser extends BaseEntity {
     private String user_name;
     private String phone;
     private String user_status;
+    private String reg_ip;
     private String login_ip;
     private Date login_date;
     private String password;
