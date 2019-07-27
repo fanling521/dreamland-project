@@ -13,8 +13,6 @@ public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
     //用户标识
     private String user_id;
-    // 登录名称
-    private String login_name;
     // 用户名称
     private String user_name;
     // 用户邮箱

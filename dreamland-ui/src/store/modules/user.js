@@ -1,12 +1,13 @@
-import {login, logout, getInfo} from '@/api/system/user'
+import {login, logout, getInfo} from '@/api/user'
 import {getToken, setToken, removeToken} from '@/utils/auth'
-import router, {resetRouter} from '@/router'
+import {resetRouter} from '@/router'
+import md5 from 'js-md5';
 
 const state = {
   token: getToken(),
   name: '',
-  roles: [],
-  userId: ''
+  uid: '',
+  roles: []
 }
 
 const mutations = {
@@ -16,11 +17,11 @@ const mutations = {
   SET_NAME: (state, name) => {
     state.name = name
   },
+  SET_UID: (state, uid) => {
+    state.uid = uid
+  },
   SET_ROLES: (state, roles) => {
     state.roles = roles
-  },
-  SET_USERID: (state, userId) => {
-    state.userId = userId
   }
 }
 
@@ -29,7 +30,7 @@ const actions = {
   login({commit}, userInfo) {
     const {loginName, password} = userInfo
     return new Promise((resolve, reject) => {
-      login({loginName: loginName.trim(), password: password}).then(response => {
+      login({username: loginName.trim(), password: md5(password)}).then(response => {
         const {data} = response
         commit('SET_TOKEN', data.token)
         setToken(data.token)
@@ -43,23 +44,21 @@ const actions = {
   // get user info
   getInfo({commit, state}) {
     return new Promise((resolve, reject) => {
-      getInfo().then(response => {
+      getInfo(state.token).then(response => {
         const {data} = response
 
         if (!data) {
-          reject('Verification failed, please Login again.')
+          reject('认证失败，请重新登录！')
         }
 
-        const {roles, userName, userId} = data
-
-        // roles must be a non-empty array
+        const {name, uid, roles} = data
         if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
+          reject('角色组缺失!')
         }
 
         commit('SET_ROLES', roles)
-        commit('SET_NAME', userName)
-        commit('SET_USERID', userId)
+        commit('SET_NAME', name)
+        commit('SET_UID', uid)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -90,31 +89,6 @@ const actions = {
       removeToken()
       resolve()
     })
-  },
-
-  // dynamically modify permissions
-  changeRoles({commit, dispatch}, role) {
-    return new Promise(async resolve => {
-      const token = role + '-token'
-
-      commit('SET_TOKEN', token)
-      setToken(token)
-
-      const {roles} = await dispatch('getInfo')
-
-      resetRouter()
-
-      // generate accessible routes map based on roles
-      const accessRoutes = await dispatch('permission/generateRoutes', roles, {root: true})
-
-      // dynamically add accessible routes
-      router.addRoutes(accessRoutes)
-
-      // reset visited views and cached views
-      dispatch('tagsView/delAllViews', null, {root: true})
-
-      resolve()
-    })
   }
 }
 
@@ -124,3 +98,4 @@ export default {
   mutations,
   actions
 }
+

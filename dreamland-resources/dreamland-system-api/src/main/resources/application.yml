@@ -24,7 +24,6 @@ spring:
   redis:
     database: 0
     host: 127.0.0.1
-    #password: myRedis_IS_CLOSED
     port: 6379
     timeout: 300
 

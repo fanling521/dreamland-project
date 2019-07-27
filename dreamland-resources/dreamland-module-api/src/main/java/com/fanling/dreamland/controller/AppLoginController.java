@@ -48,7 +48,7 @@ public class AppLoginController extends BaseController {
      * @return
      */
     private R check(LoginForm loginForm) {
-        if (StringUtils.isEmpty(loginForm.getPhoneOrEmail())) {
+        if (StringUtils.isEmpty(loginForm.getUsername())) {
             return error("手机号码必须填写！");
         }
         if (StringUtils.isEmpty(loginForm.getPassword())) {

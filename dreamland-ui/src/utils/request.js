@@ -5,42 +5,41 @@ import {getToken} from '@/utils/auth'
 
 const service = axios.create({
   // url = base url + request url
-  baseURL: 'http://localhost:9000/admin',
-  timeout: 5000 // request timeout
+  baseURL: "http://localhost:7003",
+  timeout: 5000
 })
 
 service.interceptors.request.use(
   config => {
     if (store.getters.token) {
-      config.headers['X-Token'] = getToken()
+      config.headers['x-access-token'] = getToken()
+    }else{
+      console.log("token is null")
     }
     return config
   },
   error => {
-    console.log(error) // for debug
     return Promise.reject(error)
   }
 )
 
-// response interceptor
 service.interceptors.response.use(
   response => {
     const res = response.data
-
-    if (res.code !== 0) {
+    if (res.code === 500) {
       Message({
-        message: res.msg || '服务器响应失败',
+        message: res.msg || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
-      return Promise.reject(new Error(res.message || 'Error'))
+      return Promise.reject(new Error(res.msg || 'Error'))
     } else {
       return res
     }
   },
   error => {
     Message({
-      message: "服务器响应失败！",
+      message: '网络连接失败！',
       type: 'error',
       duration: 5 * 1000
     })

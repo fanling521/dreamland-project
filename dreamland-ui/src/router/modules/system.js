@@ -1,28 +1,24 @@
-/** When your routing table is too long, you can split it into small modules **/
-
 import Layout from '@/layout'
 
 const systemRouter = {
   path: '/system',
   component: Layout,
-  redirect: '/system/user',
   name: 'System',
-  meta: {
-    title: '系统管理',
-    icon: 'table'
-  },
+  meta: {title: '系统管理', icon: 'example'},
   children: [
     {
       path: 'user',
-      component: () => import('@/views/system/user/index'),
+      component: () => import('@/views/user/index'),
       name: 'User',
-      meta: {title: '用户管理', role: ["admin"], icon: 'people'}
+      meta: {title: '用户管理', icon: 'people', noCache: true},
+      roles: ['admin']
     },
     {
       path: 'role',
-      component: () => import('@/views/system/role/index'),
+      component: () => import('@/views/role/index'),
       name: 'Role',
-      meta: {title: '角色管理', role: ["admin"], icon: 'peoples'}
+      meta: {title: '角色管理', icon: 'peoples', noCache: true},
+      roles: ['admin']
     }
   ]
 }

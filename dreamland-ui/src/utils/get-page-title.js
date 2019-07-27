@@ -1,6 +1,6 @@
-import defaultSettings from '@/settings'
+import store from '../store'
 
-const title = defaultSettings.title || '信息管理系统V2'
+const title = store.getters.title
 
 export default function getPageTitle(pageTitle) {
   if (pageTitle) {

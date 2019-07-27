@@ -1,6 +1,6 @@
 package com.fanling.dreamland.controller;
 
-import com.fanling.dreamland.CaptchaService;
+import com.fanling.dreamland.config.CaptchaService;
 import com.fanling.dreamland.R;
 import com.fanling.dreamland.entitys.moudle.member.AppCommonUser;
 import com.fanling.dreamland.entitys.moudle.member.AppProUser;

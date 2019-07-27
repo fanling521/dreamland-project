@@ -31,6 +31,9 @@ export default {
       'permission_routes',
       'sidebar'
     ]),
+    routes() {
+      return this.$router.options.routes
+    },
     activeMenu() {
       const route = this.$route
       const { meta, path } = route

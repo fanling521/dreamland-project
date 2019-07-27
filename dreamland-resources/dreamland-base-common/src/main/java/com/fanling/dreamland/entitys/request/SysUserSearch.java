@@ -1,14 +1,12 @@
 package com.fanling.dreamland.entitys.request;
 
+import com.fanling.dreamland.entitys.BaseSearch;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 @Getter
 @Setter
-public class SysUserSearch implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class SysUserSearch extends BaseSearch {
     // 手机号
     private String phone;
     // 邮箱

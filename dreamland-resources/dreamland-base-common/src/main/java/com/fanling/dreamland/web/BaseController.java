@@ -1,8 +1,7 @@
 package com.fanling.dreamland.web;
 
-import com.fanling.dreamland.Constants;
 import com.fanling.dreamland.R;
-import com.fanling.dreamland.utils.ServletUtils;
+import com.fanling.dreamland.entitys.BaseSearch;
 import com.fanling.dreamland.utils.SqlUtil;
 import com.fanling.dreamland.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
@@ -15,18 +14,11 @@ public class BaseController {
     /**
      * 设置请求分页数据
      */
-    protected void startPage() {
-        PageDomain pageDomain = new PageDomain();
-
-        pageDomain.setPageNum(ServletUtils.getParameterToInt(Constants.PAGE_NUM));
-        pageDomain.setPageSize(ServletUtils.getParameterToInt(Constants.PAGE_SIZE));
-        pageDomain.setOrderByColumn(ServletUtils.getParameter(Constants.ORDER_BY_COLUMN));
-        pageDomain.setIsAsc(ServletUtils.getParameter(Constants.IS_ASC));
-
-        Integer pageNum = pageDomain.getPageNum();
-        Integer pageSize = pageDomain.getPageSize();
+    protected void startPage(BaseSearch search) {
+        Integer pageNum = search.getPage_num();
+        Integer pageSize = search.getPage_size();
         if (StringUtils.isNotNull(pageNum) && StringUtils.isNotNull(pageSize)) {
-            String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
+            String orderBy = SqlUtil.escapeOrderBySql(search.getOrder_by());
             PageHelper.startPage(pageNum, pageSize, orderBy);
         }
     }

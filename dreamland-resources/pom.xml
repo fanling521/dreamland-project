@@ -10,9 +10,7 @@
     <version>2.0.0</version>
     <modules>
         <module>dreamland-module-api</module>
-        <module>dreamland-module-service</module>
         <module>dreamland-base-common</module>
-        <module>dreamland-system-service</module>
         <module>dreamland-system-api</module>
     </modules>
     <properties>
