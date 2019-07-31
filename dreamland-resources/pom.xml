@@ -10,8 +10,10 @@
     <version>2.0.0</version>
     <modules>
         <module>dreamland-module-api</module>
-        <module>dreamland-base-common</module>
+        <module>dreamland-common</module>
         <module>dreamland-system-api</module>
+        <module>dreamland-eureka</module>
+        <module>dreamland-gateway</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -105,7 +107,7 @@
             <!-- 通用包 -->
             <dependency>
                 <groupId>com.fanling.dreamland</groupId>
-                <artifactId>dreamland-base-common</artifactId>
+                <artifactId>dreamland-common</artifactId>
                 <version>${dreamland.verison}</version>
             </dependency>
             <!-- module-service -->

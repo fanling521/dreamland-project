@@ -43,10 +43,10 @@
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
         </dependency>
-
+        <!-- 通用包 -->
         <dependency>
             <groupId>com.fanling.dreamland</groupId>
-            <artifactId>dreamland-base-common</artifactId>
+            <artifactId>dreamland-common</artifactId>
         </dependency>
     </dependencies>
 </project>

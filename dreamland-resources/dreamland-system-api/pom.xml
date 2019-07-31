@@ -61,7 +61,7 @@
         <!-- 通用包 -->
         <dependency>
             <groupId>com.fanling.dreamland</groupId>
-            <artifactId>dreamland-base-common</artifactId>
+            <artifactId>dreamland-common</artifactId>
         </dependency>
         <!-- mybatis-spring-boot -->
         <dependency>
