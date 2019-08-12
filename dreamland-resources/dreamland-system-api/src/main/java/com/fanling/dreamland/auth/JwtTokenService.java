@@ -23,8 +23,8 @@ public class JwtTokenService {
     private final static long EXPIRE = 3600 * 12;
     //ACCESS_TOKEN
     private final static String ACCESS_TOKEN = "token_";
-    //ACCESS_USERID
-    private final static String ACCESS_USERID = "userid_";
+    //ACCESS_USER_ID
+    private final static String ACCESS_USER_ID = "userid_";
 
 
     @Autowired
@@ -50,12 +50,12 @@ public class JwtTokenService {
      * @return
      */
     public String getToken(String userId) {
-        return ops.get(ACCESS_USERID + userId);
+        return ops.get(ACCESS_USER_ID + userId);
     }
 
     public R createToken(String userId, String phone, String password) {
         //检查redis 是否存在，存在则删除，重新生成
-        String ex = ops.get(ACCESS_USERID + userId);
+        String ex = ops.get(ACCESS_USER_ID + userId);
         if (StringUtils.isNotEmpty(ex)) {
             redisTemplate.delete(ACCESS_TOKEN + ex);
         }
@@ -65,10 +65,9 @@ public class JwtTokenService {
         R data = new R();
         data.put("userId", userId);
         data.put("token", token);
-        data.put("expire", EXPIRE);
         //有则更新，无则新增
         ops.set(ACCESS_TOKEN + token, userId, EXPIRE, TimeUnit.SECONDS);
-        ops.set(ACCESS_USERID + userId, token, EXPIRE, TimeUnit.SECONDS);
+        ops.set(ACCESS_USER_ID + userId, token, EXPIRE, TimeUnit.SECONDS);
         return data;
     }
 
@@ -90,9 +89,9 @@ public class JwtTokenService {
      * @param userId
      */
     public void expireToken(String userId) {
-        String token = ops.get(ACCESS_USERID + userId);
+        String token = ops.get(ACCESS_USER_ID + userId);
         if (StringUtils.isNotEmpty(token)) {
-            redisTemplate.delete(ACCESS_USERID + userId);
+            redisTemplate.delete(ACCESS_USER_ID + userId);
             redisTemplate.delete(ACCESS_TOKEN + token);
         }
     }

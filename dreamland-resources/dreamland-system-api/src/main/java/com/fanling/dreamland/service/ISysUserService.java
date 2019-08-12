@@ -1,23 +1,12 @@
 package com.fanling.dreamland.service;
 
-
-import com.fanling.dreamland.entitys.request.SysUserReq;
-import com.fanling.dreamland.entitys.system.SysUser;
-
-import java.util.List;
+import com.fanling.dreamland.common.IService;
+import com.fanling.dreamland.entity.SysUser;
 
 /**
  * 系统用户表
  */
-public interface ISysUserService {
-    /**
-     * 根据条件返回系统用户表的信息，可查询和分页
-     *
-     * @param sysUser
-     * @return
-     */
-    List<SysUser> selectUserList(SysUser sysUser);
-
+public interface ISysUserService extends IService<SysUser> {
     /**
      * 通过phone查询系统用户
      *
@@ -33,39 +22,23 @@ public interface ISysUserService {
     SysUser selectUserByEmail(String email);
 
     /**
-     * 通过系统用户ID查询系统用户
-     *
-     * @param userId
-     */
-    SysUser selectUserById(String userId);
-
-    /**
-     * 通过系统用户ID删除系统用户
-     *
-     * @param userId
-     */
-    int deleteUserById(String userId);
-
-    /**
-     * 修改系统用户
-     *
-     * @param sysUserReq
-     */
-    int updateUser(SysUserReq sysUserReq);
-
-    /**
      * 更新用户信息
      *
      * @param sysUser
-     * @return
      */
-    int updateUserLoginInfo(SysUser sysUser);
+    void updateUserLoginInfo(SysUser sysUser);
 
     /**
-     * 新增系统用户
+     * 校验手机号码是否唯一
      *
-     * @param sysUserReq
+     * @param phone
      */
-    int insertUser(SysUserReq sysUserReq);
+    boolean checkPhoneUnique(String phone);
 
+    /**
+     * 校验email是否唯一
+     *
+     * @param email
+     */
+    boolean checkEmailUnique(String email);
 }

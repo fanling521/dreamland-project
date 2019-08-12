@@ -1,6 +1,8 @@
 package com.fanling.dreamland.service.impl;
 
-import com.fanling.dreamland.entitys.system.SysRole;
+import com.fanling.dreamland.common.ServiceImpl;
+import com.fanling.dreamland.config.SystemEnum;
+import com.fanling.dreamland.entity.SysRole;
 import com.fanling.dreamland.mapper.SysRoleMapper;
 import com.fanling.dreamland.mapper.SysUserRoleMapper;
 import com.fanling.dreamland.service.ISysRoleService;
@@ -11,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class SysRoleServiceImpl implements ISysRoleService {
+public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
 
     @Autowired
     private SysRoleMapper sysRoleMapper;
@@ -20,23 +22,13 @@ public class SysRoleServiceImpl implements ISysRoleService {
     private SysUserRoleMapper sysUserRoleMapper;
 
     /**
-     * 根据条件返回角色表的信息，可查询和分页
-     *
-     * @param role
-     */
-    @Override
-    public List<SysRole> selectRoleList(SysRole role) {
-        return sysRoleMapper.selectRoleList(role);
-    }
-
-    /**
      * 根据用户ID查询角色
      *
      * @param userId
      */
     @Override
-    public List<SysRole> selectRolesByUserId(String userId) {
-        List<SysRole> userRoles = sysRoleMapper.selectRolesByUserId(userId);
+    public List<SysRole> ListById(String userId) {
+        List<SysRole> userRoles = sysRoleMapper.listById(userId);
         List<SysRole> roles = selectRoleAll();
         for (SysRole role : roles) {
             for (SysRole userRole : userRoles) {
@@ -50,45 +42,15 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 通过角色ID查询角色
-     *
-     * @param roleId
-     */
-    @Override
-    public SysRole selectRoleById(String roleId) {
-        return sysRoleMapper.selectRoleById(roleId);
-    }
-
-    /**
-     * 通过角色ID删除角色
-     *
-     * @param roleId
-     */
-    @Override
-    public int deleteRoleById(String roleId) {
-        return sysRoleMapper.deleteRoleById(roleId);
-    }
-
-    /**
-     * 修改角色信息
-     *
-     * @param role
-     */
-    @Override
-    public int updateRole(SysRole role) {
-        return sysRoleMapper.updateRole(role);
-    }
-
-    /**
      * 新增角色信息
      *
      * @param role
      */
     @Override
-    public int insertRole(SysRole role) {
-        role.setRole_status("0");
+    public int insert(SysRole role) {
+        role.setRole_status(SystemEnum.USER_COMMON.getCode());
         role.setRole_id(UUID.randomUUID().toString());
-        return sysRoleMapper.insertRole(role);
+        return sysRoleMapper.insert(role);
     }
 
     /**
@@ -118,7 +80,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     @Override
     public List<SysRole> selectRoleAll() {
-        return sysRoleMapper.selectRoleList(null);
+        return sysRoleMapper.list(null);
     }
 
     /**
@@ -140,7 +102,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     @Override
     public Set<String> selectRoleKeys(String userId) {
-        List<SysRole> perms = sysRoleMapper.selectRolesByUserId(userId);
+        List<SysRole> perms = sysRoleMapper.listById(userId);
         Set<String> permsSet = new HashSet<>();
         for (SysRole perm : perms) {
             if (StringUtils.isNotNull(perm)) {

@@ -2,7 +2,7 @@
 
 ## 技术概要
 
-![1563429024642](dreamland-doc/images/20190718131441.png)
+![1563429024642](dreamland/images/20190718131441.png)
 
 - Spring Cloud：微服务架构集大成者，云计算最佳业务实践
   - Zuul：网关

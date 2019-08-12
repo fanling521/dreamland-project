@@ -3,8 +3,9 @@ package com.fanling.dreamland.controller;
 import com.fanling.dreamland.R;
 import com.fanling.dreamland.auth.JwtTokenService;
 import com.fanling.dreamland.auth.annotations.UseJwtToken;
-import com.fanling.dreamland.entitys.request.LoginForm;
-import com.fanling.dreamland.entitys.system.SysUser;
+import com.fanling.dreamland.config.SystemEnum;
+import com.fanling.dreamland.entity.LoginForm;
+import com.fanling.dreamland.entity.SysUser;
 import com.fanling.dreamland.service.ISysRoleService;
 import com.fanling.dreamland.service.ISysUserService;
 import com.fanling.dreamland.utils.PasswordUtil;
@@ -21,7 +22,7 @@ import java.util.Date;
 
 @Api(tags = "登录和用户验证")
 @RestController
-@RequestMapping("/system")
+@RequestMapping("/system/auth")
 public class LoginController extends BaseController {
 
     @Autowired
@@ -37,25 +38,24 @@ public class LoginController extends BaseController {
     @PostMapping("/login")
     public R login(@RequestBody LoginForm loginForm) {
         // 查询用户信息和密码验证
-        SysUser user = sysUserService.selectUserByPhone(loginForm.getUsername());
+        SysUser user = sysUserService.selectUserByPhone(loginForm.getAccount());
         if (user == null) {
-            user = sysUserService.selectUserByEmail(loginForm.getUsername());
+            user = sysUserService.selectUserByEmail(loginForm.getAccount());
             if (user == null) {
                 return error("用户不存在！");
             }
         }
-        if ("1".equals(user.getStatus())) {
+        if (SystemEnum.USER_DISABLE.getCode().equals(user.getStatus())) {
             return error("您的账户已经禁用！");
         }
-        if (!PasswordUtil.matches(user, loginForm.getPassword())) {
+        if (!matches(user, loginForm.getPassword())) {
             return error("账号和密码不匹配！");
         }
         //记录登录信息
-        user.setLogin_ip("");
-        user.setLogin_date(new Date());
-        sysUserService.updateUserLoginInfo(user);
+        recordLoginInfo(user);
         //颁发token
-        return R.success(jwtTokenService.createToken(user.getUser_id(), user.getPhone(), user.getPassword()));
+        R data = jwtTokenService.createToken(user.getUser_id(), user.getPhone(), user.getPassword());
+        return R.success(data);
     }
 
     @UseJwtToken(required = false)
@@ -68,7 +68,7 @@ public class LoginController extends BaseController {
         }
         //获取用户信息和权限，路由等信息
         R result = new R();
-        SysUser sysUser = sysUserService.selectUserById(jwtTokenService.getUserId(token));
+        SysUser sysUser = sysUserService.selectById(jwtTokenService.getUserId(token));
         if (sysUser != null) {
             result.put("uid", sysUser.getUser_id());
             result.put("name", sysUser.getUser_name());
@@ -89,9 +89,33 @@ public class LoginController extends BaseController {
     @ApiImplicitParam(name = "userId", value = "用户标识", dataType = "String", paramType = "path")
     @PostMapping("/logout/{userId}")
     public R logout(@PathVariable("userId") String userId) {
-        if (StringUtils.isNotEmpty(userId)) {
-            jwtTokenService.expireToken(userId);
+        SysUser sysUser = sysUserService.selectById(userId);
+        if (sysUser != null) {
+            if (StringUtils.isNotEmpty(userId)) {
+                jwtTokenService.expireToken(userId);
+            }
         }
         return R.success();
+    }
+
+    /**
+     * 验证密码
+     *
+     * @param user
+     * @param newPassword
+     * @return
+     */
+    private boolean matches(SysUser user, String newPassword) {
+        String pwd = PasswordUtil.encryptPassword(user.getPhone(), newPassword, user.getSalt());
+        return user.getPassword().equals(pwd);
+    }
+
+    /**
+     * 记录登录信息
+     */
+    private void recordLoginInfo(SysUser user) {
+        user.setLogin_ip("");
+        user.setLogin_date(new Date());
+        sysUserService.updateUserLoginInfo(user);
     }
 }

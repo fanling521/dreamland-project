@@ -1,7 +1,7 @@
 package com.fanling.dreamland.service;
 
-
-import com.fanling.dreamland.entitys.system.SysRole;
+import com.fanling.dreamland.common.IService;
+import com.fanling.dreamland.entity.SysRole;
 
 import java.util.List;
 import java.util.Set;
@@ -9,48 +9,13 @@ import java.util.Set;
 /**
  *
  */
-public interface ISysRoleService {
-    /**
-     * 根据条件返回角色表的信息，可查询和分页
-     *
-     * @param role
-     */
-    List<SysRole> selectRoleList(SysRole role);
-
+public interface ISysRoleService extends IService<SysRole> {
     /**
      * 根据用户ID查询角色
      *
      * @param userId
      */
-    List<SysRole> selectRolesByUserId(String userId);
-
-    /**
-     * 通过角色ID查询角色
-     *
-     * @param roleId
-     */
-    SysRole selectRoleById(String roleId);
-
-    /**
-     * 通过角色ID删除角色
-     *
-     * @param roleId
-     */
-    int deleteRoleById(String roleId);
-
-    /**
-     * 修改角色信息
-     *
-     * @param role
-     */
-    int updateRole(SysRole role);
-
-    /**
-     * 新增角色信息
-     *
-     * @param role
-     */
-    int insertRole(SysRole role);
+    List<SysRole> ListById(String userId);
 
     /**
      * 校验角色名称是否唯一

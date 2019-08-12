@@ -1,7 +1,7 @@
 package com.fanling.dreamland.web;
 
 import com.fanling.dreamland.R;
-import com.fanling.dreamland.entitys.BaseSearch;
+import com.fanling.dreamland.common.entity.BaseSearch;
 import com.fanling.dreamland.utils.SqlUtil;
 import com.fanling.dreamland.utils.StringUtils;
 import com.github.pagehelper.PageHelper;

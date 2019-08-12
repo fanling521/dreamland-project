@@ -1,0 +1,26 @@
+server:
+  port: 7003
+spring:
+  profiles:
+    active: test
+  application:
+    name: geteway-service
+zuul:
+  routes:
+    system-service:
+      path: /system-service/**
+      serviceId: system-service
+    module-service:
+      path: /module-service/**
+      serviceId: module-service
+eureka:
+  client:
+    fetch-registry: true       #发现服务
+    register-with-eureka: true #注册服务
+    service-url:
+      defaultZone: http://localhost:7000/eureka/
+logging:
+  level:
+    com.fanling.dreamland: debug
+    org.springframework: warn
+  file: D:/logs/dreamland/geteway-service/wraper.log
