@@ -1,6 +1,6 @@
 package com.fanling.dreamland.service.impl;
 
-import com.fanling.dreamland.common.ServiceImpl;
+import com.fanling.dreamland.common.service.ServiceImpl;
 import com.fanling.dreamland.config.SystemEnum;
 import com.fanling.dreamland.entity.SysRole;
 import com.fanling.dreamland.mapper.SysRoleMapper;

@@ -1,6 +1,6 @@
 package com.fanling.dreamland.service.impl;
 
-import com.fanling.dreamland.common.ServiceImpl;
+import com.fanling.dreamland.common.service.ServiceImpl;
 import com.fanling.dreamland.entity.SysConfig;
 import com.fanling.dreamland.mapper.SysConfigMapper;
 import com.fanling.dreamland.service.ISysConfigService;

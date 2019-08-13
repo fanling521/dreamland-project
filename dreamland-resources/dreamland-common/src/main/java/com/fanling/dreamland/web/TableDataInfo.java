@@ -1,5 +1,6 @@
 package com.fanling.dreamland.web;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +11,7 @@ import java.util.List;
 /**
  * 表格分页数据对象
  */
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class TableDataInfo implements Serializable {
     private static final long serialVersionUID = 1L;

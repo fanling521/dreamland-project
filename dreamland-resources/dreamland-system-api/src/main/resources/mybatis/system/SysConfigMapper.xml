@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwt.capability.mapper.SysConfigMapper">
+    <resultMap type="SysConfig" id="baseResult">
+        <id property="id" column="id"/>
+        <result property="config_name" column="config_name"/>
+        <result property="config_key" column="config_key"/>
+        <result property="config_value" column="config_value"/>
+    </resultMap>
+
+    <sql id="selectVo">
+        select id, config_name, config_key, config_value, create_time
+        from t_sys_config
+    </sql>
+
+    <select id="list" parameterType="SysConfig" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where 1=1
+    </select>
+
+    <select id="selectById" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="SysConfig">
+        insert into t_sys_config(
+        id,
+        <if test="config_name != null and config_name != ''">config_name,</if>
+        <if test="config_key != null and config_key != ''">config_key,</if>
+        <if test="config_value != null and config_value != ''">config_value,</if>
+        create_time
+        )values(
+        uuid(),
+        <if test="config_name != null and config_name != ''">#{config_name},</if>
+        <if test="config_key != null and config_key != ''">#{config_key},</if>
+        <if test="config_value != null and config_value != ''">#{config_value},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="update" parameterType="SysConfig">
+        update t_sys_config
+        <set>
+            <if test="config_name != null and config_name != ''">config_name = #{config_name},</if>
+            <if test="config_key != null and config_key != ''">config_key = #{config_key},</if>
+            <if test="config_value != null and config_value != ''">config_value = #{config_value},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from t_sys_config where id = #{id}
+    </delete>
+
+</mapper>

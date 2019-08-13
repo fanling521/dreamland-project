@@ -56,4 +56,9 @@
         delete from t_app_role where id = #{id}
     </delete>
 
+    <select id="selectByRoleName" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where role_name = #{role_name}
+    </select>
+
 </mapper>

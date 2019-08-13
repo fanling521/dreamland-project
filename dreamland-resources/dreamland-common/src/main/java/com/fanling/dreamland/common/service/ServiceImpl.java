@@ -1,5 +1,6 @@
-package com.fanling.dreamland.common;
+package com.fanling.dreamland.common.service;
 
+import com.fanling.dreamland.common.mapper.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

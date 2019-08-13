@@ -105,7 +105,7 @@ public class StringUtils {
      * @param object Object
      * @return true：为空 false：非空
      */
-    public static boolean isNull(Object object) {
+    private static boolean isNull(Object object) {
         return object == null;
     }
 
@@ -181,7 +181,7 @@ public class StringUtils {
     /**
      * 去空格
      */
-    public static String trim(String str)
+    private static String trim(String str)
     {
         return (str == null ? "" : str.trim());
     }

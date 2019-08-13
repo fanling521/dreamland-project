@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanling.dreamland.mapper.AppUserMapper">
+    <resultMap type="AppUser" id="baseResult">
+        <id property="id" column="id"/>
+        <result property="sex" column="sex"/>
+        <result property="user_name" column="user_name"/>
+        <result property="user_phone" column="user_phone"/>
+        <result property="password" column="password"/>
+        <result property="slat" column="slat"/>
+        <result property="real_name" column="real_name"/>
+        <result property="email" column="email"/>
+        <result property="role_key" column="role_key"/>
+        <result property="last_login_date" column="last_login_date"/>
+        <result property="last_login_ip" column="last_login_ip"/>
+    </resultMap>
+
+    <sql id="selectVo">
+        select
+        id,
+                    sex,
+                    user_name,
+                    user_phone,
+                    password,
+                    slat,
+                    real_name,
+                    email,
+                    role_key,
+                    last_login_date,
+                    last_login_ip,
+                create_time
+        from t_app_user
+    </sql>
+
+    <select id="list" parameterType="AppUser" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where 1=1
+    </select>
+
+    <select id="selectById" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="AppUser">
+        insert into t_app_user(
+        <if test="sex != null and sex != ''">id,</if>
+        <if test="sex != null and sex != ''">sex,</if>
+        <if test="user_name != null and user_name != ''">user_name,</if>
+        <if test="user_phone != null and user_phone != ''">user_phone,</if>
+        <if test="password != null and password != ''">password,</if>
+        <if test="slat != null and slat != ''">slat,</if>
+        <if test="real_name != null and real_name != ''">real_name,</if>
+        <if test="email != null and email != ''">email,</if>
+        <if test="role_key != null and role_key != ''">role_key,</if>
+        <if test="last_login_date != null and last_login_date != ''">last_login_date,</if>
+        <if test="last_login_ip != null and last_login_ip != ''">last_login_ip,</if>
+        create_time
+        )values(
+        <if test="sex != null and sex != ''">#{id},</if>
+        <if test="sex != null and sex != ''">#{sex},</if>
+        <if test="user_name != null and user_name != ''">#{user_name},</if>
+        <if test="user_phone != null and user_phone != ''">#{user_phone},</if>
+        <if test="password != null and password != ''">#{password},</if>
+        <if test="slat != null and slat != ''">#{slat},</if>
+        <if test="real_name != null and real_name != ''">#{real_name},</if>
+        <if test="email != null and email != ''">#{email},</if>
+        <if test="role_key != null and role_key != ''">#{role_key},</if>
+        <if test="last_login_date != null and last_login_date != ''">#{last_login_date},</if>
+        <if test="last_login_ip != null and last_login_ip != ''">#{last_login_ip},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="update" parameterType="AppUser">
+        update t_app_user
+        <set>
+            <if test="sex != null and sex != ''">sex = #{sex},</if>
+            <if test="user_name != null and user_name != ''">user_name = #{user_name},</if>
+            <if test="user_phone != null and user_phone != ''">user_phone = #{user_phone},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="slat != null and slat != ''">slat = #{slat},</if>
+            <if test="real_name != null and real_name != ''">real_name = #{real_name},</if>
+            <if test="email != null and email != ''">email = #{email},</if>
+            <if test="role_key != null and role_key != ''">role_key = #{role_key},</if>
+            <if test="last_login_date != null and last_login_date != ''">last_login_date = #{last_login_date},</if>
+            <if test="last_login_ip != null and last_login_ip != ''">last_login_ip = #{last_login_ip},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from t_app_user where id = #{id}
+    </delete>
+
+    <select id="checkUserExists" parameterType="String" resultType="int">
+        select count(1) from t_app_user where user_phone=#{user_phone} and role_key=#{role_key}
+    </select>
+
+</mapper>

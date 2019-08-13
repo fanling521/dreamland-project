@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanling.dreamland.mapper.SysUserMapper">
+<mapper namespace="com.jwt.capability.mapper.SysUserMapper">
 
     <resultMap type="SysUser" id="SysUserResult">
-        <id property="user_id" column="user_id"/>
+        <id property="id" column="id"/>
         <result property="user_name" column="user_name"/>
         <result property="phone" column="phone"/>
         <result property="email" column="email"/>
@@ -21,7 +21,7 @@
     </resultMap>
 
     <sql id="selectUserVo">
-        select u.user_id,
+        select u.id,
                u.user_name,
                u.password,
                u.phone,
@@ -31,13 +31,13 @@
                u.login_ip,
                u.login_date,
                u.create_time
-        from sys_user u
+        from t_sys_user u
     </sql>
 
-    <select id="selectUserList" parameterType="SysUser" resultMap="SysUserResult">
-        select u.user_id, u.user_name,u.email, u.phone, u.status, u.login_ip, u.login_date, u.create_by,
-        u.create_time,u.update_time
-        from sys_user u
+    <select id="list" parameterType="SysUser" resultMap="SysUserResult">
+        select u.id, u.user_name,u.email, u.phone, u.status, u.login_ip, u.login_date, u.create_by,
+        u.create_time
+        from t_sys_user u
         where 1=1
         <if test="email != null and email != ''">
             AND u.email like concat('%', #{email}, '%')
@@ -53,31 +53,43 @@
         </if>
     </select>
 
-    <select id="selectUserByPhone" parameterType="String" resultMap="SysUserResult">
+    <select id="selectByPhone" parameterType="String" resultMap="SysUserResult">
         <include refid="selectUserVo"/>
         where u.phone = #{phone}
     </select>
 
-    <select id="selectUserByEmail" parameterType="String" resultMap="SysUserResult">
+    <select id="selectByEmail" parameterType="String" resultMap="SysUserResult">
         <include refid="selectUserVo"/>
         where u.email = #{email}
     </select>
 
-    <select id="selectUserById" parameterType="String" resultMap="SysUserResult">
-        <include refid="selectUserVo"/>
-        where u.user_id = #{user_id}
+    <select id="checkPhoneUnique" parameterType="String" resultType="int">
+        select count(1)
+        from t_sys_user
+        where phone = #{phone}
     </select>
 
-    <delete id="deleteUserById" parameterType="String">
+    <select id="checkEmailUnique" parameterType="String" resultType="int">
+        select count(1)
+        from t_sys_user
+        where email = #{email}
+    </select>
+
+    <select id="selectById" parameterType="String" resultMap="SysUserResult">
+        <include refid="selectUserVo"/>
+        where u.id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="String">
         delete
-        from sys_user
-        where user_id = #{user_id}
+        from t_sys_user
+        where id = #{id}
     </delete>
 
-    <update id="updateUser" parameterType="SysUser">
-        update sys_user
+    <update id="update" parameterType="SysUser">
+        update t_sys_user
         <set>
-            <if test="user_id != null and user_id != ''">user_id = #{user_id},</if>
+            <if test="id != null and id != ''">id = #{id},</if>
             <if test="user_name != null and user_name != ''">user_name = #{user_name},</if>
             <if test="phone != null and phone != ''">phone = #{phone},</if>
             <if test="email != null and email != ''">email = #{email},</if>
@@ -88,12 +100,12 @@
             <if test="update_by != null and update_by != ''">update_by = #{update_by},</if>
             update_time = sysdate()
         </set>
-        where user_id = #{user_id}
+        where id = #{id}
     </update>
 
-    <insert id="insertUser" parameterType="SysUser">
-        insert into sys_user(
-        <if test="user_id != null and user_id != ''">user_id,</if>
+    <insert id="insert" parameterType="SysUser">
+        insert into t_sys_user(
+        <if test="id != null and id != ''">id,</if>
         <if test="user_name != null and user_name != ''">user_name,</if>
         <if test="phone != null and phone != ''">phone,</if>
         <if test="email != null and email != ''">email,</if>
@@ -103,7 +115,7 @@
         <if test="create_by != null and create_by != ''">create_by,</if>
         create_time
         )values(
-        <if test="user_id != null and user_id != ''">#{user_id},</if>
+        <if test="id != null and id != ''">#{id},</if>
         <if test="user_name != null and user_name != ''">#{user_name},</if>
         <if test="phone != null and phone != ''">#{phone},</if>
         <if test="email != null and email != ''">#{email},</if>

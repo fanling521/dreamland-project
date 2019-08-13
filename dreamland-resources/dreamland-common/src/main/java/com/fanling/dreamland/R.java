@@ -1,13 +1,15 @@
 package com.fanling.dreamland;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.List;
 
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class R extends HashMap<String, Object> {
 
     private static final long serialVersionUID = -2392317394954973503L;

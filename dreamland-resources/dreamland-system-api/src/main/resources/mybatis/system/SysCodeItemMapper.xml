@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwt.capability.mapper.SysCodeItemMapper">
+
+    <resultMap type="SysCodeItem" id="baseResult">
+        <id property="id" column="id"/>
+        <result property="code_type_id" column="code_type_id"/>
+        <result property="code_item_key" column="code_item_key"/>
+        <result property="code_item_value" column="code_item_value"/>
+    </resultMap>
+
+    <sql id="selectVo">
+        select  id, code_type_id, code_item_key, code_item_value, create_time
+        from t_sys_code_item
+    </sql>
+
+    <select id="list" parameterType="SysCodeItem" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where 1=1  AND code_type_id = #{code_type_id}
+        <if test="code_item_key != null and code_item_key != ''">
+            AND code_item_key like concat('%', #{code_item_key}, '%')
+        </if>
+        <if test="code_item_value != null and code_item_value != ''">
+            AND code_item_value like concat('%', #{code_item_value}, '%')
+        </if>
+        order by code_item_key
+    </select>
+
+    <select id="selectById" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="SysCodeItem">
+        insert into t_sys_code_item(
+        <if test="id != null and id != ''">id,</if>
+        <if test="code_type_id != null and code_type_id != ''">code_type_id,</if>
+        <if test="code_item_key != null and code_item_key != ''">code_item_key,</if>
+        <if test="code_item_value != null and code_item_value != ''">code_item_value,</if>
+        create_time
+        )values(
+        <if test="id != null and id != ''">#{id},</if>
+        <if test="code_type_id != null and code_type_id != ''">#{code_type_id},</if>
+        <if test="code_item_key != null and code_item_key != ''">#{code_item_key},</if>
+        <if test="code_item_value != null and code_item_value != ''">#{code_item_value},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="update" parameterType="SysCodeItem">
+        update t_sys_code_item
+        <set>
+            <if test="code_type_id != null and code_type_id != ''">code_type_id = #{code_type_id},</if>
+            <if test="code_item_key != null and code_item_key != ''">code_item_key = #{code_item_key},</if>
+            <if test="code_item_value != null and code_item_value != ''">code_item_value = #{code_item_value},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from t_sys_code_item where id = #{id}
+    </delete>
+
+    <resultMap id="cacheResult" type="SysCodeMain">
+        <result property="code_type_value" column="code_type_value"/>
+        <collection property="code_item" ofType="java.util.HashMap">
+            <result property="code_item_key" column="code_item_key"/>
+            <result property="code_item_value" column="code_item_value"/>
+        </collection>
+    </resultMap>
+
+    <select id="codeMainItem" resultMap="cacheResult">
+        select b.code_type_value,a.code_item_key,a.code_item_value
+        from t_sys_code_item a inner  join t_sys_code_type b on a.code_type_id=b.id
+        order by b.code_type_value,a.code_item_key
+    </select>
+
+</mapper>

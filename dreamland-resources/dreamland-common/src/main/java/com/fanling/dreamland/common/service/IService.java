@@ -1,12 +1,10 @@
-package com.fanling.dreamland.common;
-
-import org.apache.ibatis.annotations.Param;
+package com.fanling.dreamland.common.service;
 
 import java.util.List;
 
-public interface BaseMapper<T> {
+public interface IService<T> {
     /**
-     * 根据条件查询表的信息
+     * 根据条件查询t表的信息
      *
      * @param t
      * @return
@@ -14,15 +12,15 @@ public interface BaseMapper<T> {
     List<T> list(T t);
 
     /**
-     * 根据id查询表的信息
+     * 根据id查询t表的信息
      *
      * @param id
      * @return
      */
-    T selectById(@Param("id") String id);
+    T selectById(String id);
 
     /**
-     * 新增表的信息
+     * 新增t表的信息
      *
      * @param t
      * @return
@@ -30,7 +28,7 @@ public interface BaseMapper<T> {
     int insert(T t);
 
     /**
-     * 修改表的信息
+     * 修改t表的信息
      *
      * @param t
      * @return
@@ -38,10 +36,10 @@ public interface BaseMapper<T> {
     int update(T t);
 
     /**
-     * 根据id删除表的信息
+     * 根据id删除t表的信息
      *
      * @param id
      * @return
      */
-    int delete(@Param("id") String id);
+    int delete(String id);
 }

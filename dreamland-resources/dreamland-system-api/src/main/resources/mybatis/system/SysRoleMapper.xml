@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanling.dreamland.mapper.SysRoleMapper">
+<mapper namespace="com.jwt.capability.mapper.SysRoleMapper">
 
     <resultMap type="SysRole" id="RoleResult">
-        <id property="role_id" column="role_id"/>
+        <id property="id" column="id"/>
         <result property="role_name" column="role_name"/>
         <result property="role_key" column="role_key"/>
         <result property="role_sort" column="role_sort"/>
@@ -17,30 +17,28 @@
     </resultMap>
 
     <sql id="selectRoleContactVo">
-        select distinct r.role_id,
+        select distinct r.id,
                         r.role_name,
                         r.role_key,
                         r.role_sort,
                         r.role_status,
-                        r.create_time,
-                        r.update_time
-        from sys_role r
-                 left join sys_user_role ur on ur.role_id = r.role_id
-                 left join sys_user u on u.user_id = ur.user_id
+                        r.create_time
+        from t_sys_role r
+                 left join t_sys_user_role ur on ur.role_id = r.id
+                 left join t_sys_user u on u.id = ur.user_id
     </sql>
 
     <sql id="selectRoleVo">
-        select r.role_id,
+        select r.id,
                r.role_name,
                r.role_key,
                r.role_sort,
                r.role_status,
-               r.create_time,
-               r.update_time
-        from sys_role r
+               r.create_time
+        from t_sys_role r
     </sql>
 
-    <select id="selectRoleList" parameterType="SysRole" resultMap="RoleResult">
+    <select id="list" parameterType="SysRole" resultMap="RoleResult">
         <include refid="selectRoleContactVo"/>
         where 1=1
         <if test="role_name != null and role_name != ''">
@@ -51,34 +49,34 @@
         </if>
     </select>
 
-    <select id="selectRolesByUserId" parameterType="String" resultMap="RoleResult">
+    <select id="listById" parameterType="String" resultMap="RoleResult">
         <include refid="selectRoleContactVo"/>
         WHERE ur.user_id = #{user_id}
     </select>
 
-    <select id="selectRoleById" parameterType="String" resultMap="RoleResult">
+    <select id="selectById" parameterType="String" resultMap="RoleResult">
         <include refid="selectRoleVo"/>
-        where r.role_id = #{role_id}
+        where r.id = #{id}
     </select>
 
     <select id="checkRoleNameUnique" parameterType="String" resultType="int">
-        select count(1) from sys_role
+        select count(1) from t_sys_role
         where role_name=#{role_name}
     </select>
 
     <select id="checkRoleKeyUnique" parameterType="String" resultType="int">
-         select count(1) from sys_role
+         select count(1) from t_sys_role
         where role_key=#{role_key}
     </select>
 
-    <delete id="deleteRoleById" parameterType="String">
+    <delete id="delete" parameterType="String">
         delete
-        from sys_role
-        where role_id = #{role_id}
+        from t_sys_role
+        where id = #{id}
     </delete>
 
-    <update id="updateRole" parameterType="SysRole">
-        update sys_role
+    <update id="update" parameterType="SysRole">
+        update t_sys_role
         <set>
             <if test="role_name != null and role_name != ''">role_name = #{role_name},</if>
             <if test="role_key != null and role_key != ''">role_key = #{role_key},</if>
@@ -87,12 +85,12 @@
             <if test="update_by != null and update_by != ''">update_by = #{update_by},</if>
             update_time = sysdate()
         </set>
-        where role_id = #{role_id}
+        where id = #{id}
     </update>
 
-    <insert id="insertRole" parameterType="SysRole">
-        insert into sys_role(
-        <if test="role_id != null and role_id != ''">role_id,</if>
+    <insert id="insert" parameterType="SysRole">
+        insert into t_sys_role(
+        <if test="id != null and id != ''">id,</if>
         <if test="role_name != null and role_name != ''">role_name,</if>
         <if test="role_key != null and role_key != ''">role_key,</if>
         <if test="role_sort != null and role_sort != ''">role_sort,</if>
@@ -100,7 +98,7 @@
         <if test="create_by != null and create_by != ''">create_by,</if>
         create_time
         )values(
-        <if test="role_id != null and role_id != ''">#{role_id},</if>
+        <if test="id != null and id != ''">#{id},</if>
         <if test="role_name != null and role_name != ''">#{role_name},</if>
         <if test="role_key != null and role_key != ''">#{role_key},</if>
         <if test="role_sort != null and role_sort != ''">#{role_sort},</if>
