@@ -27,6 +27,7 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-crypto-hash</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>

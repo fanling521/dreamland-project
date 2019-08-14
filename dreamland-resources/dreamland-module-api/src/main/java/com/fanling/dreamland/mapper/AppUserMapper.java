@@ -8,13 +8,12 @@ import org.apache.ibatis.annotations.Param;
  * APP用户表的数据层
  */
 public interface AppUserMapper extends BaseMapper<AppUser> {
-
     /**
-     * 检查用户是否重复注册
+     * 登录信息获取
      *
-     * @param phone 手机号
-     * @param key   角色（用户类型）
+     * @param phone
+     * @param key
      * @return
      */
-    boolean checkUserExists(@Param("user_phone") String phone, @Param("role_key") String key);
+    AppUser selectByLogin(@Param("user_phone") String phone, @Param("role_key") String key);
 }

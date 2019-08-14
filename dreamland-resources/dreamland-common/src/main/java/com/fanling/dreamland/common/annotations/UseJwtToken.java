@@ -1,4 +1,4 @@
-package com.fanling.dreamland.auth.annotations;
+package com.fanling.dreamland.common.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

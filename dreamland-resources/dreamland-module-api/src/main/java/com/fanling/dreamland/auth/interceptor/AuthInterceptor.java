@@ -1,8 +1,10 @@
 package com.fanling.dreamland.auth.interceptor;
 
+import com.fanling.dreamland.auth.JwtTokenService;
 import com.fanling.dreamland.common.annotations.UseJwtToken;
 import com.fanling.dreamland.common.exception.AuthTokenException;
-import com.fanling.dreamland.entity.SysUser;
+import com.fanling.dreamland.entity.AppUser;
+import com.fanling.dreamland.service.IAppUserService;
 import com.fanling.dreamland.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
@@ -18,10 +20,10 @@ import java.lang.reflect.Method;
 public class AuthInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private com.fanling.dreamland.service.ISysUserService sysUserService;
+    private IAppUserService appUserService;
 
     @Autowired
-    private com.fanling.dreamland.auth.JwtTokenService jwtTokenService;
+    private JwtTokenService jwtTokenService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -41,12 +43,12 @@ public class AuthInterceptor implements HandlerInterceptor {
                     throw new AuthTokenException("Token值为空，无法处理请求！");
                 }
                 // 获取 token 中的 user id
-                SysUser sysUser = sysUserService.selectById(jwtTokenService.getUserId(token));
-                if (sysUser == null) {
+                AppUser appUser = appUserService.selectById(jwtTokenService.getUserId(token));
+                if (appUser == null) {
                     throw new AuthTokenException("用户不存在，请重新登录！");
                 } else {
                     //在这里直接取redis中的数据
-                    String redisToken = jwtTokenService.getToken(sysUser.getUser_id());
+                    String redisToken = jwtTokenService.getToken(appUser.getId());
                     if (StringUtils.isEmpty(redisToken) || !redisToken.equals(token)) {
                         throw new AuthTokenException("Token验证失败，请重新登录！");
                     }

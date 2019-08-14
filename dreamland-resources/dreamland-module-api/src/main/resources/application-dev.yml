@@ -16,7 +16,7 @@ spring:
       max-file-size:  10MB
       max-request-size:  20MB
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/dreamland?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
+    url: jdbc:mysql://127.0.0.1:3306/dreamland_test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
     username: root
     password: root@12345
   application:
@@ -24,11 +24,10 @@ spring:
   main:
     allow-bean-definition-overriding: true
   redis:
-    database: 1
     host: 127.0.0.1
-    #password: myRedis_IS_CLOSED
     port: 6379
     timeout: 300
+
 eureka:
   client:
     fetch-registry: true       #发现服务
@@ -43,8 +42,8 @@ logging:
   file: D:/logs/dreamland/module-service/wraper.log
 
 mybatis:
-  typeAliasesPackage: com.fanling.dreamland.entitys
-  mapperLocations: classpath*:mybatis/system/*Mapper.xml
+  typeAliasesPackage: com.fanling.dreamland.entity
+  mapperLocations: classpath*:mybatis/mapper/*Mapper.xml
   configLocation: classpath:mybatis/mybatis-config.xml
 
 pagehelper:

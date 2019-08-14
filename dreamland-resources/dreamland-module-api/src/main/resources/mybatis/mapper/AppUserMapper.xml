@@ -96,8 +96,9 @@
         delete from t_app_user where id = #{id}
     </delete>
 
-    <select id="checkUserExists" parameterType="String" resultType="int">
-        select count(1) from t_app_user where user_phone=#{user_phone} and role_key=#{role_key}
+    <select id="selectByLogin" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where user_phone=#{user_phone} and role_key=#{role_key}
     </select>
 
 </mapper>

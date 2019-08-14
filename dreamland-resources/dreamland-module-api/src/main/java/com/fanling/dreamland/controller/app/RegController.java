@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-@Api(tags = "APP系统注册相关")
+@Api(tags = "APP系统注册服务")
 @RestController
 @RequestMapping("/app/reg")
 public class RegController extends BaseController {
@@ -41,24 +41,24 @@ public class RegController extends BaseController {
     @Autowired
     private IAppDeviceInfoService appDeviceInfoService;
 
-    @ApiOperation(value = "用户注册", notes = "普通用户注册成为系统的普通会员，后续信息将自行填写")
+    @ApiOperation(value = "用户注册", notes = "用户注册填写手机号、用户类型和验证码提交注册，后续信息将自行填写")
     @ApiImplicitParam(name = "regBody", value = "注册信息", dataType = "RegBody", paramType = "body")
     @PostMapping("/reg_by_captcha")
     public R commonReg(@RequestBody RegBody regBody) {
-        if (!captchaService.checkCaptcha(regBody.getAccount(), regBody.getPassword())) {
-            return error("验证码验证失败，请重新获取!");
-        }
         //校验信息
         if (StringUtils.isEmpty(regBody.getAccount())) {
             return error("手机号码不能为空！");
+        }
+        if (StringUtils.isEmpty(regBody.getPassword())) {
+            return error("验证码不能为空！");
         }
         //检查权限是否正确
         if (StringUtils.isEmpty(regBody.getRole_key())) {
             return error("请选择正确的用户类型！");
         }
-        //检查是否重复注册
-        if (appUserService.checkUserExists(regBody.getAccount(), regBody.getRole_key())) {
-            return error("重复注册！");
+        //验证码
+        if (!captchaService.checkCaptcha(regBody.getAccount(), regBody.getPassword())) {
+            return error("验证码已经失效，请重新获取!");
         }
         AppRole appRole = appRoleService.selectByRoleName(regBody.getRole_key());
         if (appRole == null) {

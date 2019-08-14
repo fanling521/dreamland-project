@@ -4,6 +4,7 @@ import com.fanling.dreamland.common.service.ServiceImpl;
 import com.fanling.dreamland.entity.AppUser;
 import com.fanling.dreamland.mapper.AppUserMapper;
 import com.fanling.dreamland.service.IAppUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,16 +12,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AppUserServiceImpl extends ServiceImpl<AppUserMapper,AppUser> implements IAppUserService {
-
+    @Autowired
+    protected AppUserMapper appUserMapper;
     /**
-     * 检查用户是否重复注册
+     * 登录信息获取
      *
-     * @param phone 手机号
-     * @param key   角色（用户类型）
+     * @param phone
+     * @param key
      * @return
      */
     @Override
-    public boolean checkUserExists(String phone, String key) {
-        return false;
+    public AppUser selectByLogin(String phone, String key) {
+        return appUserMapper.selectByLogin(phone, key);
     }
 }

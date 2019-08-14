@@ -1,7 +1,7 @@
 package com.fanling.dreamland.controller;
 
 import com.fanling.dreamland.R;
-import com.fanling.dreamland.auth.annotations.UseJwtToken;
+import com.fanling.dreamland.common.annotations.UseJwtToken;
 import com.fanling.dreamland.config.SystemEnum;
 import com.fanling.dreamland.entity.search.SysRoleSearch;
 import com.fanling.dreamland.entity.SysRole;

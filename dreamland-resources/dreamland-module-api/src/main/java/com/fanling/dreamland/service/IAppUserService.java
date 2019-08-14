@@ -8,11 +8,11 @@ import com.fanling.dreamland.entity.AppUser;
  */
 public interface IAppUserService extends IService<AppUser> {
     /**
-     * 检查用户是否重复注册
+     * 登录信息获取
      *
-     * @param phone 手机号
-     * @param key 角色（用户类型）
+     * @param phone
+     * @param key
      * @return
      */
-    boolean checkUserExists(String phone, String key);
+    AppUser selectByLogin(String phone, String key);
 }

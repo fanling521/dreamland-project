@@ -5,9 +5,10 @@ spring:
     active: test
   application:
     name: eureka-service
-  main:
-    # 当遇到同样名字的时候，是否允许覆盖注册
-    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/dreamland?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
+    username: root
+    password: root@12345
 eureka:
   instance:
     hostname: localhost

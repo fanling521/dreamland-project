@@ -1,7 +1,7 @@
 package com.fanling.dreamland.controller;
 
 import com.fanling.dreamland.R;
-import com.fanling.dreamland.auth.annotations.UseJwtToken;
+import com.fanling.dreamland.common.annotations.UseJwtToken;
 import com.fanling.dreamland.config.CodeMainCache;
 import com.fanling.dreamland.entity.search.SysCodeItemSearch;
 import com.fanling.dreamland.entity.SysCodeItem;

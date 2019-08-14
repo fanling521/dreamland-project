@@ -1,6 +1,8 @@
 package com.fanling.dreamland.config;
 
 import com.fanling.dreamland.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -12,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class CaptchaService {
+    private final Logger logger = LoggerFactory.getLogger(CaptchaService.class);
     //过期时间
     private final static long EXPIRE = 60;
 
@@ -29,14 +32,9 @@ public class CaptchaService {
      * @return
      */
     public boolean checkCaptcha(String phone, String captcha) {
-
         String redisCaptcha = ops.get("PHONE_" + phone);
-        assert redisCaptcha != null;
-        if (redisCaptcha.equals(captcha)) {
-            return true;
-        }
         redisTemplate.delete("PHONE_" + phone);
-        return false;
+        return captcha.equals(redisCaptcha);
     }
 
     /**
@@ -45,7 +43,7 @@ public class CaptchaService {
      * @return
      */
     public boolean getCaptcha(String phone) {
-        return StringUtils.isEmpty(ops.get("PHONE_" + phone));
+        return StringUtils.isNotEmpty(ops.get("PHONE_" + phone));
     }
 
     /**
@@ -54,6 +52,7 @@ public class CaptchaService {
      */
     public void setCaptcha(String phone, String captcha) {
         ops.set("PHONE_" + phone, captcha, EXPIRE, TimeUnit.SECONDS);
+        logger.info("---> 设置redis手机验证码：{}-{}", phone, captcha);
     }
 
     /**

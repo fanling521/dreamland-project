@@ -2,7 +2,7 @@ package com.fanling.dreamland.controller;
 
 import com.fanling.dreamland.R;
 import com.fanling.dreamland.auth.JwtTokenService;
-import com.fanling.dreamland.auth.annotations.UseJwtToken;
+import com.fanling.dreamland.common.annotations.UseJwtToken;
 import com.fanling.dreamland.config.SystemEnum;
 import com.fanling.dreamland.entity.LoginForm;
 import com.fanling.dreamland.entity.SysUser;
