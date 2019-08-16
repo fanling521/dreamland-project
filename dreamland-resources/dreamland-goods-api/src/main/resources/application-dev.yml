@@ -1,5 +1,5 @@
 server:
-  port: 7003
+  port: 7004
   tomcat:
     uri-encoding: UTF-8
     max-threads: 800
@@ -20,7 +20,7 @@ spring:
     username: root
     password: root@12345
   application:
-    name: system-service
+    name: goods-service
   main:
     allow-bean-definition-overriding: true
   redis:
@@ -39,7 +39,7 @@ logging:
   level:
     com.fanling.dreamland: debug
     org.springframework: warn
-  file: D:/logs/dreamland/module-service/wraper.log
+  file: D:/logs/dreamland/goods-service/wraper.log
 
 mybatis:
   typeAliasesPackage: com.fanling.dreamland.entity

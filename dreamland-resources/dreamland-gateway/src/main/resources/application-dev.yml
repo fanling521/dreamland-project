@@ -15,8 +15,8 @@ zuul:
       path: /system-service/**
       serviceId: system-service
     module-service:
-      path: /module-service/**
-      serviceId: module-service
+      path: /auth-service/**
+      serviceId: auth-service
 eureka:
   client:
     fetch-registry: true       #发现服务

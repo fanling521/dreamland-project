@@ -1,4 +1,4 @@
-package com.fanling.dreamland.config;
+package dreamland.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * http://localhost:7003/doc.html?cache=1&lang=zh
+ * http://localhost:7005/doc.html?cache=1&lang=zh
  */
 @Configuration
 @EnableSwagger2
@@ -30,9 +30,9 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("DreamLand-模块服务")
-                .description("DreamLand系统模块接口文档说明")
-                .termsOfServiceUrl("http://localhost:7003")
+                .title("DreamLand-商品中心")
+                .description("DreamLand商品中心接口文档说明")
+                .termsOfServiceUrl("http://localhost:7005")
                 .contact(new Contact("樊领", "https://github.com/fanling521", "862844083@qq.com"))
                 .version("1.0")
                 .build();
