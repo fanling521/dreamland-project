@@ -1,4 +1,4 @@
 package com.fanling.dreamland.entity;
 
-public class SecondaryCategory {
+public class Article {
 }

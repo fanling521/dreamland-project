@@ -1,4 +1,4 @@
 package com.fanling.dreamland.service.impl;
 
-public class SecondaryCategoryServiceImpl {
+public class ArticleServiceImpl {
 }

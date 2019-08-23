@@ -1,4 +1,4 @@
-package dreamland.config;
+package com.fanling.dreamland.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
