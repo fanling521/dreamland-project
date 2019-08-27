@@ -14,7 +14,6 @@
         <module>dreamland-system-api</module>
         <module>dreamland-eureka</module>
         <module>dreamland-gateway</module>
-        <module>dreamland-goods-api</module>
         <module>dreamland-order-api</module>
     </modules>
     <properties>

@@ -1,4 +1,11 @@
 package com.fanling.dreamland.mapper;
 
-public class AfterSaleMapper {
+import com.fanling.dreamland.entity.AfterSale;
+import com.fanling.dreamland.common.mapper.BaseMapper;
+
+/**
+ * 售后处理的数据层
+ */
+public interface AfterSaleMapper extends BaseMapper<AfterSale> {
+
 }

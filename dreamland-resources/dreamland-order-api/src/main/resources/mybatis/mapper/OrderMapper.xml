@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanling.dreamland.mapper.OrderMapper">
+    <resultMap type="Order" id="baseResult">
+        <id property="id" column="id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="goods_id" column="goods_id"/>
+        <result property="p_user_id" column="p_user_id"/>
+        <result property="order_status" column="order_status"/>
+        <result property="order_no" column="order_no"/>
+    </resultMap>
+
+    <sql id="selectVo">
+        select
+        id,
+                    user_id,
+                    goods_id,
+                    p_user_id,
+                    order_status,
+                    order_no,
+                create_time
+        from t_order
+    </sql>
+
+    <select id="list" parameterType="Order" resultMap="baseResult">
+        <include refid="selectVo"/>
+        <where>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="Order">
+        insert into t_order(
+        id,
+        <if test="user_id != null and user_id != ''">user_id,</if>
+        <if test="goods_id != null and goods_id != ''">goods_id,</if>
+        <if test="p_user_id != null and p_user_id != ''">p_user_id,</if>
+        <if test="order_status != null and order_status != ''">order_status,</if>
+        <if test="order_no != null and order_no != ''">order_no,</if>
+        create_time
+        )values(
+        uuid(),
+        <if test="user_id != null and user_id != ''">#{user_id},</if>
+        <if test="goods_id != null and goods_id != ''">#{goods_id},</if>
+        <if test="p_user_id != null and p_user_id != ''">#{p_user_id},</if>
+        <if test="order_status != null and order_status != ''">#{order_status},</if>
+        <if test="order_no != null and order_no != ''">#{order_no},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="update" parameterType="Order">
+        update t_order
+        <set>
+            <if test="user_id != null and user_id != ''">user_id = #{user_id},</if>
+            <if test="goods_id != null and goods_id != ''">goods_id = #{goods_id},</if>
+            <if test="p_user_id != null and p_user_id != ''">p_user_id = #{p_user_id},</if>
+            <if test="order_status != null and order_status != ''">order_status = #{order_status},</if>
+            <if test="order_no != null and order_no != ''">order_no = #{order_no},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from t_order where id = #{id}
+    </delete>
+
+</mapper>

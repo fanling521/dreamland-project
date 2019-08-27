@@ -4,13 +4,13 @@ import com.fanling.dreamland.common.entity.BaseSearch;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Date;
-
 /**
- * 售后处理
+ * 文章信息表
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class AfterSaleSearch extends BaseSearch {
+public class ArticleSearch extends BaseSearch {
     private static final long serialVersionUID = 1L;
+    // 标题
+    private String title;
 }

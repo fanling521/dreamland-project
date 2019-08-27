@@ -30,8 +30,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("DreamLand-商品中心")
-                .description("DreamLand商品中心接口文档说明")
+                .title("DreamLand-订单系统")
+                .description("DreamLand订单系统接口文档说明")
                 .termsOfServiceUrl("http://localhost:7005")
                 .contact(new Contact("樊领", "https://github.com/fanling521", "862844083@qq.com"))
                 .version("1.0")

@@ -4,13 +4,13 @@ import com.fanling.dreamland.common.entity.BaseSearch;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Date;
-
 /**
- * 售后处理
+ * 商品品牌表
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class AfterSaleSearch extends BaseSearch {
+public class BrandSearch extends BaseSearch {
     private static final long serialVersionUID = 1L;
+    // 品牌英文名称
+    private String b_e_name;
 }
