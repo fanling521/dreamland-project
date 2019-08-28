@@ -1,9 +1,9 @@
 package com.fanling.dreamland.controller;
 
-import com.fanling.dreamland.R;
-import com.fanling.dreamland.web.TableDataInfo;
-import com.fanling.dreamland.utils.StringUtils;
-import com.fanling.dreamland.web.BaseController;
+import com.fanling.common.R;
+import com.fanling.common.utils.StringUtils;
+import com.fanling.common.web.BaseController;
+import com.fanling.common.web.TableDataInfo;
 import com.fanling.dreamland.entity.search.OrderSearch;
 import com.fanling.dreamland.entity.Order;
 import com.fanling.dreamland.service.IOrderService;

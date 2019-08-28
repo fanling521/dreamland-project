@@ -1,16 +1,16 @@
 package com.fanling.dreamland.controller;
 
-import com.fanling.dreamland.R;
+import com.fanling.common.R;
+import com.fanling.common.utils.StringUtils;
+import com.fanling.common.web.BaseController;
+import com.fanling.dreamland.auth.DefaultEnum;
 import com.fanling.dreamland.auth.JwtTokenService;
-import com.fanling.dreamland.common.annotations.UseJwtToken;
-import com.fanling.dreamland.config.SystemEnum;
+import com.fanling.dreamland.auth.annotations.UseJwtToken;
+import com.fanling.dreamland.auth.utils.PasswordUtil;
 import com.fanling.dreamland.entity.LoginForm;
 import com.fanling.dreamland.entity.SysUser;
 import com.fanling.dreamland.service.ISysRoleService;
 import com.fanling.dreamland.service.ISysUserService;
-import com.fanling.dreamland.utils.PasswordUtil;
-import com.fanling.dreamland.utils.StringUtils;
-import com.fanling.dreamland.web.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -45,7 +45,7 @@ public class LoginController extends BaseController {
                 return error("用户不存在！");
             }
         }
-        if (SystemEnum.USER_DISABLE.getCode().equals(user.getStatus())) {
+        if (DefaultEnum.USER_DISABLE.getCode().equals(user.getStatus())) {
             return error("您的账户已经禁用！");
         }
         if (!matches(user, loginForm.getPassword())) {

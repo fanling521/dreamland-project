@@ -10,10 +10,7 @@
     <version>2.0.0</version>
     <modules>
         <module>dreamland-auth-api</module>
-        <module>dreamland-common</module>
         <module>dreamland-system-api</module>
-        <module>dreamland-eureka</module>
-        <module>dreamland-gateway</module>
         <module>dreamland-order-api</module>
     </modules>
     <properties>
@@ -104,24 +101,11 @@
                 <artifactId>swagger-bootstrap-ui</artifactId>
                 <version>${swagger-bootstrap-ui.version}</version>
             </dependency>
-            <!-- ######################项目工程包###################### -->
-            <!-- 通用包 -->
+            <!-- 功能包 -->
             <dependency>
-                <groupId>com.fanling.dreamland</groupId>
-                <artifactId>dreamland-common</artifactId>
-                <version>${dreamland.verison}</version>
-            </dependency>
-            <!-- module-service -->
-            <dependency>
-                <groupId>com.fanling.dreamland</groupId>
-                <artifactId>dreamland-module-service</artifactId>
-                <version>${dreamland.verison}</version>
-            </dependency>
-            <!-- system-service -->
-            <dependency>
-                <groupId>com.fanling.dreamland</groupId>
-                <artifactId>dreamland-system-service</artifactId>
-                <version>${dreamland.verison}</version>
+                <groupId>com.fanling</groupId>
+                <artifactId>fanl-common</artifactId>
+                <version>1.0.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

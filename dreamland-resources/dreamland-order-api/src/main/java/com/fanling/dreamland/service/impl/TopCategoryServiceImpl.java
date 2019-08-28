@@ -1,6 +1,6 @@
 package com.fanling.dreamland.service.impl;
 
-import com.fanling.dreamland.common.service.ServiceImpl;
+import com.fanling.common.service.ServiceImpl;
 import com.fanling.dreamland.entity.TopCategory;
 import com.fanling.dreamland.mapper.TopCategoryMapper;
 import com.fanling.dreamland.service.ITopCategoryService;

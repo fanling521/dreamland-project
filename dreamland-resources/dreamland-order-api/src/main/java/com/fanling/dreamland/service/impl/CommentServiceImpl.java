@@ -1,9 +1,9 @@
 package com.fanling.dreamland.service.impl;
 
+import com.fanling.common.service.ServiceImpl;
 import com.fanling.dreamland.entity.Comment;
 import com.fanling.dreamland.mapper.CommentMapper;
 import com.fanling.dreamland.service.ICommentService;
-import com.fanling.dreamland.common.service.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,7 +1,7 @@
 package com.fanling.dreamland.mapper;
 
 import com.fanling.dreamland.entity.AfterSale;
-import com.fanling.dreamland.common.mapper.BaseMapper;
+import com.fanling.common.mapper.BaseMapper;
 
 /**
  * 售后处理的数据层

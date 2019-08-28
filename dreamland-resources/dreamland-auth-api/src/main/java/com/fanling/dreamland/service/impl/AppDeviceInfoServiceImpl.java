@@ -1,6 +1,6 @@
 package com.fanling.dreamland.service.impl;
 
-import com.fanling.dreamland.common.service.ServiceImpl;
+import com.fanling.common.service.ServiceImpl;
 import com.fanling.dreamland.entity.AppDeviceInfo;
 import com.fanling.dreamland.mapper.AppDeviceInfoMapper;
 import com.fanling.dreamland.service.IAppDeviceInfoService;

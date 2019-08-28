@@ -1,9 +1,9 @@
 package com.fanling.dreamland.service.impl;
 
+import com.fanling.common.service.ServiceImpl;
 import com.fanling.dreamland.entity.Payment;
 import com.fanling.dreamland.mapper.PaymentMapper;
 import com.fanling.dreamland.service.IPaymentService;
-import com.fanling.dreamland.common.service.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

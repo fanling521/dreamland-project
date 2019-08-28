@@ -2,8 +2,8 @@ package com.fanling.dreamland.auth;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.fanling.dreamland.R;
-import com.fanling.dreamland.utils.StringUtils;
+import com.fanling.common.R;
+import com.fanling.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;

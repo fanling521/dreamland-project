@@ -1,14 +1,14 @@
 package com.fanling.dreamland.controller;
 
-import com.fanling.dreamland.R;
-import com.fanling.dreamland.common.annotations.UseJwtToken;
-import com.fanling.dreamland.config.SystemEnum;
+import com.fanling.common.R;
+import com.fanling.common.utils.StringUtils;
+import com.fanling.common.web.BaseController;
+import com.fanling.common.web.TableDataInfo;
+import com.fanling.dreamland.auth.DefaultEnum;
+import com.fanling.dreamland.auth.annotations.UseJwtToken;
 import com.fanling.dreamland.entity.search.SysRoleSearch;
 import com.fanling.dreamland.entity.SysRole;
 import com.fanling.dreamland.service.ISysRoleService;
-import com.fanling.dreamland.utils.StringUtils;
-import com.fanling.dreamland.web.BaseController;
-import com.fanling.dreamland.web.TableDataInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -79,7 +79,7 @@ public class SysRoleController extends BaseController {
     @UseJwtToken
     @DeleteMapping("/remove/{roleId}")
     public R remove(@PathVariable("roleId") String roleId) {
-        if (SystemEnum.SYSTEM_ROLE.getCode().equals(roleId)) {
+        if (DefaultEnum.SYSTEM_ROLE.getCode().equals(roleId)) {
             return error("默认角色不可删除");
         }
         //查看是否分配了用户信息

@@ -1,7 +1,7 @@
 package com.fanling.dreamland.mapper;
 
 import com.fanling.dreamland.entity.Comment;
-import com.fanling.dreamland.common.mapper.BaseMapper;
+import com.fanling.common.mapper.BaseMapper;
 
 /**
  * 商品评论表的数据层

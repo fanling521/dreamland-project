@@ -1,13 +1,13 @@
 package com.fanling.dreamland.controller;
 
-import com.fanling.dreamland.R;
-import com.fanling.dreamland.common.annotations.UseJwtToken;
+import com.fanling.common.R;
+import com.fanling.common.web.BaseController;
+import com.fanling.common.web.TableDataInfo;
+import com.fanling.dreamland.auth.annotations.UseJwtToken;
 import com.fanling.dreamland.config.CodeMainCache;
 import com.fanling.dreamland.entity.search.SysCodeItemSearch;
 import com.fanling.dreamland.entity.SysCodeItem;
 import com.fanling.dreamland.service.ISysCodeItemService;
-import com.fanling.dreamland.web.BaseController;
-import com.fanling.dreamland.web.TableDataInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

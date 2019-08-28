@@ -1,7 +1,7 @@
 package com.fanling.dreamland.mapper;
 
 import com.fanling.dreamland.entity.Order;
-import com.fanling.dreamland.common.mapper.BaseMapper;
+import com.fanling.common.mapper.BaseMapper;
 
 /**
  * 订单表的数据层

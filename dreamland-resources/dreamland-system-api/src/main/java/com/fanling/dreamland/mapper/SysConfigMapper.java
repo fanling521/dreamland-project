@@ -1,6 +1,6 @@
 package com.fanling.dreamland.mapper;
 
-import com.fanling.dreamland.common.mapper.BaseMapper;
+import com.fanling.common.mapper.BaseMapper;
 import com.fanling.dreamland.entity.SysConfig;
 
 /**

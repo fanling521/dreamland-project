@@ -52,8 +52,8 @@
         </dependency>
         <!-- 通用包 -->
         <dependency>
-            <groupId>com.fanling.dreamland</groupId>
-            <artifactId>dreamland-common</artifactId>
+            <groupId>com.fanling</groupId>
+            <artifactId>fanl-common</artifactId>
         </dependency>
     </dependencies>
 </project>

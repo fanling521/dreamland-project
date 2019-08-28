@@ -1,6 +1,6 @@
 package com.fanling.dreamland.config;
 
-import com.fanling.dreamland.utils.StringUtils;
+import com.fanling.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

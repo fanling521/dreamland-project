@@ -1,6 +1,6 @@
 package com.fanling.dreamland.entity;
 
-import com.fanling.dreamland.common.entity.BaseEntity;
+import com.fanling.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import java.util.Date;

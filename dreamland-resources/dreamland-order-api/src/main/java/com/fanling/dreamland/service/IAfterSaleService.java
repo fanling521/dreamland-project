@@ -1,7 +1,7 @@
 package com.fanling.dreamland.service;
 
 import com.fanling.dreamland.entity.AfterSale;
-import com.fanling.dreamland.common.service.IService;
+import com.fanling.common.service.IService;
 
 /**
  * 售后处理的业务层

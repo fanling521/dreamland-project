@@ -1,12 +1,12 @@
 package com.fanling.dreamland.service.impl;
 
-import com.fanling.dreamland.common.service.ServiceImpl;
-import com.fanling.dreamland.config.SystemEnum;
+import com.fanling.common.service.ServiceImpl;
+import com.fanling.common.utils.StringUtils;
+import com.fanling.dreamland.auth.DefaultEnum;
 import com.fanling.dreamland.entity.SysRole;
 import com.fanling.dreamland.mapper.SysRoleMapper;
 import com.fanling.dreamland.mapper.SysUserRoleMapper;
 import com.fanling.dreamland.service.ISysRoleService;
-import com.fanling.dreamland.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +48,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      */
     @Override
     public int insert(SysRole role) {
-        role.setRole_status(SystemEnum.USER_COMMON.getCode());
+        role.setRole_status(DefaultEnum.USER_COMMON.getCode());
         role.setRole_id(UUID.randomUUID().toString());
         return sysRoleMapper.insert(role);
     }

@@ -1,10 +1,8 @@
 package com.fanling.dreamland.entity.search;
 
-import com.fanling.dreamland.common.entity.BaseSearch;
+import com.fanling.common.entity.BaseSearch;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.Date;
 
 /**
  * 售后处理

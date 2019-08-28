@@ -1,7 +1,10 @@
 package com.fanling.dreamland.controller.app;
 
-import com.fanling.dreamland.R;
-import com.fanling.dreamland.common.DefaultEnum;
+import com.fanling.common.R;
+import com.fanling.common.utils.StringUtils;
+import com.fanling.common.web.BaseController;
+import com.fanling.dreamland.auth.DefaultEnum;
+import com.fanling.dreamland.auth.util.PasswordUtil;
 import com.fanling.dreamland.config.CaptchaService;
 import com.fanling.dreamland.entity.AppDeviceInfo;
 import com.fanling.dreamland.entity.AppRole;
@@ -10,9 +13,6 @@ import com.fanling.dreamland.entity.request.RegBody;
 import com.fanling.dreamland.service.IAppDeviceInfoService;
 import com.fanling.dreamland.service.IAppRoleService;
 import com.fanling.dreamland.service.IAppUserService;
-import com.fanling.dreamland.utils.PasswordUtil;
-import com.fanling.dreamland.utils.StringUtils;
-import com.fanling.dreamland.web.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

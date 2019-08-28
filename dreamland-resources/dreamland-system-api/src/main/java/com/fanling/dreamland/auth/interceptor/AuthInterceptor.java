@@ -1,9 +1,9 @@
 package com.fanling.dreamland.auth.interceptor;
 
-import com.fanling.dreamland.common.annotations.UseJwtToken;
-import com.fanling.dreamland.common.exception.AuthTokenException;
+import com.fanling.common.utils.StringUtils;
+import com.fanling.dreamland.auth.annotations.UseJwtToken;
+import com.fanling.dreamland.auth.exception.AuthTokenException;
 import com.fanling.dreamland.entity.SysUser;
-import com.fanling.dreamland.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;

@@ -1,14 +1,14 @@
 package com.fanling.dreamland.service.impl;
 
-import com.fanling.dreamland.common.service.ServiceImpl;
-import com.fanling.dreamland.config.SystemEnum;
+import com.fanling.common.service.ServiceImpl;
+import com.fanling.common.utils.StringUtils;
+import com.fanling.dreamland.auth.DefaultEnum;
+import com.fanling.dreamland.auth.utils.PasswordUtil;
 import com.fanling.dreamland.entity.SysUser;
 import com.fanling.dreamland.entity.SysUserRole;
 import com.fanling.dreamland.mapper.SysUserMapper;
 import com.fanling.dreamland.mapper.SysUserRoleMapper;
 import com.fanling.dreamland.service.ISysUserService;
-import com.fanling.dreamland.utils.PasswordUtil;
-import com.fanling.dreamland.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,8 +93,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public int insert(SysUser sysUser) {
         sysUser.setUser_id(UUID.randomUUID().toString());
         sysUser.setSalt(Long.toString(new Date().getTime()));
-        sysUser.setStatus(SystemEnum.USER_COMMON.getCode());
-        sysUser.setPassword(PasswordUtil.encryptPassword(sysUser.getLogin_name(), SystemEnum.DEFAULT_PWD.getCode(), sysUser.getSalt()));
+        sysUser.setStatus(DefaultEnum.USER_COMMON.getCode());
+        sysUser.setPassword(PasswordUtil.encryptPassword(sysUser.getLogin_name(), DefaultEnum.DEFAULT_PASSWORD.getCode(), sysUser.getSalt()));
         int rows = sysUserMapper.insert(sysUser);
         insertUserRole(sysUser);
         return rows;

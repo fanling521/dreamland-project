@@ -1,14 +1,14 @@
 package com.fanling.dreamland.controller;
 
-import com.fanling.dreamland.R;
-import com.fanling.dreamland.common.annotations.UseJwtToken;
-import com.fanling.dreamland.config.SystemEnum;
+import com.fanling.common.R;
+import com.fanling.common.utils.StringUtils;
+import com.fanling.common.web.BaseController;
+import com.fanling.common.web.TableDataInfo;
+import com.fanling.dreamland.auth.DefaultEnum;
+import com.fanling.dreamland.auth.annotations.UseJwtToken;
 import com.fanling.dreamland.entity.SysUser;
 import com.fanling.dreamland.entity.search.SysUserSearch;
 import com.fanling.dreamland.service.ISysUserService;
-import com.fanling.dreamland.utils.StringUtils;
-import com.fanling.dreamland.web.BaseController;
-import com.fanling.dreamland.web.TableDataInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -70,7 +70,7 @@ public class SysUserController extends BaseController {
     @UseJwtToken
     @PostMapping("/edit")
     public R editSave(@RequestBody SysUser sysUser) {
-        if (SystemEnum.SYSTEM_USER.getCode().equals(sysUser.getUser_id())) {
+        if (DefaultEnum.SYSTEM_USER.getCode().equals(sysUser.getUser_id())) {
             return error("不允许修改超级管理员用户");
         }
         return toAjax(sysUserService.update(sysUser));
@@ -89,7 +89,7 @@ public class SysUserController extends BaseController {
     @UseJwtToken
     @DeleteMapping("/remove/{userId}")
     public R remove(@PathVariable("userId") String userId) {
-        if ("d466b2b8-223d-4983-bb34-c4253621bb58".equals(userId)) {
+        if (DefaultEnum.SYSTEM_USER.getCode().equals(userId)) {
             return error("不允许删除超级管理员用户");
         }
         return toAjax(sysUserService.delete(userId));

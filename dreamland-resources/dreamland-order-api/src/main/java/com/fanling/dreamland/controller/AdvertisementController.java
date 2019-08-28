@@ -1,12 +1,12 @@
 package com.fanling.dreamland.controller;
 
-import com.fanling.dreamland.R;
+import com.fanling.common.R;
+import com.fanling.common.utils.StringUtils;
+import com.fanling.common.web.BaseController;
+import com.fanling.common.web.TableDataInfo;
 import com.fanling.dreamland.entity.Advertisement;
 import com.fanling.dreamland.entity.search.AdvertisementSearch;
 import com.fanling.dreamland.service.IAdvertisementService;
-import com.fanling.dreamland.utils.StringUtils;
-import com.fanling.dreamland.web.BaseController;
-import com.fanling.dreamland.web.TableDataInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

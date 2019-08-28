@@ -1,6 +1,8 @@
 package com.fanling.dreamland.controller.app;
 
-import com.fanling.dreamland.R;
+import com.fanling.common.R;
+import com.fanling.common.utils.StringUtils;
+import com.fanling.common.web.BaseController;
 import com.fanling.dreamland.auth.JwtTokenService;
 import com.fanling.dreamland.config.CaptchaService;
 import com.fanling.dreamland.entity.AppRole;
@@ -8,8 +10,6 @@ import com.fanling.dreamland.entity.AppUser;
 import com.fanling.dreamland.entity.request.LoginBody;
 import com.fanling.dreamland.service.IAppRoleService;
 import com.fanling.dreamland.service.IAppUserService;
-import com.fanling.dreamland.utils.StringUtils;
-import com.fanling.dreamland.web.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

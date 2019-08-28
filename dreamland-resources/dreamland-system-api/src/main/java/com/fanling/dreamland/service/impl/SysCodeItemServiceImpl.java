@@ -1,6 +1,6 @@
 package com.fanling.dreamland.service.impl;
 
-import com.fanling.dreamland.common.service.ServiceImpl;
+import com.fanling.common.service.ServiceImpl;
 import com.fanling.dreamland.config.CodeMainCache;
 import com.fanling.dreamland.entity.SysCodeItem;
 import com.fanling.dreamland.entity.SysCodeMain;

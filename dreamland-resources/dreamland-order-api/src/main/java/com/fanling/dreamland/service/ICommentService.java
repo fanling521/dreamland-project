@@ -1,7 +1,7 @@
 package com.fanling.dreamland.service;
 
 import com.fanling.dreamland.entity.Comment;
-import com.fanling.dreamland.common.service.IService;
+import com.fanling.common.service.IService;
 
 /**
  * 商品评论表的业务层
