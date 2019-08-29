@@ -55,11 +55,10 @@ public class JwtTokenService {
     /**
      * 生成token
      * @param id
-     * @param phone
      * @param password
      * @return
      */
-    public R createToken(String id, String phone, String password) {
+    public R createToken(String id, String password) {
         //检查redis 是否存在，存在则删除，重新生成
         String ex = ops.get(ACCESS_ID + id);
         if (StringUtils.isNotEmpty(ex)) {

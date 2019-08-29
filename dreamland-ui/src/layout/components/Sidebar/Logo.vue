@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      title: '综合信息管理系统',
+      title: '冷暖设备维修后台管理',
       logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
     }
   }

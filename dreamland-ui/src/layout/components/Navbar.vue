@@ -5,29 +5,20 @@
     <breadcrumb class="breadcrumb-container"/>
 
     <div class="right-menu">
-      <div class="avatar-container">
-        <div class="avatar-wrapper">
-          <el-button type="text">{{name}}</el-button>
-          <div class="user-avatar">
-            <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          </div>
-        </div>
+      <div class="right-menu-item">
+        <el-button type="text">欢迎，{{name}}</el-button>
+        <el-button type="text" @click="logout">退出</el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
-  import Breadcrumb from '@/components/Breadcrumb'
-  import Hamburger from '@/components/Hamburger'
+    import {mapGetters} from 'vuex'
+    import Breadcrumb from '@/components/Breadcrumb'
+    import Hamburger from '@/components/Hamburger'
 
-  export default {
-    data() {
-      return {
-        avatar: '/static/avatar.png'
-      }
-    },
+    export default {
     components: {
       Breadcrumb,
       Hamburger
@@ -79,26 +70,10 @@
       float: right;
       height: 100%;
       line-height: 50px;
+      margin-right: 5px;
 
       &:focus {
         outline: none;
-      }
-
-      .avatar-container {
-        margin-right: 30px;
-
-        .avatar-wrapper {
-          margin-top: 5px;
-          position: relative;
-
-          .user-avatar {
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-          }
-
-        }
       }
     }
   }

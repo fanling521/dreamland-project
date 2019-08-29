@@ -24,6 +24,8 @@ public class AppIdCard extends BaseEntity {
     private String id_card_photo_path1;
     //身份证反面图片路径
     private String id_card_photo_path2;
+    //手持身份证
+    private String id_card_photo_path3;
     //验证状态
     private String status;
 }

@@ -10,7 +10,6 @@
     <version>2.0.0</version>
     <modules>
         <module>dreamland-auth-api</module>
-        <module>dreamland-system-api</module>
         <module>dreamland-order-api</module>
     </modules>
     <properties>

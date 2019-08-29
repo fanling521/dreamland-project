@@ -4,6 +4,7 @@ import com.fanling.common.R;
 import com.fanling.common.utils.StringUtils;
 import com.fanling.common.web.BaseController;
 import com.fanling.dreamland.auth.DefaultEnum;
+import com.fanling.dreamland.auth.util.MyAssert;
 import com.fanling.dreamland.auth.util.PasswordUtil;
 import com.fanling.dreamland.config.CaptchaService;
 import com.fanling.dreamland.entity.AppDeviceInfo;
@@ -46,16 +47,9 @@ public class RegController extends BaseController {
     @PostMapping("/reg_by_captcha")
     public R commonReg(@RequestBody RegBody regBody) {
         //校验信息
-        if (StringUtils.isEmpty(regBody.getAccount())) {
-            return error("手机号码不能为空！");
-        }
-        if (StringUtils.isEmpty(regBody.getPassword())) {
-            return error("验证码不能为空！");
-        }
-        //检查权限是否正确
-        if (StringUtils.isEmpty(regBody.getRole_key())) {
-            return error("请选择正确的用户类型！");
-        }
+        MyAssert.notNull(regBody.getAccount(), "手机号码不能为空！");
+        MyAssert.notNull(regBody.getPassword(), "验证码不能为空！");
+        MyAssert.notNull(regBody.getRole_key(), "请选择正确的用户类型！");
         //验证码
         if (!captchaService.checkCaptcha(regBody.getAccount(), regBody.getPassword())) {
             return error("验证码已经失效，请重新获取!");

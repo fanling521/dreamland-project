@@ -1,9 +1,9 @@
 package com.fanling.dreamland.controller.app;
 
 import com.fanling.common.R;
-import com.fanling.common.utils.StringUtils;
 import com.fanling.common.web.BaseController;
 import com.fanling.dreamland.auth.JwtTokenService;
+import com.fanling.dreamland.auth.util.MyAssert;
 import com.fanling.dreamland.config.CaptchaService;
 import com.fanling.dreamland.entity.AppRole;
 import com.fanling.dreamland.entity.AppUser;
@@ -36,12 +36,8 @@ public class LoginController extends BaseController {
     @ApiImplicitParam(name = "loginBody", value = "登录信息", dataType = "LoginBody", paramType = "body")
     @PostMapping("/login_by_captcha")
     public R login(@RequestBody LoginBody loginBody) {
-        if (StringUtils.isEmpty(loginBody.getAccount())) {
-            return error("账号不能为空！");
-        }
-        if (StringUtils.isEmpty(loginBody.getPassword())) {
-            return error("验证码不能为空！");
-        }
+        MyAssert.notNull(loginBody.getAccount(), "手机号码不能为空！");
+        MyAssert.notNull(loginBody.getPassword(), "验证码不能为空！");
         //验证码
         if (!captchaService.checkCaptcha(loginBody.getAccount(), loginBody.getPassword())) {
             return error("验证码验证失败，请重新获取!");
@@ -55,7 +51,7 @@ public class LoginController extends BaseController {
         if (appUser == null) {
             return error("用户信息不存在！");
         } else {
-            return R.success(jwtTokenService.createToken(appUser.getId(), appUser.getUser_phone(), loginBody.getPassword()));
+            return R.success(jwtTokenService.createToken(appUser.getId(), loginBody.getPassword()));
         }
     }
 }

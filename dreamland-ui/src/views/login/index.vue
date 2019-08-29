@@ -5,15 +5,14 @@
 
       <div class="agile_info">
         <div class="w3l_form">
-          <img src="/static/logo_bg.jpg">
+          <img src="/static/logo_bg.jpg" width="400" height="290">
         </div>
 
         <div class="w3_info">
           <h2>欢迎登录</h2>
-          <p>请输入管理员的手机号码进行登录</p>
           <el-form ref="loginForm" :model="loginForm" :rules="rules">
             <el-form-item prop="loginName">
-              <el-input v-model="loginForm.loginName" placeholder="请输入手机号" name="username" type="text"
+              <el-input v-model="loginForm.loginName" placeholder="请输入用户名" name="username" type="text"
                         auto-complete="off"/>
             </el-form-item>
 
@@ -38,17 +37,18 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  export default {
+    import {mapGetters} from 'vuex'
+
+    export default {
     name: 'Login',
     data() {
       return {
         loginForm: {
-          loginName: '13451585202',
-          password: '123456'
+            loginName: 'admin',
+            password: ''
         },
         rules: {
-          loginName: [{required: true, trigger: 'blur', message: '请输入手机号'}],
+            loginName: [{required: true, trigger: 'blur', message: '请输入用户名'}],
           password: [{required: true, trigger: 'blur', message: '请输入密码'}]
         },
         loading: false,
@@ -108,14 +108,14 @@
   }
 
   .w3l_form {
-    padding: 0px;
+    padding: 0;
     float: left;
   }
 
   .w3_info {
     padding: 0;
     float: right;
-    width: 42%;
+    width: 320px;
 
     h2 {
       display: inline-block;

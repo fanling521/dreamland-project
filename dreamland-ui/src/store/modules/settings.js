@@ -8,7 +8,7 @@ const state = {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
-  title: 'DREAMLAND综合信息管理系统',
+  title: '冷暖设备维修后台管理系统V1.2',
   device: 'desktop'
 }
 
@@ -34,6 +34,9 @@ const mutations = {
   },
   TOGGLE_DEVICE: (state, device) => {
     state.device = device
+  },
+  SET_TITLE: (state, title) => {
+    state.title = title
   }
 }
 
@@ -49,6 +52,10 @@ const actions = {
   },
   toggleDevice({commit}, device) {
     commit('TOGGLE_DEVICE', device)
+    this.setTitle({commit}, device)
+  },
+  setTitle({commit}, device) {
+    commit('SET_TITLE', device)
   }
 }
 
