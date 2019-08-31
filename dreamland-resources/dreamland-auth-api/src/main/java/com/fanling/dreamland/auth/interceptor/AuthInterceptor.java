@@ -1,7 +1,7 @@
 package com.fanling.dreamland.auth.interceptor;
 
 import com.fanling.common.utils.StringUtils;
-import com.fanling.dreamland.auth.JwtTokenService;
+import com.fanling.dreamland.auth.service.JwtTokenService;
 import com.fanling.dreamland.auth.annotations.UseJwtToken;
 import com.fanling.dreamland.auth.exception.AuthTokenException;
 import com.fanling.dreamland.entity.AppUser;

@@ -16,6 +16,8 @@ public class AppDeviceInfo extends BaseEntity {
     private String id;
     //国际移动设备识别码
     private String IMEI;
+    //国际移动用户识别码
+    private String IMSI;
     //手机操作系统
     private String phone_os;
     //手机号码

@@ -4,7 +4,7 @@ import com.fanling.common.R;
 import com.fanling.common.web.BaseController;
 import com.fanling.dreamland.auth.annotations.UseJwtToken;
 import com.fanling.dreamland.auth.util.MyAssert;
-import com.fanling.dreamland.config.CaptchaService;
+import com.fanling.dreamland.auth.service.CaptchaService;
 import com.fanling.dreamland.entity.AppDeviceInfo;
 import com.fanling.dreamland.entity.AppIdCard;
 import com.fanling.dreamland.entity.AppUser;
@@ -36,7 +36,7 @@ public class UserInfoController extends BaseController {
     private IAppIdCardService appIdCardService;
 
 
-    @ApiOperation(value = "获取个人信息", notes = "用户根据标识获取个人信息")
+    @ApiOperation(value = "获取个人信息以及订单信息", notes = "用户根据标识获取个人信息以及订单信息")
     @ApiImplicitParam(name = "uid", value = "用户标识", dataType = "String", paramType = "path")
     @UseJwtToken
     @PostMapping("/index/{uid}")

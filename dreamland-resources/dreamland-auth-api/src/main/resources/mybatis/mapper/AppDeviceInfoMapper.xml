@@ -6,6 +6,7 @@
     <resultMap type="AppDeviceInfo" id="baseResult">
         <id property="id" column="id"/>
         <result property="IMEI" column="IMEI"/>
+        <result property="IMSI" column="IMSI"/>
         <result property="phone_os" column="phone_os"/>
         <result property="user_phone" column="user_phone"/>
         <result property="user_id" column="user_id"/>
@@ -14,7 +15,7 @@
     <sql id="selectVo">
         select
         id,
-                    IMEI,
+                    IMEI,IMSI,
                     phone_os,
                     user_phone,
                     user_id,
@@ -36,6 +37,7 @@
         insert into t_app_device_info(
         id,
         <if test="IMEI != null and IMEI != ''">IMEI,</if>
+        <if test="IMSI != null and IMSI != ''">IMSI,</if>
         <if test="phone_os != null and phone_os != ''">phone_os,</if>
         <if test="user_phone != null and user_phone != ''">user_phone,</if>
         <if test="user_id != null and user_id != ''">user_id,</if>
@@ -43,6 +45,7 @@
         )values(
         uuid(),
         <if test="IMEI != null and IMEI != ''">#{IMEI},</if>
+        <if test="IMSI != null and IMSI != ''">#{IMSI},</if>
         <if test="phone_os != null and phone_os != ''">#{phone_os},</if>
         <if test="user_phone != null and user_phone != ''">#{user_phone},</if>
         <if test="user_id != null and user_id != ''">#{user_id},</if>
@@ -54,6 +57,7 @@
         update t_app_device_info
         <set>
             <if test="IMEI != null and IMEI != ''">IMEI = #{IMEI},</if>
+            <if test="IMSI != null and IMSI != ''">IMSI = #{IMSI},</if>
             <if test="phone_os != null and phone_os != ''">phone_os = #{phone_os},</if>
             <if test="user_phone != null and user_phone != ''">user_phone = #{user_phone},</if>
             <if test="user_id != null and user_id != ''">user_id = #{user_id},</if>

@@ -7,11 +7,11 @@ public class MyAssert {
 
     /**
      * 非空验证
-     * @param object
+     * @param string
      * @param message
      */
-    public static void notNull(@Nullable Object object, String message) {
-        if (StringUtils.isNull(object)) {
+    public static void notNull(@Nullable String string, String message) {
+        if (StringUtils.isEmpty(string)) {
             throw new IllegalArgumentException(message);
         }
     }

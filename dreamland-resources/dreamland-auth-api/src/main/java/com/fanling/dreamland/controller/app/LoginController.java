@@ -2,13 +2,12 @@ package com.fanling.dreamland.controller.app;
 
 import com.fanling.common.R;
 import com.fanling.common.web.BaseController;
-import com.fanling.dreamland.auth.JwtTokenService;
+import com.fanling.dreamland.config.InitializingMap;
+import com.fanling.dreamland.auth.service.JwtTokenService;
 import com.fanling.dreamland.auth.util.MyAssert;
-import com.fanling.dreamland.config.CaptchaService;
-import com.fanling.dreamland.entity.AppRole;
+import com.fanling.dreamland.auth.service.CaptchaService;
 import com.fanling.dreamland.entity.AppUser;
 import com.fanling.dreamland.entity.request.LoginBody;
-import com.fanling.dreamland.service.IAppRoleService;
 import com.fanling.dreamland.service.IAppUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -29,8 +28,6 @@ public class LoginController extends BaseController {
     private IAppUserService appUserService;
     @Autowired
     private JwtTokenService jwtTokenService;
-    @Autowired
-    private IAppRoleService appRoleService;
 
     @ApiOperation(value = "验证码登录", notes = "用户填写手机号和获取验证码进行登录")
     @ApiImplicitParam(name = "loginBody", value = "登录信息", dataType = "LoginBody", paramType = "body")
@@ -39,15 +36,14 @@ public class LoginController extends BaseController {
         MyAssert.notNull(loginBody.getAccount(), "手机号码不能为空！");
         MyAssert.notNull(loginBody.getPassword(), "验证码不能为空！");
         //验证码
-        if (!captchaService.checkCaptcha(loginBody.getAccount(), loginBody.getPassword())) {
+        if (!captchaService.checkCaptcha(loginBody.getAccount()+ "-login", loginBody.getPassword())) {
             return error("验证码验证失败，请重新获取!");
         }
-        AppRole appRole = appRoleService.selectByRoleName(loginBody.getRole_type());
-        if (appRole == null) {
-            return error("用户类型不存在！");
+        if (InitializingMap.checkRole(loginBody.getRole_key())) {
+            return error("用户角色类型不存在！");
         }
         //验证用户并且颁发token
-        AppUser appUser = appUserService.selectByLogin(loginBody.getAccount(), appRole.getId());
+        AppUser appUser = appUserService.selectByLogin(loginBody.getAccount(), loginBody.getRole_key());
         if (appUser == null) {
             return error("用户信息不存在！");
         } else {

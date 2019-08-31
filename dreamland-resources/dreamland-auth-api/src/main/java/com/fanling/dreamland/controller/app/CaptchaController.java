@@ -2,8 +2,9 @@ package com.fanling.dreamland.controller.app;
 
 import com.fanling.common.R;
 import com.fanling.common.web.BaseController;
+import com.fanling.dreamland.config.InitializingMap;
 import com.fanling.dreamland.auth.util.MyAssert;
-import com.fanling.dreamland.config.CaptchaService;
+import com.fanling.dreamland.auth.service.CaptchaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -28,27 +29,30 @@ public class CaptchaController extends BaseController {
 
     @ApiOperation(value = "获取验证码", notes = "用户根据手机号码获取验证码，过期时间为1分钟")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "phone", value = "手机号码", dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "type", value = "验证码类型", dataType = "String", paramType = "path")
+            @ApiImplicitParam(name = "phone", required = true, value = "手机号码", dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "type", required = true, value = "验证码类型", dataType = "String", paramType = "path")
     })
     @PostMapping("/{type}/{phone}")
     public R getCaptcha(@PathVariable("phone") String phone, @PathVariable("type") String type) {
         MyAssert.notNull(phone, "手机号码不能为空!");
         MyAssert.notNull(type, "验证码类型不能为空!");
+        if (InitializingMap.checkCaptcha(type)) {
+            return error("验证码类型填写错误！");
+        }
         if (!isPhone(phone)) {
             return error("非法手机号！");
         }
         //校验手机号获取间隔是否超过了1分钟
-        if (captchaService.getCaptcha(phone + type)) {
+        if (captchaService.getCaptcha(phone + "-" + type)) {
             return error("1分钟内不可重复提交获取验证码的请求");
         }
         //TODO 校验是否超出类型
         //将验证码存redis
         String captcha = captchaService.randomCaptcha();
         log.info("---> 验证码：{}", captcha);
-        captchaService.setCaptcha(phone + type, captcha);
+        captchaService.setCaptcha(phone + "-" + type, captcha);
         //TODO 调用阿里短信接口
-        return success();
+        return success(captcha);
     }
 
     /**

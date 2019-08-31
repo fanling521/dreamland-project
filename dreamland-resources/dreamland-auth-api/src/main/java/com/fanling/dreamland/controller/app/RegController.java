@@ -1,18 +1,16 @@
 package com.fanling.dreamland.controller.app;
 
 import com.fanling.common.R;
-import com.fanling.common.utils.StringUtils;
 import com.fanling.common.web.BaseController;
 import com.fanling.dreamland.auth.DefaultEnum;
+import com.fanling.dreamland.config.InitializingMap;
+import com.fanling.dreamland.auth.service.CaptchaService;
 import com.fanling.dreamland.auth.util.MyAssert;
 import com.fanling.dreamland.auth.util.PasswordUtil;
-import com.fanling.dreamland.config.CaptchaService;
 import com.fanling.dreamland.entity.AppDeviceInfo;
-import com.fanling.dreamland.entity.AppRole;
 import com.fanling.dreamland.entity.AppUser;
 import com.fanling.dreamland.entity.request.RegBody;
 import com.fanling.dreamland.service.IAppDeviceInfoService;
-import com.fanling.dreamland.service.IAppRoleService;
 import com.fanling.dreamland.service.IAppUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -34,9 +32,6 @@ public class RegController extends BaseController {
     private CaptchaService captchaService;
 
     @Autowired
-    private IAppRoleService appRoleService;
-
-    @Autowired
     private IAppUserService appUserService;
 
     @Autowired
@@ -51,12 +46,16 @@ public class RegController extends BaseController {
         MyAssert.notNull(regBody.getPassword(), "验证码不能为空！");
         MyAssert.notNull(regBody.getRole_key(), "请选择正确的用户类型！");
         //验证码
-        if (!captchaService.checkCaptcha(regBody.getAccount(), regBody.getPassword())) {
-            return error("验证码已经失效，请重新获取!");
+        if (!captchaService.checkCaptcha(regBody.getAccount() + "-reg", regBody.getPassword())) {
+            return error("验证码失效，请重新获取!");
         }
-        AppRole appRole = appRoleService.selectByRoleName(regBody.getRole_key());
-        if (appRole == null) {
-            return error("用户类型查询错误，不存在此类型的用户");
+        if (InitializingMap.checkRole(regBody.getRole_key())) {
+            return error("用户角色类型不存在！");
+        }
+        //检查重复
+        AppUser checkBean = appUserService.selectByLogin(regBody.getAccount(), regBody.getRole_key());
+        if (checkBean != null) {
+            return error("该手机号已被注册！");
         }
         //新增用户信息
         AppUser appUser = new AppUser();
@@ -66,11 +65,15 @@ public class RegController extends BaseController {
         appUser.setSlat(DefaultEnum.DEFAULT_SALT.getCode());
         appUser.setUser_name(regBody.getAccount());
         appUser.setUser_phone(regBody.getAccount());
-        appUser.setRole_key(appRole.getId());
-
-        saveDevice(appUser, regBody);
-
-        return toAjax(appUserService.insert(appUser));
+        appUser.setRole_key(regBody.getRole_key());
+        int row = appUserService.insert(appUser);
+        //更新设备信息
+        if (row > 0) {
+            saveDevice(appUser, regBody);
+        } else {
+            return error("注册失败！");
+        }
+        return toAjax(row);
     }
 
     /**
@@ -82,6 +85,7 @@ public class RegController extends BaseController {
     private void saveDevice(AppUser appUser, RegBody regBody) {
         AppDeviceInfo appDeviceInfo = new AppDeviceInfo();
         appDeviceInfo.setIMEI(regBody.getIMEI());
+        appDeviceInfo.setIMSI(regBody.getIMSI());
         appDeviceInfo.setUser_id(appUser.getId());
         appDeviceInfo.setUser_phone(appUser.getUser_phone());
         appDeviceInfo.setPhone_os(regBody.getPhone_os());

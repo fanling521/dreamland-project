@@ -1,0 +1,30 @@
+server:
+  port: 7001
+spring:
+  profiles:
+    active: prod
+  application:
+    name: gateway
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/dreamland_gateway?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
+    username: root
+    password: root@12345
+zuul:
+  routes:
+    auth-api:
+      path: /auth-api/**
+      serviceId: auth-api
+    order-api:
+      path: /order-api/**
+      serviceId: order-api
+eureka:
+  client:
+    fetch-registry: true       #发现服务
+    register-with-eureka: true #注册服务
+    service-url:
+      defaultZone: http://localhost:7000/eureka/
+logging:
+  level:
+    com.fanling.dreamland: debug
+    org.springframework: warn
+  file: D:/logs/dreamland/geteway-service/wraper.log

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanling.dreamland.mapper.ReservationMapper">
+    <resultMap type="Reservation" id="baseResult">
+        <id property="id" column="id"/>
+        <result property="position" column="position"/>
+        <result property="room_info" column="room_info"/>
+        <result property="area" column="area"/>
+        <result property="reservation_date" column="reservation_date"/>
+        <result property="community_name" column="community_name"/>
+        <result property="price" column="price"/>
+        <result property="reservation_type" column="reservation_type"/>
+        <result property="goods_id" column="goods_id"/>
+    </resultMap>
+
+    <sql id="selectVo">
+        select
+            id,
+            position,
+            room_info,
+            area,
+            reservation_date,
+            community_name,
+            price,
+            reservation_type,
+            goods_id,
+            create_time
+        from t_reservation
+    </sql>
+
+    <select id="list" parameterType="Reservation" resultMap="baseResult">
+        <include refid="selectVo"/>
+        <where>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="Reservation">
+        insert into t_reservation(
+        id,
+        <if test="position != null and position != ''">position,</if>
+        <if test="room_info != null and room_info != ''">room_info,</if>
+        <if test="area != null and area != ''">area,</if>
+        <if test="reservation_date != null and reservation_date != ''">reservation_date,</if>
+        <if test="community_name != null and community_name != ''">community_name,</if>
+        <if test="price != null and price != ''">price,</if>
+        <if test="reservation_type != null and reservation_type != ''">reservation_type,</if>
+        <if test="goods_id != null and goods_id != ''">goods_id,</if>
+        create_time
+        )values(
+        uuid(),
+        <if test="position != null and position != ''">#{position},</if>
+        <if test="room_info != null and room_info != ''">#{room_info},</if>
+        <if test="area != null and area != ''">#{area},</if>
+        <if test="reservation_date != null and reservation_date != ''">#{reservation_date},</if>
+        <if test="community_name != null and community_name != ''">#{community_name},</if>
+        <if test="price != null and price != ''">#{price},</if>
+        <if test="reservation_type != null and reservation_type != ''">#{reservation_type},</if>
+        <if test="goods_id != null and goods_id != ''">#{goods_id},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="update" parameterType="Reservation">
+        update t_reservation
+        <set>
+            <if test="position != null and position != ''">position = #{position},</if>
+            <if test="room_info != null and room_info != ''">room_info = #{room_info},</if>
+            <if test="area != null and area != ''">area = #{area},</if>
+            <if test="reservation_date != null and reservation_date != ''">reservation_date = #{reservation_date},</if>
+            <if test="community_name != null and community_name != ''">community_name = #{community_name},</if>
+            <if test="price != null and price != ''">price = #{price},</if>
+            <if test="reservation_type != null and reservation_type != ''">reservation_type = #{reservation_type},</if>
+            <if test="goods_id != null and goods_id != ''">goods_id = #{goods_id},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from t_reservation where id = #{id}
+    </delete>
+
+</mapper>

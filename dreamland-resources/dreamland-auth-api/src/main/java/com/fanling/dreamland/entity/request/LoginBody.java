@@ -9,9 +9,11 @@ public class LoginBody {
     //密码（验证码）
     private String password;
     //角色类型
-    private String role_type;
+    private String role_key;
     //登录ip
     private String login_ip;
-    //手机识别码
-    private String phone_IMEI;
+    //国际移动设备识别码
+    private String IMEI;
+    //国际移动用户识别码
+    private String IMSI;
 }
