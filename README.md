@@ -48,13 +48,21 @@ nginx 只对外开放80端口
 
 端口信息（域名未知）：
 
-1. 7000	     服务注册与发现
-2. 7001          APP网关
-3. 7002          系统网关
-4. 7003           APP用户验证服务
-5. 7004           管理系统接口用户验证服务
-6. 7005           商品与订单服务
-7. /manager   管理中心
-8. /ap-api        APP接口--->反向代理到7001 
-9. /ma-api       管理系统的接口--->反向代理到7002  
-10. /                    APP官网首页
+1. 7000	         服务注册与发现
+2. 7001          网关
+3. 7003          验证服务
+4. 7005          商品与订单服务
+5. /manager      管理中心
+6. /apis         反向代理到7001 
+7. /            官网首页
+
+## 启动脚本
+
+```bash
+# dreamland-eureka-1.0.0.jar
+nohup java -jar -Dloader.path=/opt/modules/service/lib /opt/modules/service/dreamland-eureka-1.0.0.jar --spring.profiles.active=prod > /dev/null 2> /dev/null &
+# dreamland-gateway-1.0.0.jar
+nohup java -jar -Dloader.path=/opt/modules/service/lib /opt/modules/service/dreamland-gateway-1.0.0.jar --spring.profiles.active=prod > /dev/null 2> /dev/null &
+
+
+```

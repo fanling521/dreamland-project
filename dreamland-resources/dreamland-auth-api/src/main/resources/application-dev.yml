@@ -35,7 +35,7 @@ logging:
   level:
     com.fanling.dreamland: info
     org.springframework: warn
-  file: D:/logs/dreamland/auth-service/wraper.log
+  file: D:/logs/dreamland/auth-api/wraper.log
 
 mybatis:
   typeAliasesPackage: com.fanling.dreamland.entity

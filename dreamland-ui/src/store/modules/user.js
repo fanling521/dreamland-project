@@ -1,9 +1,12 @@
 import {getToken, removeToken, setToken} from '@/utils/auth'
+import {login, logout} from '@/api/user'
 import {resetRouter} from '@/router'
+import md5 from 'js-md5';
 
 const state = {
   token: getToken(),
-  name: '系统管理员',
+  name: '',
+  uid: ''
 }
 
 const mutations = {
@@ -12,6 +15,9 @@ const mutations = {
   },
   SET_NAME: (state, name) => {
     state.name = name
+  },
+  SET_UID: (state, uid) => {
+    state.uid = uid
   }
 }
 
@@ -19,15 +25,17 @@ const actions = {
   // user login
   login({commit}, userInfo) {
     const {loginName, password} = userInfo
-    debugger
     return new Promise((resolve, reject) => {
-      if (loginName.trim() === "admin" && password === "admin") {
-        commit('SET_TOKEN', "1B44BAC29B1947EFA3A2C59F8165CFDD")
-        setToken("1B44BAC29B1947EFA3A2C59F8165CFDD")
+      login({account: loginName.trim(), password: md5(password)}).then(response => {
+        const {data} = response
+        debugger
+        commit('SET_TOKEN', data.token)
+        setToken(data.token)
+        commit('SET_UID', data.id)
         resolve()
-      } else {
-        reject("验证失败！")
-      }
+      }).catch(error => {
+        reject(error)
+      })
     })
   },
 
@@ -42,11 +50,14 @@ const actions = {
   // user logout
   logout({commit, state}) {
     return new Promise((resolve, reject) => {
-      commit('SET_TOKEN', '')
-      commit('SET_ROLES', [])
-      removeToken()
-      resetRouter()
-      resolve()
+      logout(state.token).then(() => {
+        commit('SET_TOKEN', '')
+        removeToken()
+        resetRouter()
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
     })
   },
 

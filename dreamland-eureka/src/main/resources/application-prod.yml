@@ -31,4 +31,4 @@ logging:
   level:
     com.fanling.dreamland: debug
     org.springframework: warn
-  file: D:/logs/dreamland/eureka-service/wraper.log
+  file: /opt/modules/logs/dreamland/eureka-service/wraper.log

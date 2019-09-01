@@ -9,14 +9,16 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/dreamland_gateway?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
     username: root
     password: root@12345
+  redis:
+    host: 127.0.0.1
 zuul:
   routes:
     auth-api:
       path: /auth-api/**
       serviceId: auth-api
     order-api:
-      path: /order-api/**
-      serviceId: order-api
+      path: /service-api/**
+      serviceId: service-api
 eureka:
   client:
     fetch-registry: true       #发现服务
@@ -27,4 +29,4 @@ logging:
   level:
     com.fanling.dreamland: debug
     org.springframework: warn
-  file: D:/logs/dreamland/geteway-service/wraper.log
+  file: /opt/modules/logs/dreamland/geteway-service/wraper.log

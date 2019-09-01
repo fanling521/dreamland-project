@@ -4,8 +4,7 @@ import store from '@/store'
 import {getToken} from '@/utils/auth'
 
 const service = axios.create({
-  // url = base url + request url
-  baseURL: "http://localhost:7003",
+  baseURL: process.env.NODE_URL,
   timeout: 5000
 })
 
@@ -13,6 +12,7 @@ service.interceptors.request.use(
   config => {
     if (store.getters.token) {
       config.headers['x-access-token'] = getToken()
+      config.headers['x-user-id'] = store.getters.uid
     }else{
       console.log("token is null")
     }

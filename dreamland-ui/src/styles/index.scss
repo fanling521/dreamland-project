@@ -73,3 +73,17 @@ div:focus {
     margin-bottom: 10px;
   }
 }
+.demo-table-expand {
+  font-size: 0;
+
+  & label {
+    width: 90px;
+    color: #99a9bf;
+  }
+
+  .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
+  }
+}

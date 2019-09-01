@@ -1,17 +1,16 @@
 package com.fanling.dreamland.controller.app;
 
 import com.fanling.common.R;
+import com.fanling.common.utils.MyAssert;
 import com.fanling.common.web.BaseController;
-import com.fanling.dreamland.auth.annotations.UseJwtToken;
-import com.fanling.dreamland.auth.util.MyAssert;
-import com.fanling.dreamland.auth.service.CaptchaService;
 import com.fanling.dreamland.entity.AppDeviceInfo;
 import com.fanling.dreamland.entity.AppIdCard;
 import com.fanling.dreamland.entity.AppUser;
-import com.fanling.dreamland.entity.UpdateAppUser;
+import com.fanling.dreamland.entity.request.UpdateAppUser;
 import com.fanling.dreamland.service.IAppDeviceInfoService;
 import com.fanling.dreamland.service.IAppIdCardService;
 import com.fanling.dreamland.service.IAppUserService;
+import com.fanling.dreamland.service.auth.CaptchaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -38,7 +37,6 @@ public class UserInfoController extends BaseController {
 
     @ApiOperation(value = "获取个人信息以及订单信息", notes = "用户根据标识获取个人信息以及订单信息")
     @ApiImplicitParam(name = "uid", value = "用户标识", dataType = "String", paramType = "path")
-    @UseJwtToken
     @PostMapping("/index/{uid}")
     public R index(@PathVariable("uid") String uid) {
         MyAssert.notNull(uid, "用户标识不能为空！");
@@ -56,13 +54,12 @@ public class UserInfoController extends BaseController {
         } else {
             map.put("real_status", "0");
         }
-        map.put("order", "");
+        map.put("user_order", "");
         return R.success(map);
     }
 
     @ApiOperation(value = "获取个人信息", notes = "用户根据标识获取个人信息")
     @ApiImplicitParam(name = "uid", value = "用户标识", dataType = "String", paramType = "path")
-    @UseJwtToken
     @PostMapping("/info/{uid}")
     public R info(@PathVariable("uid") String uid) {
         MyAssert.notNull(uid, "用户标识不能为空！");
@@ -74,14 +71,13 @@ public class UserInfoController extends BaseController {
         map.put("id", appUser.getId());
         map.put("user_name", appUser.getUser_name());
         map.put("user_phone", appUser.getUser_phone());
-        map.put("sex", appUser.getSex());
+        map.put("real_name", appUser.getReal_name());
         return R.success(map);
     }
 
 
     @ApiOperation(value = "修改用户名", notes = "用户根据标识修改用户名")
     @ApiImplicitParam(name = "updateAppUser", value = "用户维护信息", dataType = "UpdateAppUser", paramType = "body")
-    @UseJwtToken
     @PostMapping("/name")
     public R name(@RequestBody UpdateAppUser updateAppUser) {
         MyAssert.notNull(updateAppUser.getUid(), "用户标识不能为空！");
@@ -89,12 +85,11 @@ public class UserInfoController extends BaseController {
         AppUser appUser = new AppUser();
         appUser.setId(updateAppUser.getUid());
         appUser.setUser_name(updateAppUser.getUser_name());
-        return R.success(appUserService.update(appUser));
+        return toAjax(appUserService.update(appUser));
     }
 
     @ApiOperation(value = "修改性别", notes = "用户根据标识修改性别")
     @ApiImplicitParam(name = "updateAppUser", value = "用户维护信息", dataType = "UpdateAppUser", paramType = "body")
-    @UseJwtToken
     @PostMapping("/gender")
     public R gender(@RequestBody UpdateAppUser updateAppUser) {
         MyAssert.notNull(updateAppUser.getUid(), "用户标识不能为空！");
@@ -102,12 +97,11 @@ public class UserInfoController extends BaseController {
         AppUser appUser = new AppUser();
         appUser.setId(updateAppUser.getUid());
         appUser.setSex(updateAppUser.getSex());
-        return R.success(appUserService.update(appUser));
+        return toAjax(appUserService.update(appUser));
     }
 
     @ApiOperation(value = "修改手机号", notes = "用户根据标识修改手机号")
     @ApiImplicitParam(name = "updateAppUser", value = "用户维护信息", dataType = "UpdateAppUser", paramType = "body")
-    @UseJwtToken
     @PostMapping("/phone")
     public R phone(@RequestBody UpdateAppUser updateAppUser) {
         MyAssert.notNull(updateAppUser.getUid(), "用户标识不能为空！");
@@ -120,12 +114,12 @@ public class UserInfoController extends BaseController {
         if (appUser_old == null) {
             return error("用户不存在！");
         } else {
-            if (captchaService.checkCaptcha(updateAppUser.getNew_phone() + "rebind", updateAppUser.getPassword())) {
+            if (captchaService.checkCaptcha(updateAppUser.getNew_phone() + "-rebind", updateAppUser.getPassword())) {
                 AppUser appUser = new AppUser();
                 appUser.setId(updateAppUser.getUid());
                 appUser.setUser_phone(updateAppUser.getNew_phone());
                 saveDevice(appUser, updateAppUser);
-                return R.success(appUserService.update(appUser));
+                return toAjax(appUserService.update(appUser));
             } else {
                 return error("验证码错误或者已经失效，请重新获取！");
             }
@@ -141,6 +135,7 @@ public class UserInfoController extends BaseController {
     private void saveDevice(AppUser appUser, UpdateAppUser updateAppUser) {
         AppDeviceInfo appDeviceInfo = new AppDeviceInfo();
         appDeviceInfo.setIMEI(updateAppUser.getIMEI());
+        appDeviceInfo.setIMSI(updateAppUser.getIMSI());
         appDeviceInfo.setUser_id(appUser.getId());
         appDeviceInfo.setUser_phone(appUser.getUser_phone());
         appDeviceInfo.setPhone_os(updateAppUser.getPhone_os());

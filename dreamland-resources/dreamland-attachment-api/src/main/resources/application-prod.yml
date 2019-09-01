@@ -20,7 +20,7 @@ spring:
     username: root
     password: root@12345
   application:
-    name: order-api
+    name: attachment-api
   redis:
     host: 127.0.0.1
 
@@ -35,7 +35,7 @@ logging:
   level:
     com.fanling.dreamland: debug
     org.springframework: warn
-  file: D:/logs/dreamland/order-service/wraper.log
+  file: /opt/modules/logs/dreamland/attachment-api/wraper.log
 
 mybatis:
   typeAliasesPackage: com.fanling.dreamland.entity

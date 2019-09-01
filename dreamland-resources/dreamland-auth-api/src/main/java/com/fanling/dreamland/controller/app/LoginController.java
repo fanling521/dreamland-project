@@ -1,14 +1,14 @@
 package com.fanling.dreamland.controller.app;
 
 import com.fanling.common.R;
+import com.fanling.common.utils.MyAssert;
 import com.fanling.common.web.BaseController;
 import com.fanling.dreamland.config.InitializingMap;
-import com.fanling.dreamland.auth.service.JwtTokenService;
-import com.fanling.dreamland.auth.util.MyAssert;
-import com.fanling.dreamland.auth.service.CaptchaService;
 import com.fanling.dreamland.entity.AppUser;
 import com.fanling.dreamland.entity.request.LoginBody;
 import com.fanling.dreamland.service.IAppUserService;
+import com.fanling.dreamland.service.auth.CaptchaService;
+import com.fanling.dreamland.service.auth.JwtTokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
