@@ -33,6 +33,8 @@ public class AuthFilter extends ZuulFilter {
     //排除过滤的 uri 地址
     private static final String LOGIN_URI = "/auth-api/app/reg/reg_by_captcha";
     private static final String REGISTER_URI = "/auth-api/app/login/login_by_captcha";
+    private static final String CAPTCHA_URI_REG = "/auth-api/app/captcha/reg/";
+    private static final String CAPTCHA_URI_LOGIN = "/auth-api/app/captcha/login/";
     private static final String MANAGER_LOGIN_URI = "/auth-api/manager/login";
     //无权限时的提示语
     private static final String INVALID_TOKEN = "INVALID TOKEN";
@@ -58,7 +60,9 @@ public class AuthFilter extends ZuulFilter {
         //注册和登录接口不拦截，其他接口都要拦截校验 token
         return !LOGIN_URI.equals(request.getRequestURI()) &&
                 !REGISTER_URI.equals(request.getRequestURI()) &&
-                !MANAGER_LOGIN_URI.equals(request.getRequestURI());
+                !MANAGER_LOGIN_URI.equals(request.getRequestURI()) &&
+                !request.getRequestURI().contains(CAPTCHA_URI_REG) &&
+                !request.getRequestURI().contains(CAPTCHA_URI_LOGIN);
     }
 
     @Override
