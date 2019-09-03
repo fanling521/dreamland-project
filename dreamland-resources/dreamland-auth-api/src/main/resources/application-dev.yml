@@ -31,6 +31,10 @@ eureka:
     service-url:
       defaultZone: http://localhost:7000/eureka/
 
+feign:
+  hystrix:
+    enabled: true # 开启Feign熔断
+
 logging:
   level:
     com.fanling.dreamland: info

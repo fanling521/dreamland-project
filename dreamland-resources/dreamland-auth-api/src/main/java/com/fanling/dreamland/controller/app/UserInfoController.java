@@ -3,6 +3,7 @@ package com.fanling.dreamland.controller.app;
 import com.fanling.common.R;
 import com.fanling.common.utils.MyAssert;
 import com.fanling.common.web.BaseController;
+import com.fanling.dreamland.client.UserSaleClient;
 import com.fanling.dreamland.entity.AppDeviceInfo;
 import com.fanling.dreamland.entity.AppIdCard;
 import com.fanling.dreamland.entity.AppUser;
@@ -34,6 +35,9 @@ public class UserInfoController extends BaseController {
     @Autowired
     private IAppIdCardService appIdCardService;
 
+    @Autowired
+    private UserSaleClient userSaleClient;
+
 
     @ApiOperation(value = "获取个人信息以及订单信息", notes = "用户根据标识获取个人信息以及订单信息")
     @ApiImplicitParam(name = "uid", value = "用户标识", dataType = "String", paramType = "path")
@@ -54,7 +58,12 @@ public class UserInfoController extends BaseController {
         } else {
             map.put("real_status", "0");
         }
-        map.put("user_order", "");
+        R user_order = userSaleClient.selectById(appUser.getId());
+        if (Integer.parseInt(user_order.getOrDefault("code", "500").toString()) == 0) {
+            map.put("user_sale", user_order.get("data"));
+        } else {
+            return error("用户的服务数据信息查询失败！");
+        }
         return R.success(map);
     }
 
@@ -69,6 +78,7 @@ public class UserInfoController extends BaseController {
         }
         R map = new R();
         map.put("id", appUser.getId());
+        map.put("sex", appUser.getSex());
         map.put("user_name", appUser.getUser_name());
         map.put("user_phone", appUser.getUser_phone());
         map.put("real_name", appUser.getReal_name());
