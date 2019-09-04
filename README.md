@@ -58,10 +58,16 @@ nginx 只对外开放80端口
 ```bash
 # dreamland-eureka-1.0.0.jar
 nohup java -jar -Dloader.path=/opt/modules/service/lib /opt/modules/service/dreamland-eureka-1.0.0.jar --spring.profiles.active=prod > /dev/null 2> /dev/null &
+
 # dreamland-gateway-1.0.0.jar
 nohup java -jar -Dloader.path=/opt/modules/service/lib /opt/modules/service/dreamland-gateway-1.0.0.jar --spring.profiles.active=prod > /dev/null 2> /dev/null &
+
 # dreamland-auth-api
 nohup java -jar -Dloader.path=/opt/modules/service/lib /opt/modules/service/dreamland-auth-api-2.0.0.jar --spring.profiles.active=prod > /dev/null 2> /dev/null &
+
 # dreamland-service-api
 nohup java -jar -Dloader.path=/opt/modules/service/lib /opt/modules/service/dreamland-service-api-2.0.0.jar --spring.profiles.active=prod > /dev/null 2> /dev/null &
+
+# dreamland-attachment-api
+nohup java -jar -Dloader.path=/opt/modules/service/lib /opt/modules/service/dreamland-attachment-api-2.0.0.jar --spring.profiles.active=prod > /dev/null 2> /dev/null &
 ```

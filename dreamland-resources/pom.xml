@@ -27,6 +27,7 @@
         <feign.version>1.4.7.RELEASE</feign.version>
         <pagehelper.version>1.2.12</pagehelper.version>
         <dreamland.verison>2.0.0</dreamland.verison>
+        <fastdfs.version>1.26.7</fastdfs.version>
         <mybatis-spring-boot.verison>2.0.1</mybatis-spring-boot.verison>
         <spring.boot.verison>2.1.6.RELEASE</spring.boot.verison>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
@@ -107,6 +108,12 @@
                 <groupId>com.fanling</groupId>
                 <artifactId>fanl-common</artifactId>
                 <version>1.0.0</version>
+            </dependency>
+            <!-- fastdfs -->
+            <dependency>
+                <groupId>com.github.tobato</groupId>
+                <artifactId>fastdfs-client</artifactId>
+                <version>${fastdfs.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
