@@ -1,5 +1,7 @@
 package com.fanling.dreamland.config;
 
+import com.fanling.dreamland.entity.FileAttachment;
+import com.fanling.dreamland.service.IFileAttachmentService;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import org.apache.commons.io.FilenameUtils;
@@ -14,6 +16,9 @@ public class FastDFSClientWrapper {
     @Autowired
     private FastFileStorageClient storageClient;
 
+    @Autowired
+    private IFileAttachmentService fileAttachmentService;
+
     /**
      * 文件上传
      *
@@ -21,8 +26,24 @@ public class FastDFSClientWrapper {
      * @return
      * @throws IOException
      */
-    public String uploadFile(MultipartFile file) throws IOException {
-        StorePath storePath = storageClient.uploadFile(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
-        return storePath.getFullPath();
+    public String uploadFile(MultipartFile file, String uid) {
+        String fullPath = null;
+        try {
+            StorePath storePath = storageClient.uploadFile(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
+            fullPath = storePath.getFullPath();
+            String originFileName = file.getOriginalFilename();
+            //后缀名
+            assert originFileName != null;
+            FileAttachment fileAttachment = new FileAttachment();
+            fileAttachment.setFile_extension(originFileName.substring(originFileName.lastIndexOf(".")));
+            fileAttachment.setFile_name(originFileName);
+            fileAttachment.setFile_size(Long.toString(file.getSize()));
+            fileAttachment.setFile_path(fullPath);
+            fileAttachment.setUid(uid);
+            fileAttachmentService.insert(fileAttachment);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fullPath;
     }
 }

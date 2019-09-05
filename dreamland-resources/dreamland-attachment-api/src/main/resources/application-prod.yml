@@ -8,13 +8,13 @@ server:
 spring:
   profiles:
     active: prod
+  http:
+    multipart:
+      maxFileSize: 10M
+      maxRequestSize: 20M
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
-  servlet:
-    multipart:
-      max-file-size:  10MB
-      max-request-size:  20MB
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/dreamland_attachment?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
     username: root
@@ -33,7 +33,7 @@ eureka:
 
 logging:
   level:
-    com.fanling.dreamland: debug
+    com.fanling.dreamland: info
     org.springframework: warn
   file: /opt/modules/logs/dreamland/attachment-api/wraper.log
 

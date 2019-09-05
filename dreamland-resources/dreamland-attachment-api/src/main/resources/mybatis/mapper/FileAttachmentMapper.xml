@@ -8,21 +8,19 @@
         <result property="uid" column="uid"/>
         <result property="file_extension" column="file_extension"/>
         <result property="file_size" column="file_size"/>
-        <result property="biz_type" column="biz_type"/>
         <result property="file_name" column="file_name"/>
         <result property="file_path" column="file_path"/>
     </resultMap>
 
     <sql id="selectVo">
         select
-            id,
-            uid,
-            file_extension,
-            file_size,
-            biz_type,
-            file_name,
-            file_path,
-            create_time
+        id,
+                    uid,
+                    file_extension,
+                    file_size,
+                    file_name,
+                    file_path,
+                create_time
         from t_file_attachment
     </sql>
 
@@ -43,7 +41,6 @@
         <if test="uid != null and uid != ''">uid,</if>
         <if test="file_extension != null and file_extension != ''">file_extension,</if>
         <if test="file_size != null and file_size != ''">file_size,</if>
-        <if test="biz_type != null and biz_type != ''">biz_type,</if>
         <if test="file_name != null and file_name != ''">file_name,</if>
         <if test="file_path != null and file_path != ''">file_path,</if>
         create_time
@@ -52,7 +49,6 @@
         <if test="uid != null and uid != ''">#{uid},</if>
         <if test="file_extension != null and file_extension != ''">#{file_extension},</if>
         <if test="file_size != null and file_size != ''">#{file_size},</if>
-        <if test="biz_type != null and biz_type != ''">#{biz_type},</if>
         <if test="file_name != null and file_name != ''">#{file_name},</if>
         <if test="file_path != null and file_path != ''">#{file_path},</if>
         sysdate()
@@ -65,7 +61,6 @@
             <if test="uid != null and uid != ''">uid = #{uid},</if>
             <if test="file_extension != null and file_extension != ''">file_extension = #{file_extension},</if>
             <if test="file_size != null and file_size != ''">file_size = #{file_size},</if>
-            <if test="biz_type != null and biz_type != ''">biz_type = #{biz_type},</if>
             <if test="file_name != null and file_name != ''">file_name = #{file_name},</if>
             <if test="file_path != null and file_path != ''">file_path = #{file_path},</if>
             update_time = sysdate()

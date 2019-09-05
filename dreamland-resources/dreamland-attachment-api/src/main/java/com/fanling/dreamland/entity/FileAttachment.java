@@ -3,6 +3,7 @@ package com.fanling.dreamland.entity;
 import com.fanling.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import java.util.Date;
 
 /**
  * 图片附件表
@@ -20,10 +21,8 @@ public class FileAttachment extends BaseEntity {
     private String file_extension;
     //文件大小
     private String file_size;
-    //业务类型
-    private String biz_type;
     //文件名称
     private String file_name;
-    //相对文件路径
+    //文件路径
     private String file_path;
 }
