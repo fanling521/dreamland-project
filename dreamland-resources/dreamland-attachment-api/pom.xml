@@ -49,6 +49,11 @@
             <groupId>com.fanling</groupId>
             <artifactId>fanl-common</artifactId>
         </dependency>
+        <!-- fastdfs -->
+        <dependency>
+            <groupId>com.github.tobato</groupId>
+            <artifactId>fastdfs-client</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

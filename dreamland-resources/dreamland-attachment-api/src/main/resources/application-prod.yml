@@ -47,3 +47,8 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
+fdfs:
+  soTimeout: 1500
+  connectTimeout: 600
+  trackerList: 172.30.0.4:22122
