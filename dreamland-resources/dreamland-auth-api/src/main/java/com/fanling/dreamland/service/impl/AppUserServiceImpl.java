@@ -18,11 +18,10 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper,AppUser> imple
      * 登录信息获取
      *
      * @param phone
-     * @param key
      * @return
      */
     @Override
-    public AppUser selectByLogin(String phone, String key) {
-        return appUserMapper.selectByLogin(phone, key);
+    public AppUser selectByLogin(String phone) {
+        return appUserMapper.selectByLogin(phone);
     }
 }

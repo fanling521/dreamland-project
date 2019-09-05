@@ -1,16 +1,15 @@
 use dreamland_auth;
+
 create table t_app_user
 (
-sex nvarchar(50)  null comment '性别',
+gender nvarchar(50)  null comment '性别',
 user_name nvarchar(50)  null comment '用户名',
 user_phone nvarchar(50)  null comment '手机号',
 password nvarchar(50)  null comment '密码',
 slat nvarchar(50)  null comment '盐',
-real_name nvarchar(50)  null comment '真实姓名',
-email nvarchar(50)  null comment '邮箱地址',
 last_login_date nvarchar(50)  null comment '上次登录时间',
 last_login_ip nvarchar(50)  null comment '上次登录ip',
-role_key nvarchar(50)  null comment '角色标识',
+avatar nvarchar(50)  null comment '头像地址',
 id nvarchar(50) not null comment '主键',
 create_time datetime null comment '创建时间',
 update_time datetime null comment '更新时间',
@@ -23,9 +22,8 @@ comment 'APP用户表';
 
 create table t_app_device_info
 (
-IMEI nvarchar(50)  null comment '国际移动设备识别码',
-IMSI nvarchar(50)  null comment '国际移动用户识别码',
-phone_os nvarchar(100)  null comment '手机操作系统',
+phone_version nvarchar(50)  null comment '手机操作系统版本',
+phone_type nvarchar(100)  null comment '手机操作系统',
 user_phone nvarchar(50)  null comment '手机号码',
 user_id nvarchar(50)  null comment '用户标识',
 id nvarchar(50) not null comment '主键',
@@ -58,5 +56,46 @@ constraint t_app_id_card_id_uindex unique (id),
 primary key (id)
 )
 comment '用户身份证表';
+
+create table t_app_staff
+(
+gender nvarchar(50)  null comment '性别',
+user_name nvarchar(50)  null comment '用户名',
+user_phone nvarchar(50)  null comment '手机号',
+password nvarchar(50)  null comment '密码',
+slat nvarchar(50)  null comment '盐',
+last_login_date nvarchar(50)  null comment '上次登录时间',
+last_login_ip nvarchar(50)  null comment '上次登录ip',
+avatar nvarchar(50)  null comment '头像地址',
+id nvarchar(50) not null comment '主键',
+create_time datetime null comment '创建时间',
+update_time datetime null comment '更新时间',
+create_by varchar(10) null comment '创建人',
+update_by varchar(10) null comment '更新人',
+constraint t_app_user_id_uindex unique (id),
+primary key (id)
+)
+comment '维修人员表';
+
+
+create table t_app_manager
+(
+gender nvarchar(50)  null comment '性别',
+user_name nvarchar(50)  null comment '用户名',
+user_phone nvarchar(50)  null comment '手机号',
+password nvarchar(50)  null comment '密码',
+slat nvarchar(50)  null comment '盐',
+last_login_date nvarchar(50)  null comment '上次登录时间',
+last_login_ip nvarchar(50)  null comment '上次登录ip',
+avatar nvarchar(50)  null comment '头像地址',
+id nvarchar(50) not null comment '主键',
+create_time datetime null comment '创建时间',
+update_time datetime null comment '更新时间',
+create_by varchar(10) null comment '创建人',
+update_by varchar(10) null comment '更新人',
+constraint t_app_user_id_uindex unique (id),
+primary key (id)
+)
+comment '管理人员表';
 
 

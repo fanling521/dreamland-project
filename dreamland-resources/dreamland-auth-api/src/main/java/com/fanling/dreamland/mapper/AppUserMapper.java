@@ -12,8 +12,7 @@ public interface AppUserMapper extends BaseMapper<AppUser> {
      * 登录信息获取
      *
      * @param phone
-     * @param key
      * @return
      */
-    AppUser selectByLogin(@Param("user_phone") String phone, @Param("role_key") String key);
+    AppUser selectByLogin(@Param("user_phone") String phone);
 }

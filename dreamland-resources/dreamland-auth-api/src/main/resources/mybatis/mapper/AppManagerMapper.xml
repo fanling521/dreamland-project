@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanling.dreamland.mapper.AppUserMapper">
+<mapper namespace="com.fanling.dreamland.mapper.AppManagerMapper">
     <resultMap type="AppUser" id="baseResult">
         <id property="id" column="id"/>
         <result property="gender" column="gender"/>
@@ -27,7 +27,7 @@
                     last_login_ip,
                     avatar,
                 create_time
-        from t_app_user
+        from t_app_manager
     </sql>
 
     <select id="list" parameterType="AppUser" resultMap="baseResult">
@@ -45,7 +45,7 @@
     </select>
 
     <insert id="insert" parameterType="AppUser">
-        insert into t_app_user(
+        insert into t_app_manager(
         id,
         <if test="gender != null and gender != ''">gender,</if>
         <if test="user_name != null and user_name != ''">user_name,</if>
@@ -71,7 +71,7 @@
     </insert>
 
     <update id="update" parameterType="AppUser">
-        update t_app_user
+        update t_app_manager
         <set>
             <if test="gender != null and gender != ''">gender = #{gender},</if>
             <if test="user_name != null and user_name != ''">user_name = #{user_name},</if>
@@ -87,7 +87,7 @@
     </update>
 
     <delete id="delete" parameterType="String">
-        delete from t_app_user where id = #{id}
+        delete from t_app_manager where id = #{id}
     </delete>
 
     <select id="selectByLogin" parameterType="String" resultMap="baseResult">

@@ -1,12 +1,13 @@
 use dreamland_attachment;
+
+DROP TABLE IF EXISTS t_file_attachment;
 create table t_file_attachment
 (
 uid nvarchar(50)  null comment '用户标识',
 file_extension nvarchar(50)  null comment '文件类型',
 file_size nvarchar(50)  null comment '文件大小',
-biz_type nvarchar(50)  null comment '业务类型',
 file_name nvarchar(50)  null comment '文件名称',
-file_path nvarchar(50)  null comment '相对文件路径',
+file_path nvarchar(50)  null comment '文件路径',
 id nvarchar(50) not null comment '主键',
 create_time datetime null comment '创建时间',
 update_time datetime null comment '更新时间',

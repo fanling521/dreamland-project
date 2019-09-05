@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class JwtTokenService {
     //过期时间 12 小时
-    private final static long EXPIRE = 3600 * 12;
+    private final static long EXPIRE = 3600 * 24 * 30;
     //ACCESS_TOKEN
     private final static String ACCESS_TOKEN = "app_token_";
     //ACCESS_ID

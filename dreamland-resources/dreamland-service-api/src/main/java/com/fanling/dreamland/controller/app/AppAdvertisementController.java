@@ -1,4 +1,4 @@
-package com.fanling.dreamland.controller.api;
+package com.fanling.dreamland.controller.app;
 
 import com.fanling.common.R;
 import com.fanling.common.utils.StringUtils;

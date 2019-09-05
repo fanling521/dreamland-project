@@ -4,7 +4,6 @@ import com.fanling.common.R;
 import com.fanling.common.utils.MyAssert;
 import com.fanling.common.web.BaseController;
 import com.fanling.dreamland.config.DefaultEnum;
-import com.fanling.dreamland.config.InitializingMap;
 import com.fanling.dreamland.config.PasswordUtil;
 import com.fanling.dreamland.entity.AppDeviceInfo;
 import com.fanling.dreamland.entity.AppUser;
@@ -25,7 +24,7 @@ import java.util.UUID;
 
 @Api(tags = "APP系统注册服务")
 @RestController
-@RequestMapping("/app/reg")
+@RequestMapping("/app/user/register")
 public class RegController extends BaseController {
 
     @Autowired
@@ -39,21 +38,17 @@ public class RegController extends BaseController {
 
     @ApiOperation(value = "用户注册", notes = "用户注册填写手机号、用户类型和验证码提交注册，后续信息将自行填写")
     @ApiImplicitParam(name = "regBody", value = "注册信息", dataType = "RegBody", paramType = "body")
-    @PostMapping("/reg_by_captcha")
+    @PostMapping("/phone")
     public R commonReg(@RequestBody RegBody regBody) {
         //校验信息
         MyAssert.notNull(regBody.getAccount(), "手机号码不能为空！");
         MyAssert.notNull(regBody.getPassword(), "验证码不能为空！");
-        MyAssert.notNull(regBody.getRole_key(), "请选择正确的用户类型！");
         //验证码
         if (!captchaService.checkCaptcha(regBody.getAccount() + "-reg", regBody.getPassword())) {
             return error("验证码失效，请重新获取!");
         }
-        if (InitializingMap.checkRole(regBody.getRole_key())) {
-            return error("用户角色类型不存在！");
-        }
         //检查重复
-        AppUser checkBean = appUserService.selectByLogin(regBody.getAccount(), regBody.getRole_key());
+        AppUser checkBean = appUserService.selectByLogin(regBody.getAccount());
         if (checkBean != null) {
             return error("该手机号已被注册！");
         }
@@ -61,11 +56,10 @@ public class RegController extends BaseController {
         AppUser appUser = new AppUser();
         appUser.setId(UUID.randomUUID().toString());
         appUser.setPassword(PasswordUtil.defaultPassword(regBody.getAccount()));
-        appUser.setSex(DefaultEnum.DEFAULT_SEX.getCode());
+        appUser.setGender(DefaultEnum.DEFAULT_SEX.getCode());
         appUser.setSlat(DefaultEnum.DEFAULT_SALT.getCode());
         appUser.setUser_name(regBody.getAccount());
         appUser.setUser_phone(regBody.getAccount());
-        appUser.setRole_key(regBody.getRole_key());
         int row = appUserService.insert(appUser);
         //更新设备信息
         if (row > 0) {
@@ -84,11 +78,10 @@ public class RegController extends BaseController {
      */
     private void saveDevice(AppUser appUser, RegBody regBody) {
         AppDeviceInfo appDeviceInfo = new AppDeviceInfo();
-        appDeviceInfo.setIMEI(regBody.getIMEI());
-        appDeviceInfo.setIMSI(regBody.getIMSI());
         appDeviceInfo.setUser_id(appUser.getId());
         appDeviceInfo.setUser_phone(appUser.getUser_phone());
-        appDeviceInfo.setPhone_os(regBody.getPhone_os());
+        appDeviceInfo.setPhone_type(regBody.getPhone_type());
+        appDeviceInfo.setPhone_version(regBody.getPhone_version());
         appDeviceInfoService.insert(appDeviceInfo);
     }
 

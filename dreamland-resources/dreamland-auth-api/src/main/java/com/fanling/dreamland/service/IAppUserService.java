@@ -11,8 +11,7 @@ public interface IAppUserService extends IService<AppUser> {
      * 登录信息获取
      *
      * @param phone
-     * @param key
      * @return
      */
-    AppUser selectByLogin(String phone, String key);
+    AppUser selectByLogin(String phone);
 }

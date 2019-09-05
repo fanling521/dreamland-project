@@ -41,7 +41,7 @@ public class UserInfoController extends BaseController {
 
     @ApiOperation(value = "获取个人信息以及订单信息", notes = "用户根据标识获取个人信息以及订单信息")
     @ApiImplicitParam(name = "uid", value = "用户标识", dataType = "String", paramType = "path")
-    @PostMapping("/index/{uid}")
+    @PostMapping("/personal_center/{uid}")
     public R index(@PathVariable("uid") String uid) {
         MyAssert.notNull(uid, "用户标识不能为空！");
         AppUser appUser = appUserService.selectById(uid);
@@ -69,7 +69,7 @@ public class UserInfoController extends BaseController {
 
     @ApiOperation(value = "获取个人信息", notes = "用户根据标识获取个人信息")
     @ApiImplicitParam(name = "uid", value = "用户标识", dataType = "String", paramType = "path")
-    @PostMapping("/info/{uid}")
+    @PostMapping("/personal_info/{uid}")
     public R info(@PathVariable("uid") String uid) {
         MyAssert.notNull(uid, "用户标识不能为空！");
         AppUser appUser = appUserService.selectById(uid);
@@ -78,17 +78,22 @@ public class UserInfoController extends BaseController {
         }
         R map = new R();
         map.put("id", appUser.getId());
-        map.put("sex", appUser.getSex());
+        map.put("gender", appUser.getGender());
         map.put("user_name", appUser.getUser_name());
         map.put("user_phone", appUser.getUser_phone());
-        map.put("real_name", appUser.getReal_name());
+        AppIdCard appIdCard = appIdCardService.selectById(appUser.getId());
+        if (appIdCard != null) {
+            map.put("real_name", appIdCard.getReal_name());
+        } else {
+            map.put("real_name", "");
+        }
         return R.success(map);
     }
 
 
     @ApiOperation(value = "修改用户名", notes = "用户根据标识修改用户名")
     @ApiImplicitParam(name = "updateAppUser", value = "用户维护信息", dataType = "UpdateAppUser", paramType = "body")
-    @PostMapping("/name")
+    @PostMapping("/modify/name")
     public R name(@RequestBody UpdateAppUser updateAppUser) {
         MyAssert.notNull(updateAppUser.getUid(), "用户标识不能为空！");
         MyAssert.notNull(updateAppUser.getUser_name(), "用户名不能为空！");
@@ -100,27 +105,26 @@ public class UserInfoController extends BaseController {
 
     @ApiOperation(value = "修改性别", notes = "用户根据标识修改性别")
     @ApiImplicitParam(name = "updateAppUser", value = "用户维护信息", dataType = "UpdateAppUser", paramType = "body")
-    @PostMapping("/gender")
+    @PostMapping("/modify/gender")
     public R gender(@RequestBody UpdateAppUser updateAppUser) {
         MyAssert.notNull(updateAppUser.getUid(), "用户标识不能为空！");
-        MyAssert.notNull(updateAppUser.getSex(), "用户性别不能为空！");
+        MyAssert.notNull(updateAppUser.getGender(), "用户性别不能为空！");
         AppUser appUser = new AppUser();
         appUser.setId(updateAppUser.getUid());
-        appUser.setSex(updateAppUser.getSex());
+        appUser.setGender(updateAppUser.getGender());
         return toAjax(appUserService.update(appUser));
     }
 
     @ApiOperation(value = "修改手机号", notes = "用户根据标识修改手机号")
     @ApiImplicitParam(name = "updateAppUser", value = "用户维护信息", dataType = "UpdateAppUser", paramType = "body")
-    @PostMapping("/phone")
+    @PostMapping("/modify/phone")
     public R phone(@RequestBody UpdateAppUser updateAppUser) {
         MyAssert.notNull(updateAppUser.getUid(), "用户标识不能为空！");
         MyAssert.notNull(updateAppUser.getOld_phone(), "用户原手机号不能为空！");
         MyAssert.notNull(updateAppUser.getNew_phone(), "用户新手机号不能为空！");
         MyAssert.notNull(updateAppUser.getPassword(), "验证码不能为空！");
-        MyAssert.notNull(updateAppUser.getRole_key(), "用户角色不能为空！");
         //验证用户和验证码
-        AppUser appUser_old = appUserService.selectByLogin(updateAppUser.getOld_phone(), updateAppUser.getRole_key());
+        AppUser appUser_old = appUserService.selectByLogin(updateAppUser.getOld_phone());
         if (appUser_old == null) {
             return error("用户不存在！");
         } else {
@@ -136,6 +140,8 @@ public class UserInfoController extends BaseController {
         }
     }
 
+    //TODO 头像服务器
+
     /**
      * 保存手机信息
      *
@@ -144,11 +150,10 @@ public class UserInfoController extends BaseController {
      */
     private void saveDevice(AppUser appUser, UpdateAppUser updateAppUser) {
         AppDeviceInfo appDeviceInfo = new AppDeviceInfo();
-        appDeviceInfo.setIMEI(updateAppUser.getIMEI());
-        appDeviceInfo.setIMSI(updateAppUser.getIMSI());
         appDeviceInfo.setUser_id(appUser.getId());
         appDeviceInfo.setUser_phone(appUser.getUser_phone());
-        appDeviceInfo.setPhone_os(updateAppUser.getPhone_os());
+        appDeviceInfo.setPhone_version(updateAppUser.getPhone_version());
+        appDeviceInfo.setPhone_type(updateAppUser.getPhone_type());
         appDeviceInfoService.insert(appDeviceInfo);
     }
 }

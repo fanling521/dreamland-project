@@ -8,12 +8,8 @@ public class RegBody {
     private String account;
     //密码（验证码）
     private String password;
-    //角色类型
-    private String role_key;
-    //国际移动设备识别码
-    private String IMEI;
-    //国际移动用户识别码
-    private String IMSI;
-    //手机操作系统
-    private String phone_os;
+    //手机类型安卓还是IOS
+    private String phone_type;
+    //手机操作系统版本
+    private String phone_version;
 }

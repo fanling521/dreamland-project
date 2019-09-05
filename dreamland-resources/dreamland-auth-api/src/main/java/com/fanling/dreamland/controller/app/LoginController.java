@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "APP系统登录服务")
 @RestController
-@RequestMapping("/app/login")
+@RequestMapping("/app/user/login")
 public class LoginController extends BaseController {
     @Autowired
     private CaptchaService captchaService;
@@ -31,7 +31,7 @@ public class LoginController extends BaseController {
 
     @ApiOperation(value = "验证码登录", notes = "用户填写手机号和获取验证码进行登录")
     @ApiImplicitParam(name = "loginBody", value = "登录信息", dataType = "LoginBody", paramType = "body")
-    @PostMapping("/login_by_captcha")
+    @PostMapping("/phone")
     public R login(@RequestBody LoginBody loginBody) {
         MyAssert.notNull(loginBody.getAccount(), "手机号码不能为空！");
         MyAssert.notNull(loginBody.getPassword(), "验证码不能为空！");
@@ -39,11 +39,8 @@ public class LoginController extends BaseController {
         if (!captchaService.checkCaptcha(loginBody.getAccount()+ "-login", loginBody.getPassword())) {
             return error("验证码验证失败，请重新获取!");
         }
-        if (InitializingMap.checkRole(loginBody.getRole_key())) {
-            return error("用户角色类型不存在！");
-        }
         //验证用户并且颁发token
-        AppUser appUser = appUserService.selectByLogin(loginBody.getAccount(), loginBody.getRole_key());
+        AppUser appUser = appUserService.selectByLogin(loginBody.getAccount());
         if (appUser == null) {
             return error("用户信息不存在！");
         } else {
