@@ -31,14 +31,13 @@ public class AuthFilter extends ZuulFilter {
     private ValueOperations<String, String> ops;
 
     //排除过滤的 uri 地址
-    private static final String LOGIN_URI = "/auth-api/app/reg/reg_by_captcha";
-    private static final String REGISTER_URI = "/auth-api/app/login/login_by_captcha";
-    private static final String CAPTCHA_URI_REG = "/auth-api/app/captcha/reg/";
-    private static final String CAPTCHA_URI_LOGIN = "/auth-api/app/captcha/login/";
+    private static final String LOGIN_URI = "/auth-api/app/reg/phone";
+    private static final String REGISTER_URI = "/auth-api/app/user/login/phone";
+    private static final String CAPTCHA_URI = "/auth-api/app/captcha/";
     private static final String MANAGER_LOGIN_URI = "/auth-api/manager/login";
     //无权限时的提示语
     private static final String INVALID_TOKEN = "INVALID TOKEN";
-    private static final String INVALID_USERID = "INVALID USER_ID";
+    private static final String INVALID_USER_ID = "INVALID USER_ID";
     //ACCESS_ID
     private final static String ACCESS_ID = "app_id_";
 
@@ -61,8 +60,7 @@ public class AuthFilter extends ZuulFilter {
         return !LOGIN_URI.equals(request.getRequestURI()) &&
                 !REGISTER_URI.equals(request.getRequestURI()) &&
                 !MANAGER_LOGIN_URI.equals(request.getRequestURI()) &&
-                !request.getRequestURI().contains(CAPTCHA_URI_REG) &&
-                !request.getRequestURI().contains(CAPTCHA_URI_LOGIN);
+                !request.getRequestURI().contains(CAPTCHA_URI);
     }
 
     @Override
@@ -88,7 +86,7 @@ public class AuthFilter extends ZuulFilter {
         String userId = request.getHeader("x-user-id");
         logger.info("userId={}", userId);
         if (StringUtils.isEmpty(userId)) {
-            setUnauthorizedResponse(requestContext, INVALID_USERID);
+            setUnauthorizedResponse(requestContext, INVALID_USER_ID);
         } else {
             String redisToken = ops.get(ACCESS_ID + userId);
             if (StringUtils.isEmpty(redisToken) || !redisToken.equals(token)) {

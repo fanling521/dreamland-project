@@ -44,9 +44,11 @@ public class CaptchaController extends BaseController {
         }
         //校验手机号获取间隔是否超过了1分钟
         if (captchaService.getCaptcha(phone + "-" + type)) {
-            return error("1分钟内不可重复提交获取验证码的请求");
+            return error("90秒内不可重复提交获取验证码的请求");
         }
-        //TODO 校验是否超出类型
+        if (InitializingMap.checkCaptcha(type)) {
+            return error("验证码类型不准确");
+        }
         //将验证码存redis
         String captcha = captchaService.randomCaptcha();
         log.info("---> 验证码：{}", captcha);

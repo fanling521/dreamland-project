@@ -36,7 +36,7 @@ public class RegController extends BaseController {
     @Autowired
     private IAppDeviceInfoService appDeviceInfoService;
 
-    @ApiOperation(value = "用户注册", notes = "用户注册填写手机号、用户类型和验证码提交注册，后续信息将自行填写")
+    @ApiOperation(value = "会员验证码注册", notes = "用户注册填写手机号、用户类型和验证码提交注册，后续信息将自行填写")
     @ApiImplicitParam(name = "regBody", value = "注册信息", dataType = "RegBody", paramType = "body")
     @PostMapping("/phone")
     public R commonReg(@RequestBody RegBody regBody) {
@@ -48,18 +48,11 @@ public class RegController extends BaseController {
             return error("验证码失效，请重新获取!");
         }
         //检查重复
-        AppUser checkBean = appUserService.selectByLogin(regBody.getAccount());
-        if (checkBean != null) {
+        if (appUserService.selectByLogin(regBody.getAccount()) != null) {
             return error("该手机号已被注册！");
         }
         //新增用户信息
-        AppUser appUser = new AppUser();
-        appUser.setId(UUID.randomUUID().toString());
-        appUser.setPassword(PasswordUtil.defaultPassword(regBody.getAccount()));
-        appUser.setGender(DefaultEnum.DEFAULT_SEX.getCode());
-        appUser.setSlat(DefaultEnum.DEFAULT_SALT.getCode());
-        appUser.setUser_name(regBody.getAccount());
-        appUser.setUser_phone(regBody.getAccount());
+        AppUser appUser = setAppUser(regBody);
         int row = appUserService.insert(appUser);
         //更新设备信息
         if (row > 0) {
@@ -68,6 +61,22 @@ public class RegController extends BaseController {
             return error("注册失败！");
         }
         return toAjax(row);
+    }
+
+    /**
+     * 初始化用户信息
+     * @param regBody 注册表单
+     * @return
+     */
+    private AppUser setAppUser(RegBody regBody) {
+        AppUser appUser = new AppUser();
+        appUser.setId(UUID.randomUUID().toString());
+        appUser.setPassword(PasswordUtil.defaultPassword(regBody.getAccount()));
+        appUser.setGender(DefaultEnum.DEFAULT_SEX.getCode());
+        appUser.setSlat(DefaultEnum.DEFAULT_SALT.getCode());
+        appUser.setUser_name(regBody.getAccount());
+        appUser.setUser_phone(regBody.getAccount());
+        return appUser;
     }
 
     /**

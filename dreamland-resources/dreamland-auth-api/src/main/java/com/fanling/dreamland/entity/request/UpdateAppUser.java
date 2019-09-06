@@ -23,4 +23,6 @@ public class UpdateAppUser {
     private String phone_type;
     //手机操作系统版本
     private String phone_version;
+    //头像
+    private String avatar;
 }

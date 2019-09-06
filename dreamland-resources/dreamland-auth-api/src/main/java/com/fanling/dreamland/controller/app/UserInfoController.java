@@ -55,8 +55,10 @@ public class UserInfoController extends BaseController {
         AppIdCard appIdCard = appIdCardService.selectById(appUser.getId());
         if (appIdCard != null) {
             map.put("real_status", appIdCard.getStatus());
+            map.put("real_name", appIdCard.getReal_name());
         } else {
             map.put("real_status", "0");
+            map.put("real_name", "");
         }
         R user_order = userSaleClient.selectById(appUser.getId());
         if (Integer.parseInt(user_order.getOrDefault("code", "500").toString()) == 0) {
@@ -80,6 +82,7 @@ public class UserInfoController extends BaseController {
         map.put("id", appUser.getId());
         map.put("gender", appUser.getGender());
         map.put("user_name", appUser.getUser_name());
+        map.put("avatar", appUser.getAvatar());
         map.put("user_phone", appUser.getUser_phone());
         AppIdCard appIdCard = appIdCardService.selectById(appUser.getId());
         if (appIdCard != null) {
@@ -140,7 +143,17 @@ public class UserInfoController extends BaseController {
         }
     }
 
-    //TODO 头像服务器
+    @ApiOperation(value = "修改头像", notes = "用户根据标识修改头像")
+    @ApiImplicitParam(name = "updateAppUser", value = "用户维护信息", dataType = "UpdateAppUser", paramType = "body")
+    @PostMapping("/modify/avatar")
+    public R avatar(@RequestBody UpdateAppUser updateAppUser) {
+        MyAssert.notNull(updateAppUser.getUid(), "用户标识不能为空！");
+        MyAssert.notNull(updateAppUser.getAvatar(), "头像地址不能为空！");
+        AppUser appUser = new AppUser();
+        appUser.setId(updateAppUser.getUid());
+        appUser.setAvatar(updateAppUser.getAvatar());
+        return toAjax(appUserService.update(appUser));
+    }
 
     /**
      * 保存手机信息

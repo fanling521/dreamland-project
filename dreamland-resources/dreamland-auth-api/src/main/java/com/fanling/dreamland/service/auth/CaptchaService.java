@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class CaptchaService {
     private final Logger logger = LoggerFactory.getLogger(CaptchaService.class);
-    //过期时间
-    private final static long EXPIRE = 60;
+    //过期时间90秒
+    private final static long EXPIRE = 90;
 
     @Autowired
     private StringRedisTemplate redisTemplate;
