@@ -1,22 +1,38 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input clearable style="width: 280px" class="filter-item" v-model="search.width" placeholder="请输入宽度" @keyup.enter.native="onSearch"></el-input>
       <el-button class="filter-item" icon="el-icon-search" type="primary" @click="onSearch">查询</el-button>
     </div>
-    <el-button class="filter-item" icon="el-icon-edit" type="primary" @click="handleAdd">新增</el-button>
     <el-divider></el-divider>
     <el-table :header-cell-style="{background:'#F5F7FA'}" :data="list" tooltip-effect="light" style="width: 100%">
       <el-table-column align="center" header-align="center" type="index" width="50" label="序号"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="position" label="广告位置"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="width" label="宽度"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="height" label="高度"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="img_path" label="图片路径"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="adv_status" label="广告状态"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="file_name" label="文件名称"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="file_extension" label="文件类型"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="uid" label="用户标识"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="file_path" label="文件路径"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="file_size" label="文件大小"></el-table-column>
       <el-table-column align="center" header-align="center" fixed="right" label="操作" width="170">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handleEdit(scope.row.id)">编辑</el-button>
-          <el-button type="text" size="small" @click="handleDel(scope.row.id)">删除</el-button>
+          <el-dropdown placement="bottom-start" trigger="click" type="primary">
+            <el-button>
+              更多操作
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <el-button icon="el-icon-edit" type="text" size="small"
+                           @click="handleView(scope.row.file_path,scope.row.file_extension)">查看图片
+                </el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button icon="el-icon-delete" type="text" size="small" @click="handleDownload(scope.row.id)">下载文件
+                </el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button icon="el-icon-delete" type="text" size="small" @click="handleDel(scope.row.id)">删除文件
+                </el-button>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
@@ -30,27 +46,30 @@
       layout="total,sizes,prev, pager, next"
       :total="count">
     </el-pagination>
-    <add-advertisement :addVisible.sync="addVisible" v-if="addVisible" @callback="initTable"/>
-    <edit-advertisement :id="id" :editVisible.sync="editVisible" v-if="editVisible" @callback="initTable"/>
+    <el-dialog title="查看图片" style="text-align: center" :visible.sync="dialogVisible" width="40%"
+               :before-close="handleClose">
+      <el-image
+        style="width: 40%; height: 40%;"
+        :src="pathImg"
+        fit="scale-down"></el-image>
+    </el-dialog>
   </div>
 </template>
 <script>
-    import {AddAdvertisement, EditAdvertisement} from './components'
-    import {list, remove} from '@/api/advertisement'
+    import {list, remove} from '@/api/file'
 
     export default {
-        components: {AddAdvertisement, EditAdvertisement},
         data() {
             return {
                 search: {
-                    width:'',
                     page_size: 10,
                     page_num: 0
                 },
                 list: [],
-                addVisible: false,
-                editVisible: false,
+                baseURL: 'http://139.186.30.39/',
+                dialogVisible: false,
                 id: '',
+                pathImg: '',
                 count: 0
             }
         },
@@ -76,9 +95,6 @@
             onSearch() {
                 this.initTable();
             },
-            handleAdd() {
-                this.addVisible = true;
-            },
             handleDel(val) {
                 this.$confirm('此操作将永久删除次条信息以及其关联, 是否继续?', '系统提示', {
                     confirmButtonText: '确定',
@@ -103,9 +119,22 @@
                 }).catch(() => {
                 });
             },
-            handleEdit(val) {
-                this.editVisible = true;
-                this.id = val;
+            handleView(path, extension) {
+                if (extension === '.jpg' || extension === '.png') {
+                    this.dialogVisible = true
+                    this.pathImg = this.baseURL + path
+                } else {
+                    this.$message({
+                        type: 'warning',
+                        message: '只支持预览图片！',
+                    });
+                }
+            },
+            handleDownload(path) {
+
+            },
+            handleClose() {
+                this.dialogVisible = false
             }
         }
     }

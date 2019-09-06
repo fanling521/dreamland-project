@@ -55,10 +55,10 @@ export const constantRoutes = [
     meta: {title: '营销管理', icon: 'example', affix: true},
     children: [
       {
-        path: 'advertisement',
-        component: () => import('@/views/basic/advertisement/index'),
-        name: 'Advertisement',
-        meta: {title: '广告管理', icon: 'table', affix: true}
+        path: 'file',
+        component: () => import('@/views/basic/file/index'),
+        name: 'File',
+        meta: {title: '文件管理', icon: 'table', affix: true}
       },
       {
         path: 'article',

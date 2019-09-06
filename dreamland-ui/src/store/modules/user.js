@@ -1,5 +1,5 @@
 import {getToken, removeToken, setToken} from '@/utils/auth'
-import {login, logout} from '@/api/user'
+import {login, logout, getInfo} from '@/api/user'
 import {resetRouter} from '@/router'
 import md5 from 'js-md5';
 
@@ -28,10 +28,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({account: loginName.trim(), password: md5(password)}).then(response => {
         const {data} = response
-        debugger
         commit('SET_TOKEN', data.token)
         setToken(data.token)
-        commit('SET_UID', data.id)
         resolve()
       }).catch(error => {
         reject(error)
@@ -42,8 +40,19 @@ const actions = {
   // get user info
   getInfo({commit, state}) {
     return new Promise((resolve, reject) => {
-      commit('SET_NAME', "系统管理员")
-      resolve()
+      getInfo(state.token).then(response => {
+        const {data} = response
+        if (!data) {
+          reject('认证失败，请重新登录！')
+        }
+        const {id, name} = data
+        if (!id) {
+          reject('用户标识返回缺失！')
+        }
+        commit('SET_UID', id)
+        commit('SET_NAME', name)
+        resolve(data)
+      })
     })
   },
 

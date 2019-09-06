@@ -1,0 +1,1 @@
+INSERT INTO dreamland_auth.t_app_manager (gender, user_name, user_phone, password, slat, last_login_date, last_login_ip, avatar, id, create_time, update_time, create_by, update_by) VALUES ('1', '系统管理员', 'admin', 'C4C3B75887110E28F68041070AD17B19', 'F1N2G3L4I5N6G', null, null, '', 'f9540081-cb88-4e71-9537-0c0935a27e16', '2019-09-06 23:01:50', null, null, null);

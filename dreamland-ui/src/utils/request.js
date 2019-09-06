@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {Message} from 'element-ui'
+import {Message,MessageBox} from 'element-ui'
 import store from '@/store'
 import {getToken} from '@/utils/auth'
 
@@ -13,8 +13,6 @@ service.interceptors.request.use(
     if (store.getters.token) {
       config.headers['x-access-token'] = getToken()
       config.headers['x-user-id'] = store.getters.uid
-    }else{
-      console.log("token is null")
     }
     return config
   },
@@ -34,7 +32,20 @@ service.interceptors.response.use(
       })
       return Promise.reject(new Error(res.msg || 'Error'))
     } else {
-      return res
+      if (res.code === 401) {
+        MessageBox.confirm('登录已经过期，请重新登录！', '重新登录', {
+          confirmButtonText: '重新登录',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          store.dispatch('user/resetToken').then(() => {
+            location.reload()
+          })
+        })
+        return Promise.reject(new Error(res.msg || 'Error'))
+      } else {
+        return res
+      }
     }
   },
   error => {
