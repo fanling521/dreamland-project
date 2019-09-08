@@ -53,7 +53,17 @@ public class JwtTokenService {
     }
 
     /**
+     * 删除/下线
+     * @param userId
+     * @return
+     */
+    public boolean deleteToken(String userId) {
+        return redisTemplate.delete(ACCESS_ID + userId);
+    }
+
+    /**
      * 生成token
+     *
      * @param id
      * @param password
      * @return

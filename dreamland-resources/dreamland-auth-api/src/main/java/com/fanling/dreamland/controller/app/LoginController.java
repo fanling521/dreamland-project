@@ -37,7 +37,7 @@ public class LoginController extends BaseController {
         MyAssert.notNull(loginBody.getAccount(), "手机号码不能为空！");
         MyAssert.notNull(loginBody.getPassword(), "验证码不能为空！");
         //验证码
-        if (!captchaService.checkCaptcha(loginBody.getAccount()+ "-login", loginBody.getPassword())) {
+        if (!captchaService.checkCaptcha(loginBody.getAccount()+ "_L1", loginBody.getPassword())) {
             return error("验证码验证失败，请重新获取!");
         }
         //验证用户并且颁发token

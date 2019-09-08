@@ -131,7 +131,7 @@ public class UserInfoController extends BaseController {
         if (appUser_old == null) {
             return error("用户不存在！");
         } else {
-            if (captchaService.checkCaptcha(updateAppUser.getNew_phone() + "-rebind", updateAppUser.getPassword())) {
+            if (captchaService.checkCaptcha(updateAppUser.getNew_phone() + "_R2", updateAppUser.getPassword())) {
                 AppUser appUser = new AppUser();
                 appUser.setId(updateAppUser.getUid());
                 appUser.setUser_phone(updateAppUser.getNew_phone());

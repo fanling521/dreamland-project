@@ -31,7 +31,7 @@ public class AuthFilter extends ZuulFilter {
     private ValueOperations<String, String> ops;
 
     //排除过滤的 uri 地址
-    private static final String LOGIN_URI = "/auth-api/app/reg/phone";
+    private static final String LOGIN_URI = "/auth-api/app/user/register/phone";
     private static final String REGISTER_URI = "/auth-api/app/user/login/phone";
     private static final String CAPTCHA_URI = "/auth-api/app/captcha/";
     private static final String MANAGER_LOGIN_URI = "/auth-api/manager/login";
@@ -57,10 +57,10 @@ public class AuthFilter extends ZuulFilter {
         HttpServletRequest request = requestContext.getRequest();
         logger.info("uri:{}", request.getRequestURI());
         //注册和登录接口不拦截，其他接口都要拦截校验 token
-        return !LOGIN_URI.equals(request.getRequestURI()) &&
-                !REGISTER_URI.equals(request.getRequestURI()) &&
-                !MANAGER_LOGIN_URI.equals(request.getRequestURI()) &&
-                !request.getRequestURI().contains(CAPTCHA_URI);
+        if (LOGIN_URI.equals(request.getRequestURI()) || REGISTER_URI.equals(request.getRequestURI()))
+            return false;
+        else
+            return !request.getRequestURI().contains(MANAGER_LOGIN_URI) && !request.getRequestURI().contains(CAPTCHA_URI);
     }
 
     @Override

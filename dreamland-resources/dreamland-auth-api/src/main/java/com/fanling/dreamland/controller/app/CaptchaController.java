@@ -42,9 +42,9 @@ public class CaptchaController extends BaseController {
         if (!isPhone(phone)) {
             return error("非法手机号！");
         }
-        //校验手机号获取间隔是否超过了1分钟
-        if (captchaService.getCaptcha(phone + "-" + type)) {
-            return error("90秒内不可重复提交获取验证码的请求");
+        //校验手机号获取间隔是否超过了120秒
+        if (captchaService.getCaptcha(phone + "_" + type)) {
+            return error("120秒内不可重复提交获取验证码的请求");
         }
         if (InitializingMap.checkCaptcha(type)) {
             return error("验证码类型不准确");
@@ -52,7 +52,7 @@ public class CaptchaController extends BaseController {
         //将验证码存redis
         String captcha = captchaService.randomCaptcha();
         log.info("---> 验证码：{}", captcha);
-        captchaService.setCaptcha(phone + "-" + type, captcha);
+        captchaService.setCaptcha(phone + "_" + type, captcha);
         //TODO 调用阿里短信接口
         return success(captcha);
     }

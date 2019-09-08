@@ -45,7 +45,8 @@ public class UploadController extends BaseController {
     }
 
     @ApiOperation(value = "根据路径删除文件", notes = "根据路径删除文件")
-    @ApiImplicitParam(name = "uid", required = true, value = "用户标识", dataType = "String", paramType = "query")
+    @ApiImplicitParam(name = "fileDelRequest", required = true, value = "删除信息", dataType = "FileDelRequest", paramType =
+            "body")
     @PostMapping("/remove")
     public R remove(@RequestBody FileDelRequest fileDelRequest) {
         MyAssert.notNull(fileDelRequest.getUid(), "用户标识不能为空！");

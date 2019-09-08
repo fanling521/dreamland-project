@@ -44,7 +44,7 @@ public class RegController extends BaseController {
         MyAssert.notNull(regBody.getAccount(), "手机号码不能为空！");
         MyAssert.notNull(regBody.getPassword(), "验证码不能为空！");
         //验证码
-        if (!captchaService.checkCaptcha(regBody.getAccount() + "-reg", regBody.getPassword())) {
+        if (!captchaService.checkCaptcha(regBody.getAccount() + "_R1", regBody.getPassword())) {
             return error("验证码失效，请重新获取!");
         }
         //检查重复
