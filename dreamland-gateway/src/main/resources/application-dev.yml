@@ -12,13 +12,21 @@ spring:
   redis:
     host: 127.0.0.1
 zuul:
+  ignored-services: "*"
   routes:
     auth-api:
       path: /auth-api/**
       serviceId: auth-api
-    order-api:
+    service-api:
       path: /service-api/**
       serviceId: service-api
+    attachment-api:
+      path: /attachment-api/**
+      serviceId: attachment-api
+  host:
+    connect-timeout-millis: 15000         #HTTP连接超时要比Hystrix的大
+    socket-timeout-millis: 60000          #socket超时
+
 eureka:
   client:
     fetch-registry: true       #发现服务

@@ -29,6 +29,6 @@ eureka:
   #项目日志
 logging:
   level:
-    com.fanling.dreamland: debug
+    com.fanling.dreamland: info
     org.springframework: warn
   file: /opt/modules/logs/dreamland/eureka-service/wraper.log

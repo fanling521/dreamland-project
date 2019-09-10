@@ -11,8 +11,12 @@ import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -33,8 +37,8 @@ public class UploadController extends BaseController {
 
     @ApiOperation(value = "新增图片附件表", notes = "根据必填项目新增图片附件表")
     @ApiImplicitParam(name = "uid", required = true, value = "用户标识", dataType = "String", paramType = "query")
-    @PostMapping("/upload")
-    public R upload(MultipartFile file, @RequestParam("uid") String uid) {
+    @PostMapping(value = "/upload", headers = "content-type=multipart/form-data")
+    public R upload(@ApiParam(name = "file", value = "文件", required = true) MultipartFile file, String uid) {
         //文件大小限制
         long fileSize = file.getSize();
         if (fileSize == 0) {

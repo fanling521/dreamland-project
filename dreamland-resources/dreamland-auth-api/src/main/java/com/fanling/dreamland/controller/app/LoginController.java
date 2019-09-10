@@ -12,10 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -48,6 +45,18 @@ public class LoginController extends BaseController {
             appUser.setLast_login_date(Long.toString(new Date().getTime()));
             appUser.setLast_login_ip(loginBody.getLogin_ip());
             return R.success(jwtTokenService.createToken(appUser.getId(), loginBody.getPassword()));
+        }
+    }
+
+    @ApiOperation(value = "会员注销登录", notes = "会员注销登录")
+    @ApiImplicitParam(name = "uid", value = "用户标识", dataType = "String", paramType = "path")
+    @PostMapping("/logout/{id}")
+    public R logout(@PathVariable("id") String id) {
+        MyAssert.notNull(id, "用户标识不能为空！");
+        if (jwtTokenService.deleteToken(id)) {
+            return success();
+        } else {
+            return error();
         }
     }
 }
