@@ -8,10 +8,6 @@ server:
 spring:
   profiles:
     active: prod
-  http:
-    multipart:
-      maxFileSize: 10M
-      maxRequestSize: 20M
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -25,6 +21,8 @@ spring:
     host: 127.0.0.1
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     fetch-registry: true       #发现服务
     register-with-eureka: true #注册服务

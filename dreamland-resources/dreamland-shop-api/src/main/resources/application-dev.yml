@@ -25,7 +25,10 @@ spring:
     host: 127.0.0.1
   main:
     allow-bean-definition-overriding: true
+
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     fetch-registry: true       #发现服务
     register-with-eureka: true #注册服务

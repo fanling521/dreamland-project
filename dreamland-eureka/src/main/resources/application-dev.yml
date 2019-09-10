@@ -16,13 +16,6 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
-    server:
-      enableSelfPreservation: false
-      # 清理无效节点的频率 30秒
-      eviction-interval-timer-in-ms: 30000
-      # 表示 Eureka Server 开启自我保护的系数，默认：0.85。
-      renewal-percent-threshold: 0.8
-    # 默认情况下，Eureka使用客户端心跳来确定客户端是否已启动
     healthcheck:
       enabled: true
     serviceUrl:

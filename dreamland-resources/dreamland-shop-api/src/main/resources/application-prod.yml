@@ -27,6 +27,8 @@ spring:
     allow-bean-definition-overriding: true
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     fetch-registry: true       #发现服务
     register-with-eureka: true #注册服务

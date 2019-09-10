@@ -28,6 +28,8 @@ zuul:
     socket-timeout-millis: 60000          #socket超时
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     fetch-registry: true       #发现服务
     register-with-eureka: true #注册服务

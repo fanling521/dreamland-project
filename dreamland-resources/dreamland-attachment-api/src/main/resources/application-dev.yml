@@ -6,10 +6,6 @@ server:
     min-spare-threads: 30
 
 spring:
-  http:
-    multipart:
-      maxFileSize: 10M
-      maxRequestSize: 20M
   profiles:
     active: dev
   jackson:
@@ -24,6 +20,8 @@ spring:
   redis:
     host: 127.0.0.1
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     fetch-registry: true       #发现服务
     register-with-eureka: true #注册服务

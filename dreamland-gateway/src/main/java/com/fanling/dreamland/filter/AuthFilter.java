@@ -35,6 +35,7 @@ public class AuthFilter extends ZuulFilter {
     private static final String REGISTER_URI = "/auth-api/app/user/login/phone";
     private static final String CAPTCHA_URI = "/auth-api/app/captcha/";
     private static final String MANAGER_LOGIN_URI = "/auth-api/manager/login";
+    private static final String SWAGGER_API_DOCS = "/v2/api-docs";
     //无权限时的提示语
     private static final String INVALID_TOKEN = "INVALID TOKEN";
     private static final String INVALID_USER_ID = "INVALID USER_ID";
@@ -60,7 +61,8 @@ public class AuthFilter extends ZuulFilter {
         if (LOGIN_URI.equals(request.getRequestURI()) || REGISTER_URI.equals(request.getRequestURI()))
             return false;
         else
-            return !request.getRequestURI().contains(MANAGER_LOGIN_URI) && !request.getRequestURI().contains(CAPTCHA_URI);
+            return !request.getRequestURI().contains(MANAGER_LOGIN_URI) && !request.getRequestURI().contains(CAPTCHA_URI)
+                    && !request.getRequestURI().contains(SWAGGER_API_DOCS);
     }
 
     @Override
