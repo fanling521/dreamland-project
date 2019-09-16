@@ -9,10 +9,10 @@
     <packaging>pom</packaging>
     <version>2.0.0</version>
     <modules>
-        <module>dreamland-auth-api</module>
-        <module>dreamland-service-api</module>
-        <module>dreamland-attachment-api</module>
-        <module>dreamland-shop-api</module>
+        <module>dreamland-auth-api-7003</module>
+        <module>dreamland-service-api-7005</module>
+        <module>dreamland-attachment-api-7006</module>
+        <module>dreamland-shop-api-7002</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
