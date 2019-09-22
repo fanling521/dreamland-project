@@ -16,13 +16,13 @@ spring:
       max-file-size:  10MB
       max-request-size:  20MB
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/dreamland_auth?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
-    username: root
-    password: root@12345
+    url: jdbc:mysql://172.30.0.4:3306/dreamland_auth?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
+    username: docker
+    password: docker@12345
   application:
     name: auth-api
   redis:
-    host: 127.0.0.1
+    host: 172.30.0.4
 
 eureka:
   instance:

@@ -6,8 +6,7 @@
     <resultMap type="Advertisement" id="baseResult">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
-        <result property="width" column="width"/>
-        <result property="height" column="height"/>
+        <result property="url" column="url"/>
         <result property="img_path" column="img_path"/>
         <result property="position" column="position"/>
         <result property="adv_status" column="adv_status"/>
@@ -16,8 +15,7 @@
     <sql id="selectVo">
         select id,
                title,
-               width,
-               height,
+               url,
                img_path,
                position,
                adv_status,
@@ -28,8 +26,8 @@
     <select id="list" parameterType="Advertisement" resultMap="baseResult">
         <include refid="selectVo"/>
         <where>
-            <if test="width != null and width != ''">
-                AND width like concat('%', #{width}, '%')
+            <if test="title != null and title != ''">
+                AND title like concat('%', #{title}, '%')
             </if>
         </where>
     </select>
@@ -43,8 +41,7 @@
         insert into t_advertisement(
         id,
         <if test="title != null and title != ''">title,</if>
-        <if test="width != null and width != ''">width,</if>
-        <if test="height != null and height != ''">height,</if>
+        <if test="url != null and url != ''">url,</if>
         <if test="img_path != null and img_path != ''">img_path,</if>
         <if test="position != null and position != ''">position,</if>
         <if test="adv_status != null and adv_status != ''">adv_status,</if>
@@ -52,8 +49,7 @@
         )values(
         uuid(),
         <if test="title != null and title != ''">#{title},</if>
-        <if test="width != null and width != ''">#{width},</if>
-        <if test="height != null and height != ''">#{height},</if>
+        <if test="url != null and url != ''">#{url},</if>
         <if test="img_path != null and img_path != ''">#{img_path},</if>
         <if test="position != null and position != ''">#{position},</if>
         <if test="adv_status != null and adv_status != ''">#{adv_status},</if>
@@ -65,8 +61,7 @@
         update t_advertisement
         <set>
             <if test="title != null and title != ''">title = #{title},</if>
-            <if test="width != null and width != ''">width = #{width},</if>
-            <if test="height != null and height != ''">height = #{height},</if>
+            <if test="url != null and url != ''">url = #{url},</if>
             <if test="img_path != null and img_path != ''">img_path = #{img_path},</if>
             <if test="position != null and position != ''">position = #{position},</if>
             <if test="adv_status != null and adv_status != ''">adv_status = #{adv_status},</if>

@@ -1,7 +1,8 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input clearable style="width: 280px" class="filter-item" v-model="search.width" placeholder="请输入宽度" @keyup.enter.native="onSearch"></el-input>
+      <el-input clearable style="width: 280px" class="filter-item" v-model="search.title" placeholder="请输入标题"
+                @keyup.enter.native="onSearch"></el-input>
       <el-button class="filter-item" icon="el-icon-search" type="primary" @click="onSearch">查询</el-button>
     </div>
     <el-button class="filter-item" icon="el-icon-edit" type="primary" @click="handleAdd">新增</el-button>
@@ -46,7 +47,7 @@
         data() {
             return {
                 search: {
-                    width:'',
+                    title:'',
                     page_size: 10,
                     page_num: 0
                 },

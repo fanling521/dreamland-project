@@ -5,7 +5,7 @@
                    :moveSpeed="5" :hoverEffect="false" hoverMode="repulse" :clickEffect="false" clickMode="push">
     </vue-particles>
     <div class="login-img">
-      <img src="@/assets/galaxy.png" draggable="false">
+      <img src="@/assets/galaxy.png" width="300%" height="100%" draggable="false">
     </div>
     <div class="login-con">
       <el-card class="box-card" shadow="never">
@@ -86,7 +86,7 @@
 
     &-img {
       position: absolute;
-      bottom: -2px;
+      bottom: -1px;
     }
 
     &-con {

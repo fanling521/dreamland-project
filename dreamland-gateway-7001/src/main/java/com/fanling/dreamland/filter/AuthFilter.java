@@ -34,7 +34,7 @@ public class AuthFilter extends ZuulFilter {
     private static final String LOGIN_URI = "/auth-api/app/user/register/phone";
     private static final String REGISTER_URI = "/auth-api/app/user/login/phone";
     private static final String CAPTCHA_URI = "/auth-api/app/captcha/";
-    private static final String MANAGER_LOGIN_URI = "/auth-api/manager/login";
+    private static final String MANAGER_LOGIN_URI = "/auth-api/manage/login";
     private static final String SWAGGER_API_DOCS = "/v2/api-docs";
     //无权限时的提示语
     private static final String INVALID_TOKEN = "INVALID TOKEN";

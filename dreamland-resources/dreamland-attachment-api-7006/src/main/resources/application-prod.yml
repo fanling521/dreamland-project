@@ -12,13 +12,13 @@ spring:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/dreamland_attachment?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
-    username: root
-    password: root@12345
+    url: jdbc:mysql://172.30.0.4:3306/dreamland_attachment?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
+    username: docker
+    password: docker@12345
   application:
     name: attachment-api
   redis:
-    host: 127.0.0.1
+    host: 172.30.0.4
 
 eureka:
   instance:
