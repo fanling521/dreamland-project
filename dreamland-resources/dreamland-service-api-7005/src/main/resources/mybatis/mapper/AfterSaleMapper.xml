@@ -14,15 +14,14 @@
     </resultMap>
 
     <sql id="selectVo">
-        select
-        id,
-                    user_id,
-                    p_user_id,
-                    goods_id,
-                    order_id,
-                    complaint,
-                    reply,
-                create_time
+        select id,
+               user_id,
+               p_user_id,
+               goods_id,
+               order_id,
+               complaint,
+               reply,
+               create_time
         from t_after_sale
     </sql>
 
@@ -74,7 +73,9 @@
     </update>
 
     <delete id="delete" parameterType="String">
-        delete from t_after_sale where id = #{id}
+        delete
+        from t_after_sale
+        where id = #{id}
     </delete>
 
 </mapper>

@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.fanling.dreamland</groupId>
-    <artifactId>dreamland-eureka-7001</artifactId>
+    <artifactId>dreamland-eureka-7000</artifactId>
     <version>1.0.0</version>
 
     <properties>

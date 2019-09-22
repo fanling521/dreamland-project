@@ -17,18 +17,17 @@
     </resultMap>
 
     <sql id="selectVo">
-        select
-        id,
-                    pay_status,
-                    order_id,
-                    goods_id,
-                    user_id,
-                    p_user_id,
-                    money,
-                    payment_no,
-                    pay_type,
-                    payment_seq_no,
-                create_time
+        select id,
+               pay_status,
+               order_id,
+               goods_id,
+               user_id,
+               p_user_id,
+               money,
+               payment_no,
+               pay_type,
+               payment_seq_no,
+               create_time
         from t_payment
     </sql>
 
@@ -89,7 +88,9 @@
     </update>
 
     <delete id="delete" parameterType="String">
-        delete from t_payment where id = #{id}
+        delete
+        from t_payment
+        where id = #{id}
     </delete>
 
 </mapper>

@@ -8,7 +8,7 @@ const BASE_SERVICE_URL = 'attachment-api'
  */
 export function list(data) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/file/attachment/list',
+    url: BASE_SERVICE_URL+'/manage/file/attachment/list',
     method: 'post',
     data
   })
@@ -20,7 +20,7 @@ export function list(data) {
  */
 export function remove(id) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/file/attachment/remove/' + id,
+    url: BASE_SERVICE_URL+'/manage/file/attachment/remove/' + id,
     method: 'delete',
   })
 }

@@ -8,7 +8,7 @@ const BASE_URL = "auth-api"
  */
 export function login(data) {
   return request({
-    url: BASE_URL + '/manager/login',
+    url: BASE_URL + '/manage/login',
     method: 'post',
     data
   })
@@ -20,7 +20,7 @@ export function login(data) {
  */
 export function logout(uid) {
   return request({
-    url: BASE_URL + '/manager/login/logout/' + uid,
+    url: BASE_URL + '/manage/login/logout/' + uid,
     method: 'post'
   })
 }
@@ -31,7 +31,7 @@ export function logout(uid) {
  */
 export function getInfo(token) {
   return request({
-    url: BASE_URL + '/manager/login/get',
+    url: BASE_URL + '/manage/login/get',
     method: 'post',
     params: {access_token: token}
   })

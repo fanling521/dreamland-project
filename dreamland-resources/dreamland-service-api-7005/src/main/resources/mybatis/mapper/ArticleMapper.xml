@@ -7,9 +7,7 @@
         <id property="id" column="id"/>
         <result property="author" column="author"/>
         <result property="source" column="source"/>
-        <result property="img_1_path" column="img_1_path"/>
-        <result property="img_2_path" column="img_2_path"/>
-        <result property="ing_3_path" column="ing_3_path"/>
+        <result property="img_path" column="img_path"/>
         <result property="content" column="content"/>
         <result property="title" column="title"/>
     </resultMap>
@@ -18,9 +16,7 @@
         select id,
                author,
                source,
-               img_1_path,
-               img_2_path,
-               ing_3_path,
+               img_path,
                content,
                title,
                create_time
@@ -46,9 +42,7 @@
         id,
         <if test="author != null and author != ''">author,</if>
         <if test="source != null and source != ''">source,</if>
-        <if test="img_1_path != null and img_1_path != ''">img_1_path,</if>
-        <if test="img_2_path != null and img_2_path != ''">img_2_path,</if>
-        <if test="ing_3_path != null and ing_3_path != ''">ing_3_path,</if>
+        <if test="img_path != null and img_path != ''">img_path,</if>
         <if test="content != null and content != ''">content,</if>
         <if test="title != null and title != ''">title,</if>
         create_time
@@ -56,9 +50,7 @@
         uuid(),
         <if test="author != null and author != ''">#{author},</if>
         <if test="source != null and source != ''">#{source},</if>
-        <if test="img_1_path != null and img_1_path != ''">#{img_1_path},</if>
-        <if test="img_2_path != null and img_2_path != ''">#{img_2_path},</if>
-        <if test="ing_3_path != null and ing_3_path != ''">#{ing_3_path},</if>
+        <if test="img_path != null and img_path != ''">#{img_path},</if>
         <if test="content != null and content != ''">#{content},</if>
         <if test="title != null and title != ''">#{title},</if>
         sysdate()
@@ -70,9 +62,7 @@
         <set>
             <if test="author != null and author != ''">author = #{author},</if>
             <if test="source != null and source != ''">source = #{source},</if>
-            <if test="img_1_path != null and img_1_path != ''">img_1_path = #{img_1_path},</if>
-            <if test="img_2_path != null and img_2_path != ''">img_2_path = #{img_2_path},</if>
-            <if test="ing_3_path != null and ing_3_path != ''">ing_3_path = #{ing_3_path},</if>
+            <if test="img_path != null and img_path != ''">img_path = #{img_path},</if>
             <if test="content != null and content != ''">content = #{content},</if>
             <if test="title != null and title != ''">title = #{title},</if>
             update_time = sysdate()
@@ -89,9 +79,7 @@
     <resultMap type="java.util.Map" id="appResult">
         <id property="id" column="id"/>
         <result property="author" column="author"/>
-        <result property="img_1_path" column="img_1_path"/>
-        <result property="img_2_path" column="img_2_path"/>
-        <result property="ing_3_path" column="ing_3_path"/>
+        <result property="img_path" column="img_path"/>
         <result property="title" column="title"/>
     </resultMap>
 
@@ -100,6 +88,7 @@
         <where>
             AND source = #{source}
         </where>
+        order by create_time desc limit 3
     </select>
 
 </mapper>

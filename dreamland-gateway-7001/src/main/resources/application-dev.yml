@@ -13,6 +13,7 @@ spring:
     host: 127.0.0.1
 zuul:
   ignored-services: "*"
+  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
   routes:
     auth-api:
       path: /auth-api/**

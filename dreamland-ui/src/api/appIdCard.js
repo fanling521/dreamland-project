@@ -8,7 +8,7 @@ const BASE_SERVICE_URL = 'auth-api'
  */
 export function list(data) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/id/card/list',
+    url: BASE_SERVICE_URL+'/manage/id/card/list',
     method: 'post',
     data
   })
@@ -20,7 +20,7 @@ export function list(data) {
  */
 export function add(data) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/id/card/insert',
+    url: BASE_SERVICE_URL+'/manage/id/card/insert',
     method: 'post',
     data
   })
@@ -32,7 +32,7 @@ export function add(data) {
  */
 export function edit(data) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/id/card/update',
+    url: BASE_SERVICE_URL+'/manage/id/card/update',
     method: 'post',
     data
   })
@@ -44,7 +44,7 @@ export function edit(data) {
  */
 export function get(id) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/id/card/select/' + id,
+    url: BASE_SERVICE_URL+'/manage/id/card/select/' + id,
     method: 'post',
   })
 }
@@ -55,7 +55,7 @@ export function get(id) {
  */
 export function remove(id) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/id/card/remove/' + id,
+    url: BASE_SERVICE_URL+'/manage/id/card/remove/' + id,
     method: 'delete',
   })
 }

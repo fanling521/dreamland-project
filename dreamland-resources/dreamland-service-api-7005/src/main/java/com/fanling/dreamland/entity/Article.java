@@ -18,12 +18,8 @@ public class Article extends BaseEntity {
     private String author;
     //来源
     private String source;
-    //图片1
-    private String img_1_path;
-    //图片2
-    private String img_2_path;
-    //图片3
-    private String img_3_path;
+    //图片
+    private String img_path;
     //文章正文（富文本）
     private String content;
     //标题

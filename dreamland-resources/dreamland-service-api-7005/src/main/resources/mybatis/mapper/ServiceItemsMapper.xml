@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanling.dreamland.mapper.ServiceItemsMapper">
+    <resultMap type="ServiceItems" id="baseResult">
+        <id property="id" column="id"/>
+        <result property="top" column="top"/>
+        <result property="sub_no" column="sub_no"/>
+        <result property="item_name" column="item_name"/>
+        <result property="top_name" column="top_name"/>
+    </resultMap>
+
+    <sql id="selectVo">
+        select id,
+               top,
+               sub_no,
+               item_name,
+               top_name,
+               create_time
+        from t_service_items
+    </sql>
+
+    <select id="list" parameterType="ServiceItems" resultMap="baseResult">
+        <include refid="selectVo"/>
+        <where>
+            <if test="item_name != null and item_name != ''">
+                AND item_name like concat('%', #{item_name}, '%')
+            </if>
+            <if test="top_name != null and top_name != ''">
+                AND top_name like concat('%', #{top_name}, '%')
+            </if>
+        </where>
+        order by top,sub_no
+    </select>
+
+    <select id="selectById" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="ServiceItems">
+        insert into t_service_items(
+        id,
+        <if test="top != null and top != ''">top,</if>
+        <if test="sub_no != null and sub_no != ''">sub_no,</if>
+        <if test="item_name != null and item_name != ''">item_name,</if>
+        <if test="top_name != null and top_name != ''">top_name,</if>
+        create_time
+        )values(
+        uuid(),
+        <if test="top != null and top != ''">#{top},</if>
+        <if test="sub_no != null and sub_no != ''">#{sub_no},</if>
+        <if test="item_name != null and item_name != ''">#{item_name},</if>
+        <if test="top_name != null and top_name != ''">#{top_name},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="update" parameterType="ServiceItems">
+        update t_service_items
+        <set>
+            <if test="top != null and top != ''">top = #{top},</if>
+            <if test="sub_no != null and sub_no != ''">sub_no = #{sub_no},</if>
+            <if test="item_name != null and item_name != ''">item_name = #{item_name},</if>
+            <if test="top_name != null and top_name != ''">top_name = #{top_name},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete
+        from t_service_items
+        where id = #{id}
+    </delete>
+
+</mapper>

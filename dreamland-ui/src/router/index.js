@@ -23,28 +23,40 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/auth',
+    path: '/system',
     component: Layout,
-    redirect: '/auth/appuser',
+    redirect: '/system/app-user',
     meta: {title: '用户管理', icon: 'example', affix: true},
     children: [
       {
-        path: 'appuser',
-        component: () => import('@/views/auth/appuser/index'),
-        name: 'Appuser',
+        path: 'app-user',
+        component: () => import('@/views/system/app-user/index'),
+        name: 'AppUser',
         meta: {title: '注册会员管理', icon: 'table', affix: true}
       },
       {
-        path: 'appdevice',
-        component: () => import('@/views/auth/appdevice/index'),
-        name: 'Appdevice',
-        meta: {title: '移动设备管理', icon: 'table', affix: true}
+        path: 'staff',
+        component: () => import('@/views/system/app-user/index'),
+        name: 'AppStaff',
+        meta: {title: '维修人员管理', icon: 'table', affix: true}
       },
       {
-        path: 'appidcard',
-        component: () => import('@/views/auth/appidcard/index'),
-        name: 'Appidcard',
-        meta: {title: '实名信息管理', icon: 'table', affix: true}
+        path: 'manager',
+        component: () => import('@/views/system/app-user/index'),
+        name: 'AppManager',
+        meta: {title: '后台管理人员管理', icon: 'table', affix: true}
+      },
+      {
+        path: 'app-device',
+        component: () => import('@/views/system/app-device/index'),
+        name: 'AppDevice',
+        meta: {title: '注册移动设备管理', icon: 'table', affix: true}
+      },
+      {
+        path: 'app-id-card',
+        component: () => import('@/views/system/app-id-card/index'),
+        name: 'appidCard',
+        meta: {title: '注册实名信息管理', icon: 'table', affix: true}
       }
     ]
   },
@@ -52,65 +64,63 @@ export const constantRoutes = [
     path: '/basic',
     component: Layout,
     redirect: '/basic/advertisement',
-    meta: {title: '营销管理', icon: 'example', affix: true},
+    meta: {title: '系统管理', icon: 'example', affix: true},
     children: [
       {
         path: 'file',
         component: () => import('@/views/basic/file/index'),
         name: 'File',
-        meta: {title: '文件管理', icon: 'table', affix: true}
+        meta: {title: '系统文件管理', icon: 'table', affix: true}
       },
       {
         path: 'article',
         component: () => import('@/views/basic/article/index'),
         name: 'Article',
-        meta: {title: '文章管理', icon: 'table', affix: true}
+        meta: {title: '营销文章管理', icon: 'table', affix: true}
+      },
+      {
+        path: 'marketing',
+        component: () => import('@/views/basic/marketing/index'),
+        name: 'Marketing',
+        meta: {title: '营销广告管理', icon: 'table', affix: true}
       }
     ]
   },
   {
-    path: '/evaluation',
+    path: '/wbs',
     component: Layout,
-    redirect: '/evaluation/after-sale',
-    meta: {title: '评价管理', icon: 'example', affix: true},
+    redirect: '/wbs/service-item',
+    meta: {title: '维保设管理', icon: 'example', affix: true},
     children: [
       {
-        path: 'after-sale',
-        component: () => import('@/views/evaluation/after-sale/index'),
+        path: 'service-item',
+        component: () => import('@/views/wbs/serviceitem/index'),
         name: 'AfterSale',
-        meta: {title: '售后服务', icon: 'table', affix: true}
+        meta: {title: '维保设条目管理', icon: 'table', affix: true}
       },
       {
         path: 'comment',
-        component: () => import('@/views/evaluation/comment/index'),
+        component: () => import('@/views/wbs/comment/index'),
         name: 'Comment',
-        meta: {title: '商品评价', icon: 'table', affix: true}
-      },
-      {
-        path: 'person-comment',
-        component: () => import('@/views/evaluation/person-comment/index'),
-        name: 'PersonComment',
-        meta: {title: '维修人员评价', icon: 'table', affix: true}
-      }
-    ]
-  },
-  {
-    path: '/service',
-    component: Layout,
-    redirect: '/service/reservation',
-    meta: {title: '服务系统', icon: 'example', affix: true},
-    children: [
-      {
-        path: 'reservation',
-        component: () => import('@/views/service/reservation/index'),
-        name: 'Reservation',
-        meta: {title: '服务预约管理', icon: 'table', affix: true}
+        meta: {title: '维保设条目评价', icon: 'table', affix: true}
       },
       {
         path: 'payment',
-        component: () => import('@/views/service/payment/index'),
+        component: () => import('@/views/wbs/payment/index'),
         name: 'Payment',
         meta: {title: '服务支付管理', icon: 'table', affix: true}
+      },
+      {
+        path: 'person-comment',
+        component: () => import('@/views/wbs/person-comment/index'),
+        name: 'PersonComment',
+        meta: {title: '维保设人员评价', icon: 'table', affix: true}
+      },
+      {
+        path: 'after-sale',
+        component: () => import('@/views/wbs/after-sale/index'),
+        name: 'AfterSale',
+        meta: {title: '维保设售后服务', icon: 'table', affix: true}
       }
     ]
   },
@@ -118,7 +128,7 @@ export const constantRoutes = [
 ]
 
 const createRouter = () => new Router({
-  base: '/manager/',
+  base: '/manage/',
   mode: 'history', // require service support
   scrollBehavior: () => ({y: 0}),
   routes: constantRoutes

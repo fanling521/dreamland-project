@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dreamland-shop-api</artifactId>
+    <artifactId>dreamland-shop-api-7002</artifactId>
 
     <dependencies>
         <!-- web -->

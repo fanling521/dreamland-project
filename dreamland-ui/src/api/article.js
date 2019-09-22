@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-const BASE_SERVICE_URL = ''
+const BASE_SERVICE_URL = 'service-api'
 
 /**
  * 分页查询
@@ -8,7 +8,7 @@ const BASE_SERVICE_URL = ''
  */
 export function list(data) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/article/list',
+    url: BASE_SERVICE_URL+'/manage/article/list',
     method: 'post',
     data
   })
@@ -20,7 +20,7 @@ export function list(data) {
  */
 export function add(data) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/article/insert',
+    url: BASE_SERVICE_URL+'/manage/article/insert',
     method: 'post',
     data
   })
@@ -32,7 +32,7 @@ export function add(data) {
  */
 export function edit(data) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/article/update',
+    url: BASE_SERVICE_URL+'/manage/article/update',
     method: 'post',
     data
   })
@@ -44,7 +44,7 @@ export function edit(data) {
  */
 export function get(id) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/article/select/' + id,
+    url: BASE_SERVICE_URL+'/manage/article/select/' + id,
     method: 'post',
   })
 }
@@ -55,7 +55,7 @@ export function get(id) {
  */
 export function remove(id) {
   return request({
-    url: BASE_SERVICE_URL+'/manager/article/remove/' + id,
+    url: BASE_SERVICE_URL+'/manage/article/remove/' + id,
     method: 'delete',
   })
 }

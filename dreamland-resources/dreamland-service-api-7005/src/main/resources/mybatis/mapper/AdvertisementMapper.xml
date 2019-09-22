@@ -5,6 +5,7 @@
 <mapper namespace="com.fanling.dreamland.mapper.AdvertisementMapper">
     <resultMap type="Advertisement" id="baseResult">
         <id property="id" column="id"/>
+        <result property="title" column="title"/>
         <result property="width" column="width"/>
         <result property="height" column="height"/>
         <result property="img_path" column="img_path"/>
@@ -13,14 +14,14 @@
     </resultMap>
 
     <sql id="selectVo">
-        select
-            id,
-            width,
-            height,
-            img_path,
-            position,
-            adv_status,
-            create_time
+        select id,
+               title,
+               width,
+               height,
+               img_path,
+               position,
+               adv_status,
+               create_time
         from t_advertisement
     </sql>
 
@@ -41,6 +42,7 @@
     <insert id="insert" parameterType="Advertisement">
         insert into t_advertisement(
         id,
+        <if test="title != null and title != ''">title,</if>
         <if test="width != null and width != ''">width,</if>
         <if test="height != null and height != ''">height,</if>
         <if test="img_path != null and img_path != ''">img_path,</if>
@@ -49,6 +51,7 @@
         create_time
         )values(
         uuid(),
+        <if test="title != null and title != ''">#{title},</if>
         <if test="width != null and width != ''">#{width},</if>
         <if test="height != null and height != ''">#{height},</if>
         <if test="img_path != null and img_path != ''">#{img_path},</if>
@@ -61,6 +64,7 @@
     <update id="update" parameterType="Advertisement">
         update t_advertisement
         <set>
+            <if test="title != null and title != ''">title = #{title},</if>
             <if test="width != null and width != ''">width = #{width},</if>
             <if test="height != null and height != ''">height = #{height},</if>
             <if test="img_path != null and img_path != ''">img_path = #{img_path},</if>
@@ -72,7 +76,9 @@
     </update>
 
     <delete id="delete" parameterType="String">
-        delete from t_advertisement where id = #{id}
+        delete
+        from t_advertisement
+        where id = #{id}
     </delete>
 
 </mapper>

@@ -8,23 +8,29 @@
       <el-form-item label="标题" prop="title">
         <el-input v-model="form.title" placeholder="请输入标题"></el-input>
       </el-form-item>
-      <el-form-item label="作者" prop="author">
-        <el-input v-model="form.author" placeholder="请输入作者"></el-input>
-      </el-form-item>
-      <el-form-item label="来源" prop="source">
-        <el-input v-model="form.source" placeholder="请输入来源"></el-input>
-      </el-form-item>
-      <el-form-item label="图片1" prop="img_1_path">
-        <el-input v-model="form.img_1_path" placeholder="请输入图片1"></el-input>
-      </el-form-item>
-      <el-form-item label="图片2" prop="img_2_path">
-        <el-input v-model="form.img_2_path" placeholder="请输入图片2"></el-input>
-      </el-form-item>
-      <el-form-item label="图片3" prop="img_3_path">
-        <el-input v-model="form.img_3_path" placeholder="请输入图片3"></el-input>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="作者" prop="author">
+            <el-input v-model="form.author" placeholder="请输入作者"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="来源" prop="source">
+            <el-input v-model="form.source" placeholder="请输入来源"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item label="文章图片">
+        <el-upload
+          action="https://jsonplaceholder.typicode.com/posts/"
+          list-type="picture-card"
+          :on-preview="handlePictureCardPreview"
+          :on-remove="handleRemove">
+          <i class="el-icon-plus"></i>
+        </el-upload>
       </el-form-item>
       <el-form-item label="文章正文" prop="content">
-        <el-input v-model="form.content" placeholder="请输入文章正文（富文本）"></el-input>
+        <el-input type="textarea" v-model="form.content" placeholder="请输入文章正文（富文本）"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('form')">修改保存</el-button>
@@ -47,9 +53,7 @@
                 form: {
                     author:'',
                     source:'',
-                    img_1_path:'',
-                    img_2_path:'',
-                    img_3_path:'',
+                    img_path:'',
                     content:'',
                     title:'',
                     id: this.id

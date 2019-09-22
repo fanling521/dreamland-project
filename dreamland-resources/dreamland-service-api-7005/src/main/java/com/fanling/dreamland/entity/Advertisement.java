@@ -14,10 +14,10 @@ public class Advertisement extends BaseEntity {
 
     //主键
     private String id;
-    //宽度
-    private String width;
-    //高度
-    private String height;
+    // 标题
+    private String title;
+    //广告地址
+    private String url;
     //图片路径
     private String img_path;
     //广告位置

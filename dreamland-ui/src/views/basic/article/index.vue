@@ -11,9 +11,7 @@
       <el-table-column header-align="center" align="center" prop="title" label="标题"></el-table-column>
       <el-table-column header-align="center" align="center" prop="author" label="作者"></el-table-column>
       <el-table-column header-align="center" align="center" prop="source" label="来源"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="img_1_path" label="图片1"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="img_2_path" label="图片2"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="img_3_path" label="图片3"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="img_path" label="图片"></el-table-column>
       <el-table-column align="center" header-align="center" fixed="right" label="操作" width="170">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="handleEdit(scope.row.id)">编辑</el-button>

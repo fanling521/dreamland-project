@@ -12,13 +12,12 @@
     </resultMap>
 
     <sql id="selectVo">
-        select
-        id,
-                    user_id,
-                    anonymous,
-                    order_id,
-                    remark,
-                create_time
+        select id,
+               user_id,
+               anonymous,
+               order_id,
+               remark,
+               create_time
         from t_comment
     </sql>
 
@@ -64,7 +63,9 @@
     </update>
 
     <delete id="delete" parameterType="String">
-        delete from t_comment where id = #{id}
+        delete
+        from t_comment
+        where id = #{id}
     </delete>
 
 </mapper>
