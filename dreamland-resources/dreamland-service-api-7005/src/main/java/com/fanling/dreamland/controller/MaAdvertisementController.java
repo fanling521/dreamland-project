@@ -29,7 +29,7 @@ public class MaAdvertisementController extends BaseController {
     public TableDataInfo list(@RequestBody AdvertisementSearch search) {
         startPage(search);
         Advertisement advertisement = new Advertisement();
-        advertisement.setWidth(search.getWidth());
+        advertisement.setTitle(search.getTitle());
         List<Advertisement> list = advertisementService.list(advertisement);
         return getDataTable(list);
     }

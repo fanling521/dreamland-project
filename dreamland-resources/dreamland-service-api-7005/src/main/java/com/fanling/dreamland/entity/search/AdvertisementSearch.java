@@ -12,5 +12,5 @@ import lombok.EqualsAndHashCode;
 public class AdvertisementSearch extends BaseSearch {
     private static final long serialVersionUID = 1L;
     // 宽度
-    private String width;
+    private String title;
 }
