@@ -195,6 +195,7 @@ create table t_service_items
     sub_no      nvarchar(50) null comment '分类编号',
     item_name   nvarchar(50) null comment '条目名称',
     top_name    nvarchar(50) null comment '主类名称',
+	item_icon    nvarchar(50) null comment '条目图标',
     id          nvarchar(50) not null comment '主键',
     create_time datetime     null comment '创建时间',
     update_time datetime     null comment '更新时间',
