@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.fanling.dreamland</groupId>
+    <artifactId>dreamland-facade-entity</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <fanl-common.version>1.0.0</fanl-common.version>
+        <lombok.version>1.18.8</lombok.version>
+    </properties>
+    <dependencies>
+        <!-- 代码简化lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 功能包 -->
+        <dependency>
+            <groupId>com.fanling</groupId>
+            <artifactId>fanl-common</artifactId>
+            <version>${fanl-common.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

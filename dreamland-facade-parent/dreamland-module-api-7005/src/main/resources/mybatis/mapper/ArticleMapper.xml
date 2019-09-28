@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanling.dreamland.module.mapper.ArticleMapper">
+    <resultMap type="Article" id="baseResult">
+        <id property="id" column="id"/>
+        <result property="author" column="author"/>
+        <result property="source" column="source"/>
+        <result property="img_path" column="img_path"/>
+        <result property="content" column="content"/>
+        <result property="title" column="title"/>
+    </resultMap>
+
+    <sql id="selectVo">
+        select id,
+               author,
+               source,
+               img_path,
+               content,
+               title,
+               create_time
+        from t_article
+    </sql>
+
+    <select id="list" parameterType="Article" resultMap="baseResult">
+        <include refid="selectVo"/>
+        <where>
+            <if test="title != null and title != ''">
+                AND title like concat('%', #{title}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="Article">
+        insert into t_article(
+        id,
+        <if test="author != null and author != ''">author,</if>
+        <if test="source != null and source != ''">source,</if>
+        <if test="img_path != null and img_path != ''">img_path,</if>
+        <if test="content != null and content != ''">content,</if>
+        <if test="title != null and title != ''">title,</if>
+        create_time
+        )values(
+        uuid(),
+        <if test="author != null and author != ''">#{author},</if>
+        <if test="source != null and source != ''">#{source},</if>
+        <if test="img_path != null and img_path != ''">#{img_path},</if>
+        <if test="content != null and content != ''">#{content},</if>
+        <if test="title != null and title != ''">#{title},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="update" parameterType="Article">
+        update t_article
+        <set>
+            <if test="author != null and author != ''">author = #{author},</if>
+            <if test="source != null and source != ''">source = #{source},</if>
+            <if test="img_path != null and img_path != ''">img_path = #{img_path},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete
+        from t_article
+        where id = #{id}
+    </delete>
+
+    <resultMap type="java.util.Map" id="appResult">
+        <id property="id" column="id"/>
+        <result property="author" column="author"/>
+        <result property="img_path" column="img_path"/>
+        <result property="title" column="title"/>
+    </resultMap>
+
+    <select id="appList" parameterType="Article" resultMap="appResult">
+        <include refid="selectVo"/>
+        <where>
+            AND source = #{source}
+        </where>
+        order by create_time desc limit 3
+    </select>
+
+</mapper>

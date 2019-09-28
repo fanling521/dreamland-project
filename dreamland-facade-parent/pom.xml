@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.fanling.dreamland</groupId>
+    <artifactId>dreamland-facade-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>2.0.0</version>
+    <modules>
+        <module>dreamland-auth-api-7003</module>
+        <module>dreamland-module-api-7005</module>
+        <module>dreamland-attachment-api-7006</module>
+        <module>dreamland-shop-api-7002</module>
+        <module>dreamland-eureka-7000</module>
+        <module>dreamland-gateway-7001</module>
+    </modules>
+    <properties>
+        <java.version>1.8</java.version>
+        <jwt.version>3.8.1</jwt.version>
+        <lombok.version>1.18.8</lombok.version>
+        <fastdfs.version>1.26.7</fastdfs.version>
+        <swagger2.version>2.9.2</swagger2.version>
+        <fastjson.version>1.2.59</fastjson.version>
+        <dreamland.verison>2.0.0</dreamland.verison>
+        <feign.version>1.4.7.RELEASE</feign.version>
+        <shiro.hash.version>1.4.1</shiro.hash.version>
+        <spring.version>5.1.8.RELEASE</spring.version>
+        <pagehelper.version>1.2.12</pagehelper.version>
+        <spring.boot.verison>2.1.6.RELEASE</spring.boot.verison>
+        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+        <mybatis-spring-boot.verison>2.0.1</mybatis-spring-boot.verison>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <swagger-bootstrap-ui.version>1.9.4</swagger-bootstrap-ui.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring-cloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- SpringBoot的依赖配置-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.verison}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- 代码简化lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--jwt-->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+            <!-- feign -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-feign</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+            <!-- shiro-crypto-hash -->
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-crypto-hash</artifactId>
+                <version>${shiro.hash.version}</version>
+            </dependency>
+            <!-- swagger2 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>swagger-bootstrap-ui</artifactId>
+                <version>${swagger-bootstrap-ui.version}</version>
+            </dependency>
+            <!-- fastdfs -->
+            <dependency>
+                <groupId>com.github.tobato</groupId>
+                <artifactId>fastdfs-client</artifactId>
+                <version>${fastdfs.version}</version>
+            </dependency>
+            <!-- fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fanling.dreamland</groupId>
+                <artifactId>dreamland-facade-entity</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

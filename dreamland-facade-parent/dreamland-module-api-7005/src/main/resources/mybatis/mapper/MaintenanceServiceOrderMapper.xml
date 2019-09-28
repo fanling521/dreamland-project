@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanling.dreamland.module.mapper.MaintenanceServiceOrderMapper">
+    <resultMap type="MaintenanceServiceOrder" id="baseResult">
+        <id property="id" column="id"/>
+        <result property="user_name" column="user_name"/>
+        <result property="user_pay" column="user_pay"/>
+        <result property="position" column="position"/>
+        <result property="community_room" column="community_room"/>
+        <result property="region" column="region"/>
+        <result property="reservation_date" column="reservation_date"/>
+        <result property="community_name" column="community_name"/>
+        <result property="total_price" column="total_price"/>
+        <result property="repair_type" column="repair_type"/>
+        <result property="good_id" column="good_id"/>
+        <result property="title" column="title"/>
+        <result property="order_no" column="order_no"/>
+        <result property="status" column="status"/>
+        <result property="user_id" column="user_id"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectVo">
+        select id,
+               user_name,
+               user_pay,
+               position,
+               community_room,
+               region,
+               reservation_date,
+               community_name,
+               total_price,
+               repair_type,
+               good_id,
+               title,
+               order_no,
+               status,
+               user_id,
+               remark,
+               create_time
+        from t_maintenance_service_order
+    </sql>
+
+    <select id="list" parameterType="MaintenanceServiceOrder" resultMap="baseResult">
+        <include refid="selectVo"/>
+        <where>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="MaintenanceServiceOrder">
+        insert into t_maintenance_service_order(
+        id,
+        <if test="user_name != null and user_name != ''">user_name,</if>
+        <if test="user_pay != null and user_pay != ''">user_pay,</if>
+        <if test="position != null and position != ''">position,</if>
+        <if test="community_room != null and community_room != ''">community_room,</if>
+        <if test="region != null and region != ''">region,</if>
+        <if test="reservation_date != null and reservation_date != ''">reservation_date,</if>
+        <if test="community_name != null and community_name != ''">community_name,</if>
+        <if test="total_price != null and total_price != ''">total_price,</if>
+        <if test="repair_type != null and repair_type != ''">repair_type,</if>
+        <if test="good_id != null and good_id != ''">good_id,</if>
+        <if test="title != null and title != ''">title,</if>
+        <if test="order_no != null and order_no != ''">order_no,</if>
+        <if test="status != null and status != ''">status,</if>
+        <if test="user_id != null and user_id != ''">user_id,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        create_time
+        )values(
+        uuid(),
+        <if test="user_name != null and user_name != ''">#{user_name},</if>
+        <if test="user_pay != null and user_pay != ''">#{user_pay},</if>
+        <if test="position != null and position != ''">#{position},</if>
+        <if test="community_room != null and community_room != ''">#{community_room},</if>
+        <if test="region != null and region != ''">#{region},</if>
+        <if test="reservation_date != null and reservation_date != ''">#{reservation_date},</if>
+        <if test="community_name != null and community_name != ''">#{community_name},</if>
+        <if test="total_price != null and total_price != ''">#{total_price},</if>
+        <if test="repair_type != null and repair_type != ''">#{repair_type},</if>
+        <if test="good_id != null and good_id != ''">#{good_id},</if>
+        <if test="title != null and title != ''">#{title},</if>
+        <if test="order_no != null and order_no != ''">#{order_no},</if>
+        <if test="status != null and status != ''">#{status},</if>
+        <if test="user_id != null and user_id != ''">#{user_id},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="update" parameterType="MaintenanceServiceOrder">
+        update t_maintenance_service_order
+        <set>
+            <if test="user_name != null and user_name != ''">user_name = #{user_name},</if>
+            <if test="user_pay != null and user_pay != ''">user_pay = #{user_pay},</if>
+            <if test="position != null and position != ''">position = #{position},</if>
+            <if test="community_room != null and community_room != ''">community_room = #{community_room},</if>
+            <if test="region != null and region != ''">region = #{region},</if>
+            <if test="reservation_date != null and reservation_date != ''">reservation_date = #{reservation_date},</if>
+            <if test="community_name != null and community_name != ''">community_name = #{community_name},</if>
+            <if test="total_price != null and total_price != ''">total_price = #{total_price},</if>
+            <if test="repair_type != null and repair_type != ''">repair_type = #{repair_type},</if>
+            <if test="good_id != null and good_id != ''">good_id = #{good_id},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="order_no != null and order_no != ''">order_no = #{order_no},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="user_id != null and user_id != ''">user_id = #{user_id},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete
+        from t_maintenance_service_order
+        where id = #{id}
+    </delete>
+
+</mapper>

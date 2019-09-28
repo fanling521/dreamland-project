@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanling.dreamland.module.mapper.AdvertisementMapper">
+    <resultMap type="Advertisement" id="baseResult">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="url" column="url"/>
+        <result property="img_path" column="img_path"/>
+        <result property="position" column="position"/>
+        <result property="adv_status" column="adv_status"/>
+    </resultMap>
+
+    <sql id="selectVo">
+        select id,
+               title,
+               url,
+               img_path,
+               position,
+               adv_status,
+               create_time
+        from t_advertisement
+    </sql>
+
+    <select id="list" parameterType="Advertisement" resultMap="baseResult">
+        <include refid="selectVo"/>
+        <where>
+            <if test="title != null and title != ''">
+                AND title like concat('%', #{title}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="Advertisement">
+        insert into t_advertisement(
+        id,
+        <if test="title != null and title != ''">title,</if>
+        <if test="url != null and url != ''">url,</if>
+        <if test="img_path != null and img_path != ''">img_path,</if>
+        <if test="position != null and position != ''">position,</if>
+        <if test="adv_status != null and adv_status != ''">adv_status,</if>
+        create_time
+        )values(
+        uuid(),
+        <if test="title != null and title != ''">#{title},</if>
+        <if test="url != null and url != ''">#{url},</if>
+        <if test="img_path != null and img_path != ''">#{img_path},</if>
+        <if test="position != null and position != ''">#{position},</if>
+        <if test="adv_status != null and adv_status != ''">#{adv_status},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="update" parameterType="Advertisement">
+        update t_advertisement
+        <set>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="img_path != null and img_path != ''">img_path = #{img_path},</if>
+            <if test="position != null and position != ''">position = #{position},</if>
+            <if test="adv_status != null and adv_status != ''">adv_status = #{adv_status},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete
+        from t_advertisement
+        where id = #{id}
+    </delete>
+
+</mapper>
