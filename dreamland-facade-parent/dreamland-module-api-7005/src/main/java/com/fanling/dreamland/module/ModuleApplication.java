@@ -11,5 +11,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 public class ModuleApplication {
     public static void main(String[] args) {
         SpringApplication.run(ModuleApplication.class, args);
+        System.out.println("接口地址：http://localhost:7005/doc.html");
     }
 }

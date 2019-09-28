@@ -7,8 +7,6 @@ import lombok.Data;
  */
 @Data
 public class UpdateAppUser {
-    //用户标识
-    private String uid;
     //用户名称
     private String user_name;
     //性别

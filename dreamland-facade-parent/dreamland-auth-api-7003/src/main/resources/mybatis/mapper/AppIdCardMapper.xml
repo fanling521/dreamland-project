@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanling.dreamland.attachment.mapper.AppIdCardMapper">
+<mapper namespace="com.fanling.dreamland.auth.mapper.AppIdCardMapper">
     <resultMap type="AppIdCard" id="baseResult">
         <id property="id" column="id"/>
         <result property="user_id" column="user_id"/>

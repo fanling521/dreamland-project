@@ -34,17 +34,17 @@ export const constantRoutes = [
         name: 'AppUser',
         meta: {title: '注册会员管理', icon: 'table', affix: true}
       },
-      {
+/*      {
         path: 'staff',
         component: () => import('@/views/system/app-user/index'),
         name: 'AppStaff',
         meta: {title: '维修人员管理', icon: 'table', affix: true}
-      },
+      },*/
       {
-        path: 'manager',
-        component: () => import('@/views/system/app-user/index'),
-        name: 'AppManager',
-        meta: {title: '后台管理人员管理', icon: 'table', affix: true}
+        path: 'manage',
+        component: () => import('@/views/system/manage-user/index'),
+        name: 'AppManage',
+        meta: {title: '后台人员管理', icon: 'table', affix: true}
       },
       {
         path: 'app-device',
@@ -55,7 +55,7 @@ export const constantRoutes = [
       {
         path: 'app-id-card',
         component: () => import('@/views/system/app-id-card/index'),
-        name: 'appidCard',
+        name: 'appIdCard',
         meta: {title: '注册实名信息管理', icon: 'table', affix: true}
       }
     ]

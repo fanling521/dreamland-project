@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class CaptchaService {
     private final Logger logger = LoggerFactory.getLogger(CaptchaService.class);
-    //过期时间90秒
+    //过期时间120秒
     private final static long EXPIRE = 120;
 
     @Autowired

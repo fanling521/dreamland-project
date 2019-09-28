@@ -34,7 +34,7 @@ public class AppLoginController extends BaseController {
         MyAssert.notNull(loginBody.getAccount(), "手机号码不能为空！");
         MyAssert.notNull(loginBody.getPassword(), "验证码不能为空！");
         //验证码
-        if (!captchaService.checkCaptcha(loginBody.getAccount()+ "_L1", loginBody.getPassword())) {
+        if (!captchaService.checkCaptcha(loginBody.getAccount() + "_L1", loginBody.getPassword())) {
             return error("验证码验证失败，请重新获取!");
         }
         //验证用户并且颁发token
@@ -43,20 +43,18 @@ public class AppLoginController extends BaseController {
             return error("用户信息不存在！");
         } else {
             appUser.setLast_login_date(Long.toString(new Date().getTime()));
-            appUser.setLast_login_ip(loginBody.getLogin_ip());
-            return R.success(jwtTokenService.createToken(appUser.getId(), loginBody.getPassword()));
+            appUser.setLast_login_ip("");
+            return R.success(jwtTokenService.createToken(appUser.getId(), appUser.getPassword()));
         }
     }
 
     @ApiOperation(value = "会员注销登录", notes = "会员注销登录")
-    @ApiImplicitParam(name = "uid", value = "用户标识", dataType = "String", paramType = "path")
-    @PostMapping("/logout/{id}")
-    public R logout(@PathVariable("id") String id) {
-        MyAssert.notNull(id, "用户标识不能为空！");
-        if (jwtTokenService.deleteToken(id)) {
-            return success();
-        } else {
-            return error();
-        }
+    @ApiImplicitParam(name = "token", value = "token", dataType = "String", paramType = "header")
+    @PostMapping("/logout")
+    public R logout(@RequestHeader("x-access-token") String token) {
+        String uid = jwtTokenService.getUserId(token);
+        MyAssert.notNull(uid, "用户标识查询失败，请重新登录！");
+        jwtTokenService.expireToken(uid);
+        return success();
     }
 }

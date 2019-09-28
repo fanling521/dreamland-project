@@ -23,7 +23,7 @@ import java.util.List;
 
 @Api(tags = "附件上传")
 @RestController
-@RequestMapping("/file/attachment")
+@RequestMapping("/app/file/attachment")
 public class UploadController extends BaseController {
 
     @Autowired
@@ -53,7 +53,6 @@ public class UploadController extends BaseController {
             "body")
     @PostMapping("/remove")
     public R remove(@RequestBody FileDelRequest fileDelRequest) {
-        MyAssert.notNull(fileDelRequest.getUid(), "用户标识不能为空！");
         MyAssert.notNull(fileDelRequest.getPath(), "文件路径不能为空！");
         //根据路径找文件信息
         FileAttachment fileAttachment = new FileAttachment();

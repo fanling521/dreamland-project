@@ -12,6 +12,4 @@ public class LoginBody {
     private String phone_type;
     //手机操作系统版本
     private String phone_version;
-    //登录ip
-    private String login_ip;
 }

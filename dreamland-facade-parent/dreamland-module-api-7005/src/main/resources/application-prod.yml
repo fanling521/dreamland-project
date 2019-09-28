@@ -20,7 +20,7 @@ spring:
     username: docker
     password: docker@12345
   application:
-    name: service-api
+    name: module-api
   redis:
     host: 172.30.0.4
   main:
@@ -39,7 +39,7 @@ logging:
   level:
     com.fanling.dreamland.module: info
     org.springframework: warn
-  file: /opt/modules/logs/dreamland/service-api/wraper.log
+  file: /opt/modules/logs/dreamland/module-api/wraper.log
 
 mybatis:
   typeAliasesPackage: com.fanling.dreamland.module.entity

@@ -23,7 +23,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.fanling.dreamland.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.fanling.dreamland.shop.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -32,7 +32,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("DreamLand-商城系统")
                 .description("DreamLand商城系统接口文档说明")
-                .termsOfServiceUrl("http://localhost:7006")
+                .termsOfServiceUrl("http://localhost:7002")
                 .contact(new Contact("樊领", "https://github.com/fanling521", "862844083@qq.com"))
                 .version("1.0")
                 .build();

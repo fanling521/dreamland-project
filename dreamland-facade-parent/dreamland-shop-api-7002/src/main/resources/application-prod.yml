@@ -22,7 +22,7 @@ spring:
   application:
     name: shop-api
   redis:
-    host: 127.0.0.1
+    host: 172.30.0.4
   main:
     allow-bean-definition-overriding: true
 

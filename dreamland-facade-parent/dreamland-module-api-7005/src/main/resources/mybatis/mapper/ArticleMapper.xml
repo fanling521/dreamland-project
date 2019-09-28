@@ -26,6 +26,9 @@
     <select id="list" parameterType="Article" resultMap="baseResult">
         <include refid="selectVo"/>
         <where>
+            <if test="source != null and source != ''">
+                AND source = #{source}
+            </if>
             <if test="title != null and title != ''">
                 AND title like concat('%', #{title}, '%')
             </if>
@@ -75,20 +78,5 @@
         from t_article
         where id = #{id}
     </delete>
-
-    <resultMap type="java.util.Map" id="appResult">
-        <id property="id" column="id"/>
-        <result property="author" column="author"/>
-        <result property="img_path" column="img_path"/>
-        <result property="title" column="title"/>
-    </resultMap>
-
-    <select id="appList" parameterType="Article" resultMap="appResult">
-        <include refid="selectVo"/>
-        <where>
-            AND source = #{source}
-        </where>
-        order by create_time desc limit 3
-    </select>
 
 </mapper>

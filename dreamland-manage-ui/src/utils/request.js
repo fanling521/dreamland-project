@@ -12,7 +12,6 @@ service.interceptors.request.use(
   config => {
     if (store.getters.token) {
       config.headers['x-access-token'] = getToken()
-      config.headers['x-user-id'] = store.getters.uid
     }
     return config
   },

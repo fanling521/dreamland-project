@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient(value = "service-api", fallback = UserSaleFallBack.class)
+@FeignClient(value = "module-api", fallback = UserSaleFallBack.class)
 @RequestMapping("/app/user/sale")
 public interface UserSaleFeign {
     @PostMapping("/select/{id}")

@@ -11,6 +11,7 @@ import com.fanling.dreamland.auth.request.RegBody;
 import com.fanling.dreamland.auth.service.IAppDeviceInfoService;
 import com.fanling.dreamland.auth.service.IAppUserService;
 import com.fanling.dreamland.auth.service.auth.CaptchaService;
+import com.fanling.dreamland.auth.service.auth.JwtTokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -35,6 +36,8 @@ public class AppRegController extends BaseController {
 
     @Autowired
     private IAppDeviceInfoService appDeviceInfoService;
+    @Autowired
+    private JwtTokenService jwtTokenService;
 
     @ApiOperation(value = "会员验证码注册", notes = "用户注册填写手机号、用户类型和验证码提交注册，后续信息将自行填写")
     @ApiImplicitParam(name = "regBody", value = "注册信息", dataType = "RegBody", paramType = "body")
@@ -53,18 +56,24 @@ public class AppRegController extends BaseController {
         }
         //新增用户信息
         AppUser appUser = setAppUser(regBody);
+        appUser.setId(UUID.randomUUID().toString());
         int row = appUserService.insert(appUser);
         //更新设备信息
         if (row > 0) {
             saveDevice(appUser, regBody);
         } else {
-            return error("注册失败！");
+            return error("服务器错误，注册失败！");
         }
-        return toAjax(row);
+        AppUser newAppUser = appUserService.selectById(appUser.getId());
+        if (newAppUser == null) {
+            return error("服务器错误，请退出使用登录的方式！");
+        }
+        return R.success(jwtTokenService.createToken(newAppUser.getId(), newAppUser.getPassword()));
     }
 
     /**
      * 初始化用户信息
+     *
      * @param regBody 注册表单
      * @return
      */

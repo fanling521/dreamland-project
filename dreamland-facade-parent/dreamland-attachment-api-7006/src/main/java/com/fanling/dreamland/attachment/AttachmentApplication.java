@@ -12,10 +12,11 @@ import org.springframework.jmx.support.RegistrationPolicy;
 @SpringBootApplication
 @EnableEurekaClient
 @Import(FdfsClientConfig.class)
-@MapperScan("com.fanling.dreamland.mapper")
+@MapperScan("com.fanling.dreamland.attachment.mapper")
 @EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
 public class AttachmentApplication {
     public static void main(String[] args) {
         SpringApplication.run(AttachmentApplication.class, args);
+        System.out.println("接口地址：http://localhost:7006/doc.html");
     }
 }

@@ -22,7 +22,7 @@ public class AppArticleController extends BaseController {
     @Autowired
     private IArticleService articleService;
 
-    @ApiOperation(value = "获取指定位置的营销广告", notes = "获取指定位置的营销广告")
+    @ApiOperation(value = "获取指定位置的文章信息", notes = "获取指定位置的文章信息")
     @ApiImplicitParam(name = "position", required = true, value = "广告位置", dataType = "String", paramType = "path")
     @PostMapping("/select/{type}")
     public R selectByType(@PathVariable("type") String type) {
@@ -31,12 +31,12 @@ public class AppArticleController extends BaseController {
         }
         Article bean = new Article();
         bean.setSource(type);
-        return getDatalist(articleService.appList(bean));
+        return getDatalist(articleService.list(bean));
     }
 
     @ApiOperation(value = "根据id查询文章信息表", notes = "根据id查询文章信息表")
     @ApiImplicitParam(name = "id", required = true, value = "唯一标识", dataType = "String", paramType = "path")
-    @PostMapping("/select/{id}")
+    @PostMapping("/select/detail/{id}")
     public R selectById(@PathVariable("id") String id) {
         if (StringUtils.isEmpty(id)) {
             return error("id不能为空！");

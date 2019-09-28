@@ -37,10 +37,7 @@ public class AuthFilter extends ZuulFilter {
     private static final String MANAGER_LOGIN_URI = "/auth-api/manage/login";
     private static final String SWAGGER_API_DOCS = "/v2/api-docs";
     //无权限时的提示语
-    private static final String INVALID_TOKEN = "INVALID TOKEN";
-    private static final String INVALID_USER_ID = "INVALID USER_ID";
-    //ACCESS_ID
-    private final static String ACCESS_ID = "app_id_";
+    private static final String INVALID_TOKEN = "Token错误";
 
     @Override
     public String filterType() {
@@ -71,30 +68,10 @@ public class AuthFilter extends ZuulFilter {
         HttpServletRequest request = requestContext.getRequest();
         //从 header 中读取
         String headerToken = request.getHeader("x-access-token");
-        logger.info("headerToken={}", headerToken);
         if (StringUtils.isEmpty(headerToken)) {
             setUnauthorizedResponse(requestContext, INVALID_TOKEN);
-        } else {
-            verifyToken(requestContext, request, headerToken);
         }
         return null;
-    }
-
-    /**
-     * 从Redis中校验token
-     */
-    private void verifyToken(RequestContext requestContext, HttpServletRequest request, String token) {
-        //从header中取userId
-        String userId = request.getHeader("x-user-id");
-        logger.info("userId={}", userId);
-        if (StringUtils.isEmpty(userId)) {
-            setUnauthorizedResponse(requestContext, INVALID_USER_ID);
-        } else {
-            String redisToken = ops.get(ACCESS_ID + userId);
-            if (StringUtils.isEmpty(redisToken) || !redisToken.equals(token)) {
-                setUnauthorizedResponse(requestContext, INVALID_TOKEN);
-            }
-        }
     }
 
     /**

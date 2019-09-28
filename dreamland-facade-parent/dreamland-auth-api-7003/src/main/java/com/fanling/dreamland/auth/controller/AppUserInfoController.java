@@ -12,6 +12,7 @@ import com.fanling.dreamland.auth.service.IAppDeviceInfoService;
 import com.fanling.dreamland.auth.service.IAppIdCardService;
 import com.fanling.dreamland.auth.service.IAppUserService;
 import com.fanling.dreamland.auth.service.auth.CaptchaService;
+import com.fanling.dreamland.auth.service.auth.JwtTokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -38,21 +39,24 @@ public class AppUserInfoController extends BaseController {
     @Autowired
     private UserSaleFeign userSaleFeign;
 
+    @Autowired
+    private JwtTokenService jwtTokenService;
+
 
     @ApiOperation(value = "获取个人信息以及订单信息", notes = "用户根据标识获取个人信息以及订单信息")
-    @ApiImplicitParam(name = "uid", value = "用户标识", dataType = "String", paramType = "path")
-    @PostMapping("/personal_center/{uid}")
-    public R index(@PathVariable("uid") String uid) {
-        MyAssert.notNull(uid, "用户标识不能为空！");
+    @PostMapping("/personal_center")
+    public R index(@RequestHeader("x-access-token") String token) {
+        String uid = jwtTokenService.getUserId(token);
+        MyAssert.notNull(uid, "用户标识查询失败，请重新登录！");
         AppUser appUser = appUserService.selectById(uid);
         if (appUser == null) {
             return error("用户不存在！");
         }
         R map = new R();
-        map.put("id", appUser.getId());
-        map.put("avatar", appUser.getAvatar());
         map.put("user_name", appUser.getUser_name());
         map.put("user_phone", appUser.getUser_phone());
+        map.put("gender", appUser.getGender());
+        map.put("avatar", appUser.getAvatar());
         AppIdCard appIdCard = appIdCardService.selectById(appUser.getId());
         if (appIdCard != null) {
             map.put("real_status", appIdCard.getStatus());
@@ -71,20 +75,19 @@ public class AppUserInfoController extends BaseController {
     }
 
     @ApiOperation(value = "获取个人信息", notes = "用户根据标识获取个人信息")
-    @ApiImplicitParam(name = "uid", value = "用户标识", dataType = "String", paramType = "path")
-    @PostMapping("/personal_info/{uid}")
-    public R info(@PathVariable("uid") String uid) {
-        MyAssert.notNull(uid, "用户标识不能为空！");
+    @PostMapping("/personal_info")
+    public R info(@RequestHeader("x-access-token") String token) {
+        String uid = jwtTokenService.getUserId(token);
+        MyAssert.notNull(uid, "用户标识查询失败，请重新登录！");
         AppUser appUser = appUserService.selectById(uid);
         if (appUser == null) {
             return error("用户不存在！");
         }
         R map = new R();
-        map.put("id", appUser.getId());
-        map.put("gender", appUser.getGender());
         map.put("user_name", appUser.getUser_name());
-        map.put("avatar", appUser.getAvatar());
         map.put("user_phone", appUser.getUser_phone());
+        map.put("avatar", appUser.getAvatar());
+        map.put("gender", appUser.getGender());
         AppIdCard appIdCard = appIdCardService.selectById(appUser.getId());
         if (appIdCard != null) {
             map.put("real_name", appIdCard.getReal_name());
@@ -98,11 +101,12 @@ public class AppUserInfoController extends BaseController {
     @ApiOperation(value = "修改用户名", notes = "用户根据标识修改用户名")
     @ApiImplicitParam(name = "updateAppUser", value = "用户维护信息", dataType = "UpdateAppUser", paramType = "body")
     @PostMapping("/modify/name")
-    public R name(@RequestBody UpdateAppUser updateAppUser) {
-        MyAssert.notNull(updateAppUser.getUid(), "用户标识不能为空！");
+    public R name(@RequestBody UpdateAppUser updateAppUser, @RequestHeader("x-access-token") String token) {
+        String uid = jwtTokenService.getUserId(token);
+        MyAssert.notNull(uid, "用户标识查询失败，请重新登录！");
         MyAssert.notNull(updateAppUser.getUser_name(), "用户名不能为空！");
         AppUser appUser = new AppUser();
-        appUser.setId(updateAppUser.getUid());
+        appUser.setId(uid);
         appUser.setUser_name(updateAppUser.getUser_name());
         return toAjax(appUserService.update(appUser));
     }
@@ -110,11 +114,12 @@ public class AppUserInfoController extends BaseController {
     @ApiOperation(value = "修改性别", notes = "用户根据标识修改性别")
     @ApiImplicitParam(name = "updateAppUser", value = "用户维护信息", dataType = "UpdateAppUser", paramType = "body")
     @PostMapping("/modify/gender")
-    public R gender(@RequestBody UpdateAppUser updateAppUser) {
-        MyAssert.notNull(updateAppUser.getUid(), "用户标识不能为空！");
+    public R gender(@RequestBody UpdateAppUser updateAppUser, @RequestHeader("x-access-token") String token) {
+        String uid = jwtTokenService.getUserId(token);
         MyAssert.notNull(updateAppUser.getGender(), "用户性别不能为空！");
+        MyAssert.notNull(uid, "用户标识查询失败，请重新登录！");
         AppUser appUser = new AppUser();
-        appUser.setId(updateAppUser.getUid());
+        appUser.setId(uid);
         appUser.setGender(updateAppUser.getGender());
         return toAjax(appUserService.update(appUser));
     }
@@ -122,8 +127,9 @@ public class AppUserInfoController extends BaseController {
     @ApiOperation(value = "修改手机号", notes = "用户根据标识修改手机号")
     @ApiImplicitParam(name = "updateAppUser", value = "用户维护信息", dataType = "UpdateAppUser", paramType = "body")
     @PostMapping("/modify/phone")
-    public R phone(@RequestBody UpdateAppUser updateAppUser) {
-        MyAssert.notNull(updateAppUser.getUid(), "用户标识不能为空！");
+    public R phone(@RequestBody UpdateAppUser updateAppUser, @RequestHeader("x-access-token") String token) {
+        String uid = jwtTokenService.getUserId(token);
+        MyAssert.notNull(uid, "用户标识查询失败，请重新登录！");
         MyAssert.notNull(updateAppUser.getOld_phone(), "用户原手机号不能为空！");
         MyAssert.notNull(updateAppUser.getNew_phone(), "用户新手机号不能为空！");
         MyAssert.notNull(updateAppUser.getPassword(), "验证码不能为空！");
@@ -134,7 +140,7 @@ public class AppUserInfoController extends BaseController {
         } else {
             if (captchaService.checkCaptcha(updateAppUser.getNew_phone() + "_R2", updateAppUser.getPassword())) {
                 AppUser appUser = new AppUser();
-                appUser.setId(updateAppUser.getUid());
+                appUser.setId(uid);
                 appUser.setUser_phone(updateAppUser.getNew_phone());
                 saveDevice(appUser, updateAppUser);
                 return toAjax(appUserService.update(appUser));
@@ -147,11 +153,11 @@ public class AppUserInfoController extends BaseController {
     @ApiOperation(value = "修改头像", notes = "用户根据标识修改头像")
     @ApiImplicitParam(name = "updateAppUser", value = "用户维护信息", dataType = "UpdateAppUser", paramType = "body")
     @PostMapping("/modify/avatar")
-    public R avatar(@RequestBody UpdateAppUser updateAppUser) {
-        MyAssert.notNull(updateAppUser.getUid(), "用户标识不能为空！");
+    public R avatar(@RequestBody UpdateAppUser updateAppUser, @RequestHeader("x-access-token") String token) {
+        String uid = jwtTokenService.getUserId(token);
         MyAssert.notNull(updateAppUser.getAvatar(), "头像地址不能为空！");
         AppUser appUser = new AppUser();
-        appUser.setId(updateAppUser.getUid());
+        appUser.setId(uid);
         appUser.setAvatar(updateAppUser.getAvatar());
         return toAjax(appUserService.update(appUser));
     }

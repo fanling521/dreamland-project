@@ -20,7 +20,7 @@ spring:
     username: root
     password: root@12345
   application:
-    name: service-api
+    name: module-api
   redis:
     host: 127.0.0.1
   main:
@@ -39,7 +39,7 @@ logging:
   level:
     com.fanling.dreamland.module: info
     org.springframework: warn
-  file: D:/logs/dreamland/service-api/wraper.log
+  file: D:/logs/dreamland/module-api/wraper.log
 
 mybatis:
   typeAliasesPackage: com.fanling.dreamland.module.entity

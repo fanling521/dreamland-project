@@ -47,7 +47,7 @@ public class FirstFilter extends ZuulFilter {
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH");
-        response.setHeader("Access-Control-Allow-Headers", "x-access-token, content-type,x-user-id");
+        response.setHeader("Access-Control-Allow-Headers", "x-access-token, content-type");
         response.setHeader("Access-Control-Expose-Headers", "X-forwared-port, X-forwarded-host");
         response.setHeader("Vary", "Origin,Access-Control-Request-Method,Access-Control-Request-Headers");
         // 跨域请求一共会进行两次请求 先发送options 是否可以请求

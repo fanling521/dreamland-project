@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanling.dreamland.attachment.mapper.AppDeviceInfoMapper">
+<mapper namespace="com.fanling.dreamland.auth.mapper.AppDeviceInfoMapper">
     <resultMap type="AppDeviceInfo" id="baseResult">
         <id property="id" column="id"/>
         <result property="phone_type" column="phone_type"/>

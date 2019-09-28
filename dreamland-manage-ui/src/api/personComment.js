@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-const BASE_SERVICE_URL = 'service-api'
+const BASE_SERVICE_URL = 'module-api'
 
 /**
  * 分页查询
