@@ -17,9 +17,9 @@ zuul:
     auth-api:
       path: /auth-api/**
       serviceId: auth-api
-    service-api:
-      path: /service-api/**
-      serviceId: service-api
+    module-api:
+      path: /module-api/**
+      serviceId: module-api
     attachment-api:
       path: /attachment-api/**
       serviceId: attachment-api
