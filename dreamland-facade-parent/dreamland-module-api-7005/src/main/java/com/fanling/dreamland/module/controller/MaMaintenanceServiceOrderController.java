@@ -1,11 +1,11 @@
 package com.fanling.dreamland.module.controller;
 
-import com.fanling.common.R;
-import com.fanling.common.utils.StringUtils;
-import com.fanling.common.web.BaseController;
-import com.fanling.common.web.TableDataInfo;
+import com.fanling.dreamland.common.R;
+import com.fanling.dreamland.common.entity.BaseSearch;
+import com.fanling.dreamland.common.utils.StringUtils;
+import com.fanling.dreamland.common.web.BaseController;
+import com.fanling.dreamland.common.web.TableDataInfo;
 import com.fanling.dreamland.module.entity.MaintenanceServiceOrder;
-import com.fanling.dreamland.module.search.MaintenanceServiceOrderSearch;
 import com.fanling.dreamland.module.service.IMaintenanceServiceOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,7 +26,7 @@ public class MaMaintenanceServiceOrderController extends BaseController {
     @ApiOperation(value = "保养服务表分页查询", notes = "根据条件分页查看保养服务表")
     @ApiImplicitParam(name = "search", required = true, value = "查询条件", dataType = "MaintenanceServiceOrderSearch", paramType = "body")
     @PostMapping("/list")
-    public TableDataInfo list(@RequestBody MaintenanceServiceOrderSearch search) {
+    public TableDataInfo list(@RequestBody BaseSearch<MaintenanceServiceOrder> search) {
         startPage(search);
         MaintenanceServiceOrder maintenanceServiceOrder = new MaintenanceServiceOrder();
         List<MaintenanceServiceOrder> list = maintenanceServiceOrderService.list(maintenanceServiceOrder);

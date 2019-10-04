@@ -1,12 +1,12 @@
 package com.fanling.dreamland.attachment.controller;
 
-import com.fanling.common.R;
-import com.fanling.common.utils.StringUtils;
-import com.fanling.common.web.BaseController;
-import com.fanling.common.web.TableDataInfo;
 import com.fanling.dreamland.attachment.entity.FileAttachment;
-import com.fanling.dreamland.attachment.search.FileAttachmentSearch;
 import com.fanling.dreamland.attachment.service.IFileAttachmentService;
+import com.fanling.dreamland.common.R;
+import com.fanling.dreamland.common.entity.BaseSearch;
+import com.fanling.dreamland.common.utils.StringUtils;
+import com.fanling.dreamland.common.web.BaseController;
+import com.fanling.dreamland.common.web.TableDataInfo;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -30,7 +30,7 @@ public class MaFileAttachmentController extends BaseController {
     @ApiOperation(value = "图片附件表分页查询", notes = "根据条件分页查看图片附件表")
     @ApiImplicitParam(name = "search", required = true, value = "查询条件", dataType = "FileAttachmentSearch", paramType = "body")
     @PostMapping("/list")
-    public TableDataInfo list(@RequestBody FileAttachmentSearch search) {
+    public TableDataInfo list(@RequestBody BaseSearch<FileAttachment> search) {
         startPage(search);
         FileAttachment fileAttachment = new FileAttachment();
         List<FileAttachment> list = fileAttachmentService.list(fileAttachment);

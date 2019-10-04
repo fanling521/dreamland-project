@@ -1,6 +1,6 @@
 package com.fanling.dreamland.attachment.controller;
 
-import com.fanling.common.R;
+import com.fanling.dreamland.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.springframework.web.bind.annotation.ExceptionHandler;

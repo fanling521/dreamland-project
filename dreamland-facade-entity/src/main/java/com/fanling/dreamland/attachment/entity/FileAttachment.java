@@ -1,6 +1,6 @@
 package com.fanling.dreamland.attachment.entity;
 
-import com.fanling.common.entity.BaseEntity;
+import com.fanling.dreamland.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

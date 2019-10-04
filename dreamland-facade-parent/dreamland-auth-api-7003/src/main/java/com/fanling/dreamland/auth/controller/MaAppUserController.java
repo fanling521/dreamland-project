@@ -1,12 +1,12 @@
 package com.fanling.dreamland.auth.controller;
 
-import com.fanling.common.R;
-import com.fanling.common.utils.StringUtils;
-import com.fanling.common.web.BaseController;
-import com.fanling.common.web.TableDataInfo;
 import com.fanling.dreamland.auth.entity.AppUser;
-import com.fanling.dreamland.auth.search.AppUserSearch;
 import com.fanling.dreamland.auth.service.IAppUserService;
+import com.fanling.dreamland.common.R;
+import com.fanling.dreamland.common.entity.BaseSearch;
+import com.fanling.dreamland.common.utils.StringUtils;
+import com.fanling.dreamland.common.web.BaseController;
+import com.fanling.dreamland.common.web.TableDataInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +27,7 @@ public class MaAppUserController extends BaseController {
     @ApiOperation(value = "APP用户表分页查询", notes = "根据条件分页查看APP用户表")
     @ApiImplicitParam(name = "search", required = true, value = "查询条件", dataType = "AppUserSearch", paramType = "body")
     @PostMapping("/list")
-    public TableDataInfo list(@RequestBody AppUserSearch search) {
+    public TableDataInfo list(@RequestBody BaseSearch<AppUser> search) {
         startPage(search);
         AppUser appUser = new AppUser();
         List<AppUser> list = appUserService.list(appUser);

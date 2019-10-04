@@ -3,7 +3,7 @@ package com.fanling.dreamland.attachment.service.impl;
 import com.fanling.dreamland.attachment.entity.FileAttachment;
 import com.fanling.dreamland.attachment.mapper.FileAttachmentMapper;
 import com.fanling.dreamland.attachment.service.IFileAttachmentService;
-import com.fanling.common.service.ServiceImpl;
+import com.fanling.dreamland.common.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

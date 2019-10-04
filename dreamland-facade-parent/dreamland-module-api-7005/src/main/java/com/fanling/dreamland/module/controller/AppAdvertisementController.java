@@ -1,8 +1,8 @@
 package com.fanling.dreamland.module.controller;
 
-import com.fanling.common.R;
-import com.fanling.common.utils.StringUtils;
-import com.fanling.common.web.BaseController;
+import com.fanling.dreamland.common.R;
+import com.fanling.dreamland.common.utils.StringUtils;
+import com.fanling.dreamland.common.web.BaseController;
 import com.fanling.dreamland.module.entity.Advertisement;
 import com.fanling.dreamland.module.service.IAdvertisementService;
 import io.swagger.annotations.Api;

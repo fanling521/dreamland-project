@@ -1,11 +1,11 @@
 package com.fanling.dreamland.module.controller;
 
-import com.fanling.common.R;
-import com.fanling.common.utils.StringUtils;
-import com.fanling.common.web.BaseController;
-import com.fanling.common.web.TableDataInfo;
+import com.fanling.dreamland.common.R;
+import com.fanling.dreamland.common.entity.BaseSearch;
+import com.fanling.dreamland.common.utils.StringUtils;
+import com.fanling.dreamland.common.web.BaseController;
+import com.fanling.dreamland.common.web.TableDataInfo;
 import com.fanling.dreamland.module.entity.ServiceItems;
-import com.fanling.dreamland.module.search.ServiceItemsSearch;
 import com.fanling.dreamland.module.service.IServiceItemsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,11 +26,11 @@ public class MaServiceItemsController extends BaseController {
     @ApiOperation(value = "维修设计保养条目表分页查询", notes = "根据条件分页查看维修设计保养条目表")
     @ApiImplicitParam(name = "search", required = true, value = "查询条件", dataType = "ServiceItemsSearch", paramType = "body")
     @PostMapping("/list")
-    public TableDataInfo list(@RequestBody ServiceItemsSearch search) {
+    public TableDataInfo list(@RequestBody BaseSearch<ServiceItems> search) {
         startPage(search);
         ServiceItems serviceItems = new ServiceItems();
-        serviceItems.setItem_name(search.getItem_name());
-        serviceItems.setTop_name(search.getTop_name());
+        serviceItems.setItem_name(search.getObj().getItem_name());
+        serviceItems.setTop_name(search.getObj().getTop_name());
         List<ServiceItems> list = serviceItemsService.list(serviceItems);
         return getDataTable(list);
     }

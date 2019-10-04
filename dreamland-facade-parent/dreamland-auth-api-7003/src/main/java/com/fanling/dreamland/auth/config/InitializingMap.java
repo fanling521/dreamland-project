@@ -1,6 +1,6 @@
 package com.fanling.dreamland.auth.config;
 
-import com.fanling.common.utils.StringUtils;
+import com.fanling.dreamland.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;

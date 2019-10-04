@@ -1,13 +1,13 @@
 package com.fanling.dreamland.auth.controller;
 
-import com.fanling.common.R;
-import com.fanling.common.utils.MyAssert;
-import com.fanling.common.web.BaseController;
 import com.fanling.dreamland.auth.entity.AppUser;
 import com.fanling.dreamland.auth.request.LoginBody;
 import com.fanling.dreamland.auth.service.IAppUserService;
 import com.fanling.dreamland.auth.service.auth.CaptchaService;
 import com.fanling.dreamland.auth.service.auth.JwtTokenService;
+import com.fanling.dreamland.common.R;
+import com.fanling.dreamland.common.utils.MyAssert;
+import com.fanling.dreamland.common.web.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

@@ -1,6 +1,6 @@
 package com.fanling.dreamland.module.controller;
 
-import com.fanling.common.R;
+import com.fanling.dreamland.common.R;
 import com.fanling.dreamland.module.entity.ServiceItems;
 import com.fanling.dreamland.module.service.IServiceItemsService;
 import io.swagger.annotations.Api;

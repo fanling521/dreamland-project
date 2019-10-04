@@ -1,11 +1,11 @@
 package com.fanling.dreamland.module.controller;
 
-import com.fanling.common.R;
-import com.fanling.common.utils.StringUtils;
-import com.fanling.common.web.BaseController;
-import com.fanling.common.web.TableDataInfo;
+import com.fanling.dreamland.common.R;
+import com.fanling.dreamland.common.entity.BaseSearch;
+import com.fanling.dreamland.common.utils.StringUtils;
+import com.fanling.dreamland.common.web.BaseController;
+import com.fanling.dreamland.common.web.TableDataInfo;
 import com.fanling.dreamland.module.entity.Article;
-import com.fanling.dreamland.module.search.ArticleSearch;
 import com.fanling.dreamland.module.service.IArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,10 +26,10 @@ public class MaArticleController extends BaseController {
     @ApiOperation(value = "文章信息表分页查询", notes = "根据条件分页查看文章信息表")
     @ApiImplicitParam(name = "search", required = true, value = "查询条件", dataType = "ArticleSearch", paramType = "body")
     @PostMapping("/list")
-    public TableDataInfo list(@RequestBody ArticleSearch search) {
+    public TableDataInfo list(@RequestBody BaseSearch<Article> search) {
         startPage(search);
         Article article = new Article();
-        article.setTitle(search.getTitle());
+        article.setTitle(search.getObj().getTitle());
         List<Article> list = articleService.list(article);
         return getDataTable(list);
     }

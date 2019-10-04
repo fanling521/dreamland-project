@@ -1,6 +1,6 @@
 package com.fanling.dreamland.auth.service.auth;
 
-import com.fanling.common.utils.StringUtils;
+import com.fanling.dreamland.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.fanling.dreamland.module.service.impl;
 
-import com.fanling.common.service.ServiceImpl;
+import com.fanling.dreamland.common.service.impl.ServiceImpl;
 import com.fanling.dreamland.module.entity.Payment;
 import com.fanling.dreamland.module.mapper.PaymentMapper;
 import com.fanling.dreamland.module.service.IPaymentService;

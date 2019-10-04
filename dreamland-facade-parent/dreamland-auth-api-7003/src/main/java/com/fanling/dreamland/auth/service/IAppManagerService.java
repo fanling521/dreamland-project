@@ -1,7 +1,7 @@
 package com.fanling.dreamland.auth.service;
 
-import com.fanling.common.service.IService;
 import com.fanling.dreamland.auth.entity.AppManager;
+import com.fanling.dreamland.common.service.IService;
 
 /**
  * 管理人员表的业务层

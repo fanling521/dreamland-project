@@ -1,11 +1,11 @@
 package com.fanling.dreamland.module.controller;
 
-import com.fanling.common.R;
-import com.fanling.common.utils.StringUtils;
-import com.fanling.common.web.BaseController;
-import com.fanling.common.web.TableDataInfo;
+import com.fanling.dreamland.common.R;
+import com.fanling.dreamland.common.entity.BaseSearch;
+import com.fanling.dreamland.common.utils.StringUtils;
+import com.fanling.dreamland.common.web.BaseController;
+import com.fanling.dreamland.common.web.TableDataInfo;
 import com.fanling.dreamland.module.entity.AfterSale;
-import com.fanling.dreamland.module.search.AfterSaleSearch;
 import com.fanling.dreamland.module.service.IAfterSaleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,7 +26,7 @@ public class MaAfterSaleController extends BaseController {
     @ApiOperation(value = "售后处理分页查询", notes = "根据条件分页查看售后处理")
     @ApiImplicitParam(name = "search", required = true, value = "查询条件", dataType = "AfterSaleSearch", paramType = "body")
     @PostMapping("/list")
-    public TableDataInfo list(@RequestBody AfterSaleSearch search) {
+    public TableDataInfo list(@RequestBody BaseSearch<AfterSale> search) {
         startPage(search);
         AfterSale afterSale = new AfterSale();
         List<AfterSale> list = afterSaleService.list(afterSale);

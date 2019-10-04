@@ -1,7 +1,7 @@
 package com.fanling.dreamland.auth.feign;
 
-import com.fanling.common.R;
 import com.fanling.dreamland.auth.feign.fallback.UserSaleFallBack;
+import com.fanling.dreamland.common.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

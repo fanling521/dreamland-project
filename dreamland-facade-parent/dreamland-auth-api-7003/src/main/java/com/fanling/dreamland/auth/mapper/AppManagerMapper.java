@@ -1,7 +1,7 @@
 package com.fanling.dreamland.auth.mapper;
 
-import com.fanling.common.mapper.BaseMapper;
 import com.fanling.dreamland.auth.entity.AppManager;
+import com.fanling.dreamland.common.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 /**

@@ -1,11 +1,11 @@
 package com.fanling.dreamland.module.controller;
 
-import com.fanling.common.R;
-import com.fanling.common.utils.StringUtils;
-import com.fanling.common.web.BaseController;
-import com.fanling.common.web.TableDataInfo;
+import com.fanling.dreamland.common.R;
+import com.fanling.dreamland.common.entity.BaseSearch;
+import com.fanling.dreamland.common.utils.StringUtils;
+import com.fanling.dreamland.common.web.BaseController;
+import com.fanling.dreamland.common.web.TableDataInfo;
 import com.fanling.dreamland.module.entity.Advertisement;
-import com.fanling.dreamland.module.search.AdvertisementSearch;
 import com.fanling.dreamland.module.service.IAdvertisementService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,10 +26,10 @@ public class MaAdvertisementController extends BaseController {
     @ApiOperation(value = "营销广告表分页查询", notes = "根据条件分页查看营销广告表")
     @ApiImplicitParam(name = "search", required = true, value = "查询条件", dataType = "AdvertisementSearch", paramType = "body")
     @PostMapping("/list")
-    public TableDataInfo list(@RequestBody AdvertisementSearch search) {
+    public TableDataInfo list(@RequestBody BaseSearch<Advertisement> search) {
         startPage(search);
         Advertisement advertisement = new Advertisement();
-        advertisement.setTitle(search.getTitle());
+        advertisement.setTitle(search.getObj().getTitle());
         List<Advertisement> list = advertisementService.list(advertisement);
         return getDataTable(list);
     }

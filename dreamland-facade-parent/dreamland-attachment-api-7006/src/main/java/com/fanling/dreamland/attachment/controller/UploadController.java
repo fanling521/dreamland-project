@@ -1,12 +1,12 @@
 package com.fanling.dreamland.attachment.controller;
 
-import com.fanling.common.R;
-import com.fanling.common.utils.MyAssert;
-import com.fanling.common.web.BaseController;
 import com.fanling.dreamland.attachment.config.FastDFSClientWrapper;
 import com.fanling.dreamland.attachment.entity.FileAttachment;
 import com.fanling.dreamland.attachment.entity.FileDelRequest;
 import com.fanling.dreamland.attachment.service.IFileAttachmentService;
+import com.fanling.dreamland.common.R;
+import com.fanling.dreamland.common.utils.MyAssert;
+import com.fanling.dreamland.common.web.BaseController;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

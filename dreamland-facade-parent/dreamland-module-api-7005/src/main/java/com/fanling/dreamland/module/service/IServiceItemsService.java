@@ -1,6 +1,6 @@
 package com.fanling.dreamland.module.service;
 
-import com.fanling.common.service.IService;
+import com.fanling.dreamland.common.service.IService;
 import com.fanling.dreamland.module.entity.ServiceItems;
 
 /**
