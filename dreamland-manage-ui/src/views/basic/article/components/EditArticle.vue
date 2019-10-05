@@ -1,39 +1,46 @@
 <template>
   <el-dialog
-    title="修改"
-    :visible.sync="show" @close="resetForm('form')" :modal="true" :close-on-click-modal="false"
-    :close-on-press-escape="true"
-    width="40%">
-    <el-form ref="form" :rules="rules" :model="form" label-width="100px">
-      <el-form-item label="标题" prop="title">
-        <el-input v-model="form.title" placeholder="请输入标题"></el-input>
+    :close-on-click-modal="false"
+    :close-on-press-escape="true" :modal="true" :visible.sync="show" @close="resetForm('form')"
+    title="修改文章"
+    width="50%">
+    <el-form :model="form" :rules="rules" label-width="100px" ref="form">
+      <el-form-item label="文章标题" prop="title">
+        <el-input placeholder="请输入文章标题" v-model="form.title"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="作者" prop="author">
-            <el-input v-model="form.author" placeholder="请输入作者"></el-input>
+          <el-form-item label="文章作者" prop="author">
+            <el-input placeholder="请输入文章作者" v-model="form.author"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="来源" prop="source">
-            <el-input v-model="form.source" placeholder="请输入来源"></el-input>
+          <el-form-item label="文章来源" prop="source">
+            <el-select placeholder="请选择" v-model="form.source">
+              <el-option
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                v-for="item in source_options">
+              </el-option>
+            </el-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item label="文章图片">
         <el-upload
-          action="https://jsonplaceholder.typicode.com/posts/"
-          list-type="picture-card"
           :on-preview="handlePictureCardPreview"
-          :on-remove="handleRemove">
+          :on-remove="handleRemove"
+          action="http://139.186.30.39/microservice/attachment-api/app/file/attachment/upload"
+          list-type="picture-card">
           <i class="el-icon-plus"></i>
         </el-upload>
       </el-form-item>
       <el-form-item label="文章正文" prop="content">
-        <el-input type="textarea" v-model="form.content" placeholder="请输入文章正文（富文本）"></el-input>
+        <el-input placeholder="请输入文章正文" rows="5" type="textarea" v-model="form.content"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('form')">修改保存</el-button>
+        <el-button @click="onSubmit('form')" type="primary">修改保存</el-button>
         <el-button @click="resetForm('form')">取消</el-button>
       </el-form-item>
     </el-form>
@@ -41,7 +48,7 @@
 </template>
 <script>
     import {edit, get} from "@/api/article";
-
+    import {service_type} from '@/utils/dict'
     export default {
         name: 'EditArticle',
         props: {
@@ -50,26 +57,27 @@
         },
         data() {
             return {
+                source_options:service_type,
                 form: {
-                    author:'',
-                    source:'',
-                    img_path:'',
-                    content:'',
-                    title:'',
+                    author: '',
+                    source: '',
+                    img_path: '',
+                    content: '',
+                    title: '',
                     id: this.id
                 },
                 rules: {
                     author: [
-                        {required: true, message: '请输入作者', trigger: 'blur'}
+                        {required: true, message: '请输入文章作者', trigger: 'blur'}
                     ],
                     source: [
-                        {required: true, message: '请输入来源', trigger: 'blur'}
+                        {required: true, message: '请输入文章来源', trigger: 'blur'}
                     ],
                     content: [
-                        {required: true, message: '请输入文章正文（富文本）', trigger: 'blur'}
+                        {required: true, message: '请输入文章正文', trigger: 'blur'}
                     ],
                     title: [
-                        {required: true, message: '请输入标题', trigger: 'blur'}
+                        {required: true, message: '请输入文章标题', trigger: 'blur'}
                     ],
                 },
                 show: this.editVisible,
@@ -79,6 +87,8 @@
             this.getInitInfo()
         },
         methods: {
+            handlePictureCardPreview(){},
+            handleRemove(){},
             getInitInfo() {
                 get(this.form.id).then(r => {
                     const {data} = r;

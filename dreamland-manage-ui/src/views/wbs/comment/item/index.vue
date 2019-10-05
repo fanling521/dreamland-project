@@ -1,31 +1,21 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input clearable style="width: 280px" class="filter-item" v-model="search.star_lv" placeholder="请输入星级评分（5）" @keyup.enter.native="onSearch"></el-input>
-      <el-button class="filter-item" icon="el-icon-search" type="primary" @click="onSearch">查询</el-button>
+      <el-input @keyup.enter.native="onSearch" class="filter-item" clearable placeholder="请输入订单标题" style="width: 280px"
+                v-model="search.obj.title"></el-input>
+      <el-button class="filter-item" icon="el-icon-search" type="success" @click="onSearch">查询</el-button>
     </div>
-    <el-button class="filter-item" icon="el-icon-edit" type="primary" @click="handleAdd">新增</el-button>
     <el-divider></el-divider>
     <el-table :header-cell-style="{background:'#F5F7FA'}" :data="list" tooltip-effect="light" style="width: 100%">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="星级评分（5）">
-              <span>{{ props.row.star_lv }}</span>
-            </el-form-item>
-            <el-form-item label="额外评价">
-              <span>{{ props.row.remark }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
       <el-table-column align="center" header-align="center" type="index" width="50" label="序号"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="star_lv" label="星级评分（5）"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="remark" label="额外评价"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="title" label="订单标题"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="total_price" label="总金额"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="staff_star" label="评星"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="person_comment" label="维修人员"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="remark" label="用户评论"></el-table-column>
       <el-table-column align="center" header-align="center" fixed="right" label="操作" width="170">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handleEdit(scope.row.id)">编辑</el-button>
-          <el-button type="text" size="small" @click="handleDel(scope.row.id)">删除</el-button>
+          <el-button type="text" size="small" @click="handleDel(scope.row.id)">删除评价</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -42,13 +32,13 @@
   </div>
 </template>
 <script>
-    import {list, remove} from '@/api/personComment'
+    import {list, remove} from '@/api/itemComment'
 
     export default {
         data() {
             return {
                 search: {
-                    star_lv:'',
+                    obj: {title: ''},
                     page_size: 10,
                     page_num: 0
                 },

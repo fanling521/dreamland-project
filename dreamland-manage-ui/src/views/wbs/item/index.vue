@@ -1,13 +1,17 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input clearable style="width: 280px" class="filter-item" v-model="search.item_name" placeholder="请输入条目名称"
+      <el-button class="filter-item" icon="el-icon-edit" type="primary" @click="handleAdd">新增</el-button>
+      <el-select  clearable class="filter-item" v-model="search.obj.top_name" placeholder="请选择"
+                  @change="onSearch">
+        <el-option label="维修" value="维修"></el-option>
+        <el-option label="保养" value="保养"></el-option>
+        <el-option label="设计" value="设计"></el-option>
+      </el-select>
+      <el-input clearable style="width: 280px" class="filter-item" v-model="search.obj.item_name" placeholder="请输入条目名称"
                 @keyup.enter.native="onSearch"></el-input>
-      <el-input clearable style="width: 280px" class="filter-item" v-model="search.top_name" placeholder="请输入主类名称"
-                @keyup.enter.native="onSearch"></el-input>
-      <el-button class="filter-item" icon="el-icon-search" type="primary" @click="onSearch">查询</el-button>
+      <el-button class="filter-item" icon="el-icon-search" type="success" @click="onSearch">查询</el-button>
     </div>
-    <el-button class="filter-item" icon="el-icon-edit" type="primary" @click="handleAdd">新增</el-button>
     <el-divider></el-divider>
     <el-table :header-cell-style="{background:'#F5F7FA'}" :data="list" tooltip-effect="light" style="width: 100%">
       <el-table-column align="center" header-align="center" type="index" width="50" label="序号"></el-table-column>
@@ -16,6 +20,7 @@
       <el-table-column header-align="center" align="center" prop="sub_no" label="分类编号"></el-table-column>
       <el-table-column header-align="center" align="center" prop="item_name" label="条目名称"></el-table-column>
       <el-table-column header-align="center" align="center" prop="item_icon" label="条目图标"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="price" label="价格(元)"></el-table-column>
       <el-table-column align="center" header-align="center" fixed="right" label="操作" width="170">
         <template slot-scope="scope">
           <el-dropdown placement="bottom-start" trigger="click" type="primary">
@@ -24,10 +29,11 @@
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
-                <el-button icon="el-icon-edit" type="text" size="small" @click="handleEdit(scope.row.id)">编辑</el-button>
+                <el-button icon="el-icon-edit" type="text" size="small" @click="handleEdit(scope.row.id)">编辑条目
+                </el-button>
               </el-dropdown-item>
               <el-dropdown-item>
-                <el-button icon="el-icon-delete" type="text" size="small" @click="handleDel(scope.row.id)">删除
+                <el-button icon="el-icon-delete" type="text" size="small" @click="handleDel(scope.row.id)">删除条目
                 </el-button>
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -44,7 +50,8 @@
   </div>
 </template>
 <script>
-    import {AddServiceItems, EditServiceItems} from './components'
+    import AddServiceItems from './components/AddServiceItems'
+    import EditServiceItems from './components/EditServiceItems'
     import {list, remove} from '@/api/serviceItems'
 
     export default {
@@ -52,8 +59,10 @@
         data() {
             return {
                 search: {
-                    item_name: '',
-                    top_name: '',
+                    obj:{
+                        item_name: '',
+                        top_name: ''
+                    },
                     page_size: 10,
                     page_num: 0
                 },

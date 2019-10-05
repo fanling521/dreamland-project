@@ -10,6 +10,7 @@
         <result property="item_name" column="item_name"/>
         <result property="top_name" column="top_name"/>
         <result property="item_icon" column="item_icon"/>
+        <result property="price" column="price"/>
     </resultMap>
 
     <sql id="selectVo">
@@ -19,6 +20,7 @@
                item_name,
                item_icon,
                top_name,
+               price,
                create_time
         from t_service_items
     </sql>
@@ -49,6 +51,7 @@
         <if test="item_name != null and item_name != ''">item_name,</if>
         <if test="top_name != null and top_name != ''">top_name,</if>
         <if test="item_icon != null and item_icon != ''">item_icon,</if>
+        <if test="price != null and price != ''">price,</if>
         create_time
         )values(
         uuid(),
@@ -57,6 +60,7 @@
         <if test="item_name != null and item_name != ''">#{item_name},</if>
         <if test="top_name != null and top_name != ''">#{top_name},</if>
         <if test="item_icon != null and item_icon != ''">#{item_icon},</if>
+        <if test="price != null and price != ''">#{price},</if>
         sysdate()
         )
     </insert>
@@ -69,6 +73,7 @@
             <if test="item_name != null and item_name != ''">item_name = #{item_name},</if>
             <if test="top_name != null and top_name != ''">top_name = #{top_name},</if>
             <if test="item_icon != null and item_icon != ''">item_icon = #{item_icon},</if>
+            <if test="price != null and price != ''">price = #{price},</if>
             update_time = sysdate()
         </set>
         where id = #{id}

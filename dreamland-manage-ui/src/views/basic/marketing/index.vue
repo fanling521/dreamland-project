@@ -1,19 +1,19 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input clearable style="width: 280px" class="filter-item" v-model="search.title" placeholder="请输入标题"
+      <el-button class="filter-item" icon="el-icon-edit" type="primary" @click="handleAdd">新增</el-button>
+      <el-input clearable style="width: 280px" class="filter-item" v-model="search.obj.title" placeholder="请输入标题"
                 @keyup.enter.native="onSearch"></el-input>
-      <el-button class="filter-item" icon="el-icon-search" type="primary" @click="onSearch">查询</el-button>
+      <el-button class="filter-item" icon="el-icon-search" type="success" @click="onSearch">查询</el-button>
     </div>
-    <el-button class="filter-item" icon="el-icon-edit" type="primary" @click="handleAdd">新增</el-button>
     <el-divider></el-divider>
     <el-table :header-cell-style="{background:'#F5F7FA'}" :data="list" tooltip-effect="light" style="width: 100%">
       <el-table-column align="center" header-align="center" type="index" width="50" label="序号"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="title" label="标题"></el-table-column>
-      <el-table-column header-align="center" align="url" prop="width" label="广告地址"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="img_path" label="图片路径"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="title" label="广告标题"></el-table-column>
+      <el-table-column header-align="center" prop="url" label="广告地址"></el-table-column>
       <el-table-column header-align="center" align="center" prop="position" label="广告位置"></el-table-column>
       <el-table-column header-align="center" align="center" prop="adv_status" label="广告状态"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="img_path" label="图片路径"></el-table-column>
       <el-table-column align="center" header-align="center" fixed="right" label="操作" width="170">
         <template slot-scope="scope">
           <el-dropdown placement="bottom-start" trigger="click" type="primary">
@@ -22,10 +22,10 @@
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
-                <el-button icon="el-icon-edit" type="text" size="small" @click="handleEdit(scope.row.id)">编辑</el-button>
+                <el-button icon="el-icon-edit" type="text" size="small" @click="handleEdit(scope.row.id)">编辑广告</el-button>
               </el-dropdown-item>
               <el-dropdown-item>
-                <el-button icon="el-icon-delete" type="text" size="small" @click="handleDel(scope.row.id)">删除</el-button>
+                <el-button icon="el-icon-delete" type="text" size="small" @click="handleDel(scope.row.id)">删除广告</el-button>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -39,7 +39,8 @@
   </div>
 </template>
 <script>
-    import {AddAdvertisement, EditAdvertisement} from './components'
+    import AddAdvertisement from './components/AddAdvertisement'
+    import EditAdvertisement from './components/EditAdvertisement'
     import {list, remove} from '@/api/advertisement'
 
     export default {
@@ -47,7 +48,9 @@
         data() {
             return {
                 search: {
-                    title:'',
+                    obj:{
+                        title:''
+                    },
                     page_size: 10,
                     page_num: 0
                 },

@@ -5,15 +5,15 @@
     :close-on-press-escape="true"
     width="50%">
     <el-form ref="form" :rules="rules" :model="form" label-width="100px">
-      <el-form-item label="标题" prop="title">
-        <el-input v-model="form.title" placeholder="请输入标题"></el-input>
+      <el-form-item label="广告标题" prop="title">
+        <el-input v-model="form.title" placeholder="请输入广告标题"></el-input>
       </el-form-item>
-      <el-form-item label="广告地址" prop="width">
+      <el-form-item label="广告地址" prop="url">
         <el-input v-model="form.url" placeholder="请输入广告地址"></el-input>
       </el-form-item>
       <el-form-item label="图片路径">
         <el-upload
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="http://139.186.30.39/microservice/attachment-api/app/file/attachment/upload"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :before-remove="beforeRemove"
@@ -27,11 +27,13 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="广告位置" prop="position">
-            <el-select v-model="form.position" placeholder="请选择广告位置">
-              <el-option label="个人主页" value="1"></el-option>
-              <el-option label="维修主页面" value="2"></el-option>
-              <el-option label="保养主页面" value="3"></el-option>
-              <el-option label="设计主页面" value="4"></el-option>
+            <el-select placeholder="请选择" v-model="form.adv_status">
+              <el-option
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                v-for="item in adv_status_options">
+              </el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -54,7 +56,7 @@
 
 <script>
     import {add} from '@/api/advertisement'
-
+    import {service_type,adv_status} from '@/utils/dict'
     export default {
         name: 'AddAdvertisement',
         props: {
@@ -62,6 +64,8 @@
         },
         data() {
             return {
+                position_options:service_type,
+                adv_status_options:adv_status,
                 form: {
                     title:'',
                     url: '',
@@ -71,20 +75,17 @@
                 },
                 rules: {
                     title: [
-                        {required: true, message: '请输入标题', trigger: 'blur'}
+                        {required: true, message: '请输入广告标题', trigger: 'blur'}
                     ],
-                    width: [
-                        {required: true, message: '请输入宽度', trigger: 'blur'}
-                    ],
-                    height: [
-                        {required: true, message: '请输入高度', trigger: 'blur'}
+                    url: [
+                        {required: true, message: '请输入广告地址', trigger: 'blur'}
                     ],
                     position: [
                         {required: true, message: '请选择广告位置', trigger: 'blur'}
                     ],
                     adv_status: [
                         {required: true, message: '请选择广告状态', trigger: 'blur'}
-                    ],
+                    ]
                 },
                 show: this.addVisible,
             }

@@ -7,7 +7,7 @@
     <div class="right-menu">
       <div class="right-menu-item">
         <el-button type="text">欢迎，{{name}}</el-button>
-        <el-button type="text" @click="logout">退出</el-button>
+        <el-button type="text" @click="logout">退出登录</el-button>
       </div>
     </div>
   </div>

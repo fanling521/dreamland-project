@@ -1,62 +1,71 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input clearable style="width: 280px" class="filter-item" v-model="search.user_phone" placeholder="请输入手机号" @keyup.enter.native="onSearch"></el-input>
-      <el-button class="filter-item" icon="el-icon-search" type="primary" @click="onSearch">查询</el-button>
+      <el-button @click="handleAdd" class="filter-item" icon="el-icon-edit" size="medium" type="primary">新增</el-button>
+      <el-input @keyup.enter.native="onSearch" class="filter-item" clearable placeholder="请输入手机号" style="width: 280px"
+                v-model="search.obj.user_phone"></el-input>
+      <el-button @click="onSearch" class="filter-item" icon="el-icon-search" type="success">查询</el-button>
     </div>
     <el-divider></el-divider>
-    <el-table :header-cell-style="{background:'#F5F7FA'}" :data="list" tooltip-effect="light" style="width: 100%">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="密码">
-              <span>{{ props.row.password }}</span>
-            </el-form-item>
-            <el-form-item label="盐">
-              <span>{{ props.row.slat }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" header-align="center" type="index" width="50" label="序号"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="user_phone" label="手机号"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="real_name" label="真实姓名"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="user_name" label="用户名"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="gender" label="性别"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="last_login_date" label="上次登录时间"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="last_login_ip" label="上次登录ip"></el-table-column>
-      <el-table-column align="center" header-align="center" fixed="right" label="操作" width="170">
-        <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handleDel(scope.row.id)">删除</el-button>
+    <el-table :data="list" :header-cell-style="{background:'#F5F7FA'}" style="width: 100%" tooltip-effect="light">
+      <el-table-column align="center" header-align="center" label="序号" type="index" width="50"></el-table-column>
+      <el-table-column align="center" header-align="center" label="登录名" prop="user_phone"></el-table-column>
+      <el-table-column align="center" header-align="center" label="用户名" prop="user_name"></el-table-column>
+      <el-table-column align="center" header-align="center" label="性别" prop="gender"></el-table-column>
+      <el-table-column align="center" header-align="center" label="上次登录时间" prop="last_login_date"></el-table-column>
+      <el-table-column align="center" header-align="center" label="上次登录ip" prop="last_login_ip"></el-table-column>
+      <el-table-column align="center" fixed="right" header-align="center" label="操作" width="170">
+        <template fixed="right" slot-scope="scope">
+          <el-dropdown placement="bottom-start" trigger="click" type="primary">
+            <el-button>
+              更多操作
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <el-button @click="handleEdit(scope.row.id)" icon="el-icon-edit" size="small" type="text">编辑人员
+                </el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button @click="handleDel(scope.row.id)" icon="el-icon-delete" size="small" type="text">删除人员
+                </el-button>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
     <el-divider></el-divider>
     <el-pagination
+      :page-size="this.search.page_size"
+      :page-sizes="[10, 20, 30, 40]"
+      :total="count"
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
       background
-      :page-sizes="[10, 20, 30, 40]"
-      :page-size="this.search.page_size"
-      layout="total,sizes,prev, pager, next"
-      :total="count">
+      layout="total,sizes,prev, pager, next">
     </el-pagination>
+    <add-user :addVisible.sync="addVisible" @callback="initTable" v-if="addVisible"></add-user>
+    <edit-user :editVisible.sync="editVisible" :id="id" @callback="initTable" v-if="editVisible"></edit-user>
   </div>
 </template>
 <script>
-    import {list, remove} from '@/api/appUser'
-
+    import {list, remove} from '@/api/user'
+    import AddUser from './components/AddUser'
+    import EditUser from './components/EditUser'
     export default {
+        components: {AddUser, EditUser},
         data() {
             return {
                 search: {
-                    user_phone:'',
+                    obj: {user_phone: ''},
                     page_size: 10,
                     page_num: 0
                 },
                 list: [],
                 id: '',
-                count: 0
+                count: 0,
+                addVisible: false,
+                editVisible: false
             }
         },
         created() {
@@ -80,6 +89,13 @@
             },
             onSearch() {
                 this.initTable();
+            },
+            handleEdit(key) {
+                this.id = key;
+                this.editVisible = true;
+            },
+            handleAdd() {
+                this.addVisible = true;
             },
             handleDel(val) {
                 this.$confirm('此操作将永久删除次条信息以及其关联, 是否继续?', '系统提示', {

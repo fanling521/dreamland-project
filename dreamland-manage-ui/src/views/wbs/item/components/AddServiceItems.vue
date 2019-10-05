@@ -3,7 +3,7 @@
     title="新增"
     :visible.sync="show" @close="resetForm('form')" :modal="true" :close-on-click-modal="false"
     :close-on-press-escape="true"
-    width="30%">
+    width="40%">
     <el-form ref="form" :rules="rules" :model="form" label-width="100px">
       <el-form-item label="主类编号" prop="top">
         <el-input v-model="form.top" placeholder="请输入主类编号"></el-input>
@@ -17,8 +17,11 @@
       <el-form-item label="条目名称" prop="item_name">
         <el-input v-model="form.item_name" placeholder="请输入条目名称"></el-input>
       </el-form-item>
-      <el-form-item label="条目图标" prop="item_name">
+      <el-form-item label="条目图标">
         <el-input v-model="form.item_icon" placeholder="请输入条目图标"></el-input>
+      </el-form-item>
+      <el-form-item label="服务费用" prop="price">
+        <el-input v-model="form.price" placeholder="请输入服务费用"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('form')">立即创建</el-button>
@@ -43,7 +46,8 @@
                     sub_no: '',
                     item_name: '',
                     top_name: '',
-                    item_icon:''
+                    item_icon:'',
+                    price:''
                 },
                 rules: {
                     top: [
@@ -58,8 +62,8 @@
                     top_name: [
                         {required: true, message: '请输入主类名称', trigger: 'blur'}
                     ],
-                    item_icon: [
-                        {required: true, message: '请输入条目图标', trigger: 'blur'}
+                    price: [
+                        {required: true, message: '请输入服务费用', trigger: 'blur'}
                     ]
                 },
                 show: this.addVisible,

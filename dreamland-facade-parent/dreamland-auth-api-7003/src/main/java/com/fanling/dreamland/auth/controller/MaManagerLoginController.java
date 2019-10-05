@@ -42,9 +42,8 @@ public class MaManagerLoginController extends BaseController {
     }
 
     @ApiOperation(value = "用户下线", notes = "用户下线")
-    @ApiImplicitParam(name = "uid", value = "用户标识", dataType = "String", paramType = "path")
     @PostMapping("/logout")
-    public R logout(@RequestParam("access_token") String token) {
+    public R logout(@RequestHeader("x-access_token") String token) {
         String uid = jwtTokenService.getUserId(token);
         jwtTokenService.expireToken(uid);
         return success();

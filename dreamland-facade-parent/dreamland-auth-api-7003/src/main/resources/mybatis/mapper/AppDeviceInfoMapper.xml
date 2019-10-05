@@ -12,19 +12,23 @@
     </resultMap>
 
     <sql id="selectVo">
-        select
-        id,phone_type,phone_version, user_phone,user_id,create_time
-        from t_app_device_info
+        select a.id,
+               a.phone_type,
+               a.phone_version,
+               a.user_phone,
+               b.user_name as user_id,
+               a.create_time
+        from t_app_device_info a
+                 inner join t_app_user b on a.user_id = b.id
     </sql>
 
     <select id="list" parameterType="AppDeviceInfo" resultMap="baseResult">
         <include refid="selectVo"/>
-        where 1=1
     </select>
 
     <select id="selectById" parameterType="String" resultMap="baseResult">
         <include refid="selectVo"/>
-        where id = #{id}
+        where a.id = #{id}
     </select>
 
     <insert id="insert" parameterType="AppDeviceInfo">
@@ -58,7 +62,9 @@
     </update>
 
     <delete id="delete" parameterType="String">
-        delete from t_app_device_info where id = #{id}
+        delete
+        from t_app_device_info
+        where id = #{id}
     </delete>
 
 </mapper>

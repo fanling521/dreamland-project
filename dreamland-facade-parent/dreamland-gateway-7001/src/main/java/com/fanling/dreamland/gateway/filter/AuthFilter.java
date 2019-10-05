@@ -37,7 +37,7 @@ public class AuthFilter extends ZuulFilter {
     private static final String MANAGER_LOGIN_URI = "/auth-api/manage/login";
     private static final String SWAGGER_API_DOCS = "/v2/api-docs";
     //无权限时的提示语
-    private static final String INVALID_TOKEN = "Token错误";
+    private static final String INVALID_TOKEN = "登录验证失败，请重新登录！";
 
     @Override
     public String filterType() {

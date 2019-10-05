@@ -4,13 +4,10 @@
                    linesColor="#dedede" :linesWidth="1" :lineLinked="false" :lineOpacity="0.2" :linesDistance="120"
                    :moveSpeed="5" :hoverEffect="false" hoverMode="repulse" :clickEffect="false" clickMode="push">
     </vue-particles>
-    <div class="login-img">
-      <img src="@/assets/galaxy.png" width="300%" height="100%" draggable="false">
-    </div>
     <div class="login-con">
       <el-card class="box-card" shadow="never">
         <div slot="header" class="clearfix">
-          <span>冷暖设备维修后台管理</span>
+          <span>冷暖设备维修APP后台管理系统</span>
         </div>
         <el-form ref="loginForm" :model="loginForm" :rules="rules">
           <el-form-item prop="loginName">
@@ -80,7 +77,9 @@
   .login {
     width: 100%;
     height: 100%;
-    background-color: #000000;
+    background-color: #000;
+    background-image: url("/manage/static/galaxy.jpeg");
+    background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
 

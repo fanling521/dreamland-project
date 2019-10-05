@@ -1,41 +1,10 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-button class="filter-item" icon="el-icon-search" type="primary" @click="onSearch">查询</el-button>
+      <el-button class="filter-item" icon="el-icon-search" type="success" @click="onSearch">查询</el-button>
     </div>
-    <el-button class="filter-item" icon="el-icon-edit" type="primary" @click="handleAdd">新增</el-button>
     <el-divider></el-divider>
     <el-table :header-cell-style="{background:'#F5F7FA'}" :data="list" tooltip-effect="light" style="width: 100%">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="支付状态">
-              <span>{{ props.row.pay_status }}</span>
-            </el-form-item>
-            <el-form-item label="订单标识">
-              <span>{{ props.row.order_id }}</span>
-            </el-form-item>
-            <el-form-item label="商品标识">
-              <span>{{ props.row.goods_id }}</span>
-            </el-form-item>
-            <el-form-item label="维修人员标识">
-              <span>{{ props.row.p_user_id }}</span>
-            </el-form-item>
-            <el-form-item label="付款金额">
-              <span>{{ props.row.money }}</span>
-            </el-form-item>
-            <el-form-item label="支付订单号">
-              <span>{{ props.row.payment_no }}</span>
-            </el-form-item>
-            <el-form-item label="支付类型">
-              <span>{{ props.row.pay_type }}</span>
-            </el-form-item>
-            <el-form-item label="支付流水号">
-              <span>{{ props.row.payment_seq_no }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
       <el-table-column align="center" header-align="center" type="index" width="50" label="序号"></el-table-column>
       <el-table-column header-align="center" align="center" prop="pay_status" label="支付状态"></el-table-column>
       <el-table-column header-align="center" align="center" prop="order_id" label="订单标识"></el-table-column>

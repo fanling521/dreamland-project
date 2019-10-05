@@ -1,15 +1,17 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input clearable style="width: 280px" class="filter-item" v-model="search.real_name" placeholder="请输入真实姓名" @keyup.enter.native="onSearch"></el-input>
-      <el-input clearable style="width: 280px" class="filter-item" v-model="search.id_card_num" placeholder="请输入身份证号码" @keyup.enter.native="onSearch"></el-input>
-      <el-button class="filter-item" icon="el-icon-search" type="primary" @click="onSearch">查询</el-button>
+      <el-input @keyup.enter.native="onSearch" class="filter-item" clearable placeholder="请输入真实姓名" style="width: 280px"
+                v-model="search.obj.real_name"></el-input>
+      <el-input @keyup.enter.native="onSearch" class="filter-item" clearable placeholder="请输入身份证号码"
+                style="width: 280px" v-model="search.obj.id_card_num"></el-input>
+      <el-button @click="onSearch" class="filter-item" icon="el-icon-search" type="primary">查询</el-button>
     </div>
     <el-divider></el-divider>
-    <el-table :header-cell-style="{background:'#F5F7FA'}" :data="list" tooltip-effect="light" style="width: 100%">
+    <el-table :data="list" :header-cell-style="{background:'#F5F7FA'}" style="width: 100%" tooltip-effect="light">
       <el-table-column type="expand">
         <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
+          <el-form class="demo-table-expand" inline label-position="left">
             <el-form-item label="真实姓名">
               <span>{{ props.row.real_name }}</span>
             </el-form-item>
@@ -28,29 +30,29 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column align="center" header-align="center" type="index" width="50" label="序号"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="real_name" label="真实姓名"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="id_card_num" label="身份证号码"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="id_card_photo_path1" label="身份证正面"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="id_card_photo_path2"
-                       label="身份证反面"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="id_card_photo_path3" label="手持身份证"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="status" label="验证状态"></el-table-column>
-      <el-table-column align="center" header-align="center" fixed="right" label="操作" width="170">
+      <el-table-column align="center" header-align="center" label="序号" type="index" width="50"></el-table-column>
+      <el-table-column align="center" header-align="center" label="真实姓名" prop="real_name"></el-table-column>
+      <el-table-column align="center" header-align="center" label="身份证号码" prop="id_card_num"></el-table-column>
+      <el-table-column align="center" header-align="center" label="身份证正面" prop="id_card_photo_path1"></el-table-column>
+      <el-table-column align="center" header-align="center" label="身份证反面"
+                       prop="id_card_photo_path2"></el-table-column>
+      <el-table-column align="center" header-align="center" label="手持身份证" prop="id_card_photo_path3"></el-table-column>
+      <el-table-column align="center" header-align="center" label="验证状态" prop="status"></el-table-column>
+      <el-table-column align="center" fixed="right" header-align="center" label="操作" width="170">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handleDel(scope.row.id)">删除</el-button>
+          <el-button @click="handleDel(scope.row.id)" size="small" type="text">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-divider></el-divider>
     <el-pagination
+      :page-size="this.search.page_size"
+      :page-sizes="[10, 20, 30, 40]"
+      :total="count"
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
       background
-      :page-sizes="[10, 20, 30, 40]"
-      :page-size="this.search.page_size"
-      layout="total,sizes,prev, pager, next"
-      :total="count">
+      layout="total,sizes,prev, pager, next">
     </el-pagination>
   </div>
 </template>
@@ -61,8 +63,10 @@
         data() {
             return {
                 search: {
-                    real_name:'',
-                    id_card_num:'',
+                    obj: {
+                        real_name: '',
+                        id_card_num: ''
+                    },
                     page_size: 10,
                     page_num: 0
                 },

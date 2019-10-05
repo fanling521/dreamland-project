@@ -36,7 +36,7 @@ public class MaAppUserController extends BaseController {
 
     @ApiOperation(value = "根据id查询APP用户表", notes = "根据id查询APP用户表")
     @ApiImplicitParam(name = "id", required = true, value = "唯一标识", dataType = "String", paramType = "path")
-    @PostMapping("/select/{id}")
+    @GetMapping("/select/{id}")
     public R selectById(@PathVariable("id") String id) {
         if (StringUtils.isEmpty(id)) {
             return error("id不能为空！");

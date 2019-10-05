@@ -24,4 +24,6 @@ public class ServiceItems extends BaseEntity {
     private String top_name;
     //条目图标
     private String item_icon;
+    //收费
+    private Double price;
 }

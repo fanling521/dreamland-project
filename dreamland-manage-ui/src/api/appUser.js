@@ -45,7 +45,7 @@ export function edit(data) {
 export function get(id) {
   return request({
     url: BASE_SERVICE_URL+'/manage/app/user/select/' + id,
-    method: 'post',
+    method: 'get',
   })
 }
 

@@ -1,16 +1,11 @@
 <template>
   <div class="app-container">
-    <div class="filter-container">
-      <el-button class="filter-item" icon="el-icon-search" type="primary" @click="onSearch">查询</el-button>
-    </div>
-    <el-divider></el-divider>
     <el-table :header-cell-style="{background:'#F5F7FA'}" :data="list" tooltip-effect="light" style="width: 100%">
       <el-table-column align="center" header-align="center" type="index" width="50" label="序号"></el-table-column>
       <el-table-column header-align="center" align="center" prop="file_name" label="文件名称"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="file_extension" label="文件类型"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="uid" label="用户标识"></el-table-column>
       <el-table-column header-align="center" align="center" prop="file_path" label="文件路径"></el-table-column>
-      <el-table-column header-align="center" align="center" prop="file_size" label="文件大小"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="file_size" label="文件大小(KB)"></el-table-column>
+      <el-table-column header-align="center" align="center" prop="create_time" label="创建时间"></el-table-column>
       <el-table-column align="center" header-align="center" fixed="right" label="操作" width="170">
         <template slot-scope="scope">
           <el-dropdown placement="bottom-start" trigger="click" type="primary">
