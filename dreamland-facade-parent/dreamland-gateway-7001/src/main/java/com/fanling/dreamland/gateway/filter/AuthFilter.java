@@ -70,6 +70,8 @@ public class AuthFilter extends ZuulFilter {
         String headerToken = request.getHeader("x-access-token");
         if (StringUtils.isEmpty(headerToken)) {
             setUnauthorizedResponse(requestContext, INVALID_TOKEN);
+        }else{
+            //验证是否登录
         }
         return null;
     }

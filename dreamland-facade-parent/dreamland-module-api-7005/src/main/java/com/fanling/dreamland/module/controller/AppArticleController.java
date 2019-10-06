@@ -24,13 +24,10 @@ public class AppArticleController extends BaseController {
 
     @ApiOperation(value = "获取指定位置的文章信息", notes = "获取指定位置的文章信息")
     @ApiImplicitParam(name = "position", required = true, value = "广告位置", dataType = "String", paramType = "path")
-    @PostMapping("/select/{type}")
-    public R selectByType(@PathVariable("type") String type) {
-        if (StringUtils.isEmpty(type)) {
-            return error("参数\"type\"不能为空！");
-        }
+    @PostMapping("/select/{source}")
+    public R selectByType(@PathVariable("source") String source) {
         Article bean = new Article();
-        bean.setSource(type);
+        bean.setSource(source);
         return getDatalist(articleService.list(bean));
     }
 

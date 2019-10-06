@@ -6,7 +6,7 @@ spring:
   application:
     name: gateway
   datasource:
-    url: jdbc:mysql://172.30.0.4:3306/dreamland_gateway?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
+    url: jdbc:mysql://172.30.0.4:3306/dreamland_gateway?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: docker
     password: docker@12345
   redis:

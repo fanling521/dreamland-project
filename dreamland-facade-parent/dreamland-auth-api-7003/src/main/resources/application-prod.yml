@@ -16,7 +16,7 @@ spring:
       max-file-size:  10MB
       max-request-size:  20MB
   datasource:
-    url: jdbc:mysql://172.30.0.4:3306/dreamland_auth?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useSSL=true
+    url: jdbc:mysql://172.30.0.4:3306/dreamland_auth?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: docker
     password: docker@12345
   application:

@@ -85,4 +85,8 @@
         where id = #{id}
     </delete>
 
+    <select id="selectBySubNo" parameterType="String" resultMap="baseResult">
+        <include refid="selectVo"/>
+        where sub_no = #{sub_no}
+    </select>
 </mapper>

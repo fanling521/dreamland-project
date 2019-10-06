@@ -24,7 +24,7 @@
     </sql>
 
     <select id="list" parameterType="Article" resultMap="baseResult">
-        <include refid="selectVo"/>
+        select id,author,source,img_path,title,create_time from t_article
         <where>
             <if test="source != null and source != ''">
                 AND source = #{source}
