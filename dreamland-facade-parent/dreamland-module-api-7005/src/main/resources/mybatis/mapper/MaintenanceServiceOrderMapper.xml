@@ -62,7 +62,7 @@
         <if test="position != null and position != ''">position,</if>
         <if test="community_room != null and community_room != ''">community_room,</if>
         <if test="region != null and region != ''">region,</if>
-        <if test="reservation_date != null and reservation_date != ''">reservation_date,</if>
+        <if test="reservation_date != null">reservation_date,</if>
         <if test="community_name != null and community_name != ''">community_name,</if>
         <if test="total_price != null and total_price != ''">total_price,</if>
         <if test="repair_type != null and repair_type != ''">repair_type,</if>
@@ -80,7 +80,7 @@
         <if test="position != null and position != ''">#{position},</if>
         <if test="community_room != null and community_room != ''">#{community_room},</if>
         <if test="region != null and region != ''">#{region},</if>
-        <if test="reservation_date != null and reservation_date != ''">#{reservation_date},</if>
+        <if test="reservation_date != null">#{reservation_date},</if>
         <if test="community_name != null and community_name != ''">#{community_name},</if>
         <if test="total_price != null and total_price != ''">#{total_price},</if>
         <if test="repair_type != null and repair_type != ''">#{repair_type},</if>
@@ -102,7 +102,7 @@
             <if test="position != null and position != ''">position = #{position},</if>
             <if test="community_room != null and community_room != ''">community_room = #{community_room},</if>
             <if test="region != null and region != ''">region = #{region},</if>
-            <if test="reservation_date != null and reservation_date != ''">reservation_date = #{reservation_date},</if>
+            <if test="reservation_date != null">reservation_date = #{reservation_date},</if>
             <if test="community_name != null and community_name != ''">community_name = #{community_name},</if>
             <if test="total_price != null and total_price != ''">total_price = #{total_price},</if>
             <if test="repair_type != null and repair_type != ''">repair_type = #{repair_type},</if>
