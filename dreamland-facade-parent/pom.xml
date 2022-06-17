@@ -22,7 +22,7 @@
         <lombok.version>1.18.8</lombok.version>
         <fastdfs.version>1.26.7</fastdfs.version>
         <swagger2.version>2.9.2</swagger2.version>
-        <fastjson.version>1.2.59</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <dreamland.verison>2.0.0</dreamland.verison>
         <feign.version>1.4.7.RELEASE</feign.version>
         <shiro.hash.version>1.4.1</shiro.hash.version>
